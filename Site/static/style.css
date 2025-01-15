@@ -1,0 +1,101 @@
+body {
+    background-color: #000;
+    color: rgb(255, 255 ,255); /* Couleur violette */
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    margin: 0; /* Supprimer les marges par défaut */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Position relative pour permettre le positionnement absolu */
+    white-space: pre-line;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+    background-color: #666;
+    color: rgb(0, 0, 0);
+    border: 2px solid #333;
+    padding: 5px 10px;
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 10px;
+    /* Ajout d'un espace en bas */
+    outline: none;
+    width: calc(100% - 24px);
+    /* largeur - padding * 2 */
+}
+
+input[type="submit"]:hover {
+    background-color: #333;
+    cursor: pointer;
+}
+
+body {
+    background-color: #000;
+    color: rgb(255, 255, 255);
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    margin: 0;
+    /* Supprimer les marges par défaut */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-container {
+    background-color: #000;
+    border: 2px solid rgb(255, 0, 221);
+    padding: 20px;
+    color: rgb(175, 0, 161);
+    max-width: 400px;
+    width: 100%;
+}
+
+a {
+    color: rgb(30, 50, 230);
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    margin: 10px;
+    /* Ajout d'un espace autour de chaque lien */
+}
+
+textarea {
+    width: 500px;
+    height: 400px;
+    background-color: rgb(50, 50, 50);
+    color: rgb(255, 255 ,255);
+    font-family: 'Press Start 2P', cursive;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.text{
+    color: rgb(179, 179, 179); /* Couleur violette */
+    font-family: 'Press Start 2P', cursive;
+    text-align: start;
+    margin: 0; /* Supprimer les marges par défaut */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Position relative pour permettre le positionnement absolu */
+}
+
+.date{
+    color: rgb(90, 90, 90); /* Couleur violette */
+    font-family: 'Press Start 2P', cursive;
+    text-align: end;
+    margin: 0; /* Supprimer les marges par défaut */
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Position relative pour permettre le positionnement absolu */
+}
+
+.announcement{
+    background-color: #333;
+    width: 60%;
+    margin:10px;
+}
