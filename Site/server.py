@@ -12,7 +12,7 @@ app.secret_key = b'99b45274a4b2da7440ab249f17e718688b53b646f3dd57f23a9b298391617
 def check_login():
     if session.get("connected") :
         return redirect("admin")
-    elif request.form["password"] == "ABC":
+    elif request.form["password"] == "ABC": # nope, c'est pas ca le mot de passe :D
         session["connected"] = True
         return redirect("admin")
     else:
