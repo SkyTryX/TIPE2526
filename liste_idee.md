@@ -1,0 +1,2 @@
+- Méthode de décomposition de graphe (Cycle Hamiltonien (Th de Walecki), Cliques ...) et des applications.
+- Logique
