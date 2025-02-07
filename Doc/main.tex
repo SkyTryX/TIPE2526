@@ -20,11 +20,29 @@
 
 \section*{Piste de recherche de sujet}
 \subsection*{Decomposition de graphe}
+07/02
+Premiere idée de sujet: Identification de graphe décomposable en cycle hamiltonien en temps polynomial
+
+\subsection*{Logique, systeme de preuve}
+07/02
+J'aimerai néanmoins plus m'orienté vers la logique, piste de recherche: Méthode des tableaux, Zenon theorem prover, calcul séquent.
+Exploration de la méthode des tableaux: J'ai besoin de trouové un livre présentant cette méthode
+
+\section*{Méthode des tableaux}
+
+\begin{defi}[Modèle]
+    Un \textit{modèle} d'une formule $\phi$ est une valuation qui rend vraie cette formule. On note l'ensemble des modèles de $\phi$ par:
+    $$Mod(\phi) := \{v\in Val | v \vDash \phi\}$$
+    $Val$ étant l'ensemble des valuations de $phi$ et $v \vDash \phi$ signfiant que la valuation $v$ satisfait $\phi$
+\end{defi}
+\begin{defi}[Conséquence Logique]
+    Une formule $\phi$ est \textit{conséquence logique} d'une formule, notée $\psi$ si $Mod(\psi) \subseteq Mod(\phi)$. On note cela $\psi \vDash \phi$
+\end{defi}
+On note $n\in [ 1,+\infty ] $
 \begin{defi}
-Lorem
+    \textit{La méthode des tableaux} consistent en prouvant une assertion $B$ ayant pour hypothèse $(A_n)$ en montrant
+    que $\{A_1,\dots,A_n, \lnot B\}$ est insatisfaisable.
 \end{defi}
 
-\begin{prop}
-ipsum
-\end{prop}
+Le procédé consiste en 
 \end{document}
