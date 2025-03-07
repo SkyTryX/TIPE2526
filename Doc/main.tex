@@ -5,9 +5,12 @@
 \usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm]{geometry}
 \newtheorem{prop}{Proposition}
 \newtheorem{defi}{Definition}
+\newtheorem{preuve}{Preuve}
+
 \newcolumntype{C}{>$c<$}
 \tcolorboxenvironment{prop}{enhanced, borderline={0.8pt}{0pt}{blue}, borderline={0.4pt}{2pt}{cyan}, boxrule=0.4pt, colback=white, coltitle=black, sharp corners}
 \tcolorboxenvironment{defi}{ enhanced, borderline={0.8pt}{0pt}{red}, borderline={0.4pt}{2pt}{orange}, boxrule=0.4pt, colback=white, coltitle=black, sharp corners}
+\tcolorboxenvironment{preuve}{ enhanced, borderline={0.8pt}{0pt}{green}, borderline={0.4pt}{2pt}{lime}, boxrule=0.4pt, colback=white, coltitle=black, sharp corners}
 
 \pagestyle{fancy}
 \fancyhead[C]{TIPE 25/26 - Dorian GIL}
@@ -16,21 +19,11 @@
 \setlength{\headheight}{13.07225pt}
 \addtolength{\topmargin}{-1.07225pt}
 
-
-
-\section*{Piste de recherche de sujet}
-\subsection*{Decomposition de graphe}
-07/02
-Premiere idée de sujet: Identification de graphe décomposable en cycle hamiltonien en temps polynomial
-
-\subsection*{Logique, systeme de preuve}
-07/02
-J'aimerai néanmoins plus m'orienté vers la logique, piste de recherche: Méthode des tableaux, Zenon theorem prover, calcul séquent.
-Exploration de la méthode des tableaux: J'ai besoin de trouové un livre présentant cette méthode
+\section*{Quelles sont les meilleurs méthodes de preuve automatique en logique propositionelle et du 1er ordre ?}
 
 \section{Méthode des tableaux}
-
 \subsection{Logique propositionelle}
+\subsubsection{Definition}
 \begin{defi}
 La \textit{logique propositionelle} est un type de logique où les formules sont obtenus par des variables propositionelles reliées par des connecteurs.
 \end{defi}
@@ -63,9 +56,9 @@ On note $\mathcal{V}$ un vocabulaire qu'on définie par $\mathcal{V} := \{p, q,\
         \item Obtenu par application d'une règle $r_i$ telle que $c_{i_1},\dots c_{i_k} \vdash c_i$ où $ i_1,\dots,i_k < i$
     \end{itemize}
 \end{defi}
-On note $n\in [ 1,+\infty ] $
+On note $n\in\mathbb{N}^*$
 \begin{defi}
-    \textit{La méthode des tableaux} consistent en prouvant une assertion $B$ ayant pour hypothèse $(A_n)$ en montrant
+    \textit{La méthode des tableaux} consistent à prouver une assertion $B$ ayant pour hypothèse $(A_n)$ en montrant
     que $\{A_1,\dots,A_n, \lnot B\}$ est insatisfaisable (Cela revient à montrer qu'une implication est vraie car sa négation ne peut être vraie)
     i.e $((A_1,\dots,A_n)\implies B) \Leftrightarrow Mod(\lnot((A_1,\dots,A_n)\implies B)) = \emptyset \Leftrightarrow Mod((A_1,\dots,A_n)\land \lnot B) = \emptyset$.
 \end{defi}
@@ -74,12 +67,12 @@ Le procédé consiste donc à séparer les formules logiques complexes en plus p
 
 Pour cela, on doit définir quelques concepts sur les arbres.
 
-\begin{defi}[Arbre de déducitton]
+\begin{defi}[Arbre de déduction]
     Arbre dont les sommets sont composés de formule, qui sont soit une hypothèse à la racine de l'arbre, soit une formule obtenue par l'application d'une règle sur une formule présente dans la même branche plus proche de la racine.
 \end{defi}
 
 \begin{defi}[Branche fermée]
-    Une branche est germée si elle contient $\phi$ et $\lnot\phi$
+    Une branche est fermée si elle contient $\phi$ et $\lnot\phi$
 \end{defi}
 
 \begin{defi}[Arbre fermé]
@@ -155,16 +148,25 @@ $(R_{\lnot\Leftrightarrow})$
 
 Dans les cas où on trouve dans une même branche $a$ et $\lnot a$, on ferme la branche, si l'arbre devient fermé, alors $\lnot\phi$ est forcement faux, donc $\phi$ est vrai.
 
-\subsection{Preuve}
-Preuve de Terminaison et equivalance entre le fait de trouver un tableau fermé pour $\lnot\phi$ et la satisfaisabilité de $\phi$ d'un tableau
+\begin{prop}
+    Soit $\Psi$ un ensemble d'hypothèse et $\phi$ une formule, on note $\mathcal{T}\vdash\phi$ l'existence d'un arbre fermé pour $\Psi\cup\{\lnot\phi\}$.
+    $$\Psi\vdash\phi \Leftrightarrow \Psi\vDash\phi$$
+    Autrement dit, appliqué la méthode des tableaux est équivalent à prouver cette formule
+\end{prop}
 
-\subsection{Application en code}
+\begin{preuve}
+\text{https://cs.uwaterloo.ca/~david/cl/tableaux-prop.pdf}
+\end{preuve}
+
+\subsubsection{Application en code}
+
+\subsubsection{Analyse de programme}
+Preuve de Terminaison et equivalence entre le fait de trouver un tableau fermé pour $\lnot\phi$ et la satisfaisabilité de $\phi$ d'un tableau
 
 
 
 
-
-\section{Logique du 1er ordre}
+\subsection{Logique du 1er ordre}
 La logique propositionelle étant mathématiquement limité, on se propose l'utilisation de la logique du 1er ordre.
 Cela nous permettra ainsi d'étudier Zenon, un prouveur d'automatique de theorème.
 \begin{defi}
@@ -183,4 +185,14 @@ Cela nous permettra ainsi d'étudier Zenon, un prouveur d'automatique de theorè
     \end{itemize} 
     On note $\mathcal{T}(\mathcal{F}, X)$ l'ensemble des termes sur $\mathcal{F}$ et $X$.
 \end{defi}
+
+\subsection{Méthode des tableaux}
+\subsection{Application: Zenon Theorem Prover}
+
+\section{Calcul Sequent}
+Voir livre
+
+\section{Système de Hilbert}
+
+
 \end{document}
