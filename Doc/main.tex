@@ -19,11 +19,24 @@
 \setlength{\headheight}{13.07225pt}
 \addtolength{\topmargin}{-1.07225pt}
 
-\section*{Quelles sont les meilleurs méthodes de preuve automatique en logique propositionelle et du 1er ordre ?}
+\section*{Méthode des tableaux : Optimisation pour des formules de la forme (?)}
+Meilleur en terme de compléxité, d'hypothèse, facilité d'implementation (?), possibilité avec.
 
-\section{Méthode des tableaux}
-\subsection{Logique propositionelle}
-\subsubsection{Definition}
+Lien avec Cycle et boucle : se resteindre à des implémentations récursive ou itérative ? Ou se concentrer uniquement sur une méthode
+qui collerai bien avec le thême ?
+
+Dans Diapo Presentation:
+Dans Oral Presentation: 
+...
+
+
+Forme proposition pour accelerer methode tableau
+memoisation des propositions (SQL, dictionnaire, serialisation ?)
+
+\tableofcontents
+
+\section{Logique Propositionelle}
+\subsection{Definition}
 \begin{defi}
 La \textit{logique propositionelle} est un type de logique où les formules sont obtenus par des variables propositionelles reliées par des connecteurs.
 \end{defi}
@@ -56,6 +69,7 @@ On note $\mathcal{V}$ un vocabulaire qu'on définie par $\mathcal{V} := \{p, q,\
         \item Obtenu par application d'une règle $r_i$ telle que $c_{i_1},\dots c_{i_k} \vdash c_i$ où $ i_1,\dots,i_k < i$
     \end{itemize}
 \end{defi}
+
 On note $n\in\mathbb{N}^*$
 \begin{defi}
     \textit{La méthode des tableaux} consistent à prouver une assertion $B$ ayant pour hypothèse $(A_n)$ en montrant
@@ -64,7 +78,6 @@ On note $n\in\mathbb{N}^*$
 \end{defi}
 
 Le procédé consiste donc à séparer les formules logiques complexes en plus petite formule jusqu'à que des pairs complementaires de litteraux ($a$ et $\lnot a$) soit extrait ou qu'on ne peut plus simplifier la formule.
-
 Pour cela, on doit définir quelques concepts sur les arbres.
 
 \begin{defi}[Arbre de déduction]
@@ -79,6 +92,7 @@ Pour cela, on doit définir quelques concepts sur les arbres.
     Un arbre de déduction est fermé si toutes les branches le sont.
 \end{defi}
 
+\subsection{Principe}
 Pour ainsi en déduire si une formule $\phi$ est vrai ou non, on adopte des règles qu'on applique sur un arbre de déduction.
 \begin{itemize}
     \item On place $\lnot\phi$ dans la racine de l'arbre.
@@ -117,6 +131,7 @@ $(R_{\lnot\lnot})$
     child {node {$\psi$} edge from parent[draw=none]}};
 \end{tikzpicture}
 $(R_{\land})$
+
 \begin{tikzpicture}[level distance=8mm]
 \node {$\lnot(\phi\lor\psi)$}
     child {node {$\lnot\phi$} edge from parent }{
@@ -149,7 +164,7 @@ $(R_{\lnot\Leftrightarrow})$
 Dans les cas où on trouve dans une même branche $a$ et $\lnot a$, on ferme la branche, si l'arbre devient fermé, alors $\lnot\phi$ est forcement faux, donc $\phi$ est vrai.
 
 \begin{prop}
-    Soit $\Psi$ un ensemble d'hypothèse et $\phi$ une formule, on note $\mathcal{T}\vdash\phi$ l'existence d'un arbre fermé pour $\Psi\cup\{\lnot\phi\}$.
+    Soit $\Psi$ un ensemble d'hypothèse et $\phi$ une formule, on note $\Psi\vdash\phi$ l'existence d'un arbre fermé pour $\Psi\cup\{\lnot\phi\}$.
     $$\Psi\vdash\phi \Leftrightarrow \Psi\vDash\phi$$
     Autrement dit, appliqué la méthode des tableaux est équivalent à prouver cette formule
 \end{prop}
@@ -158,15 +173,13 @@ Dans les cas où on trouve dans une même branche $a$ et $\lnot a$, on ferme la 
 \text{https://cs.uwaterloo.ca/~david/cl/tableaux-prop.pdf}
 \end{preuve}
 
-\subsubsection{Application en code}
+\subsection{Application en code}
+\dots
 
-\subsubsection{Analyse de programme}
-Preuve de Terminaison et equivalence entre le fait de trouver un tableau fermé pour $\lnot\phi$ et la satisfaisabilité de $\phi$ d'un tableau
+\subsection{Analyse de programme}
+Preuve de Terminaison, Compléxité et Correction (equivalence entre le fait de trouver un tableau fermé pour $\lnot\phi$ et la satisfaisabilité de $\phi$ d'un tableau).
 
-
-
-
-\subsection{Logique du 1er ordre}
+\section{Logique du 1er ordre (FAIT PLUS TARD)}
 La logique propositionelle étant mathématiquement limité, on se propose l'utilisation de la logique du 1er ordre.
 Cela nous permettra ainsi d'étudier Zenon, un prouveur d'automatique de theorème.
 \begin{defi}
@@ -185,14 +198,5 @@ Cela nous permettra ainsi d'étudier Zenon, un prouveur d'automatique de theorè
     \end{itemize} 
     On note $\mathcal{T}(\mathcal{F}, X)$ l'ensemble des termes sur $\mathcal{F}$ et $X$.
 \end{defi}
-
-\subsection{Méthode des tableaux}
-\subsection{Application: Zenon Theorem Prover}
-
-\section{Calcul Sequent}
-Voir livre
-
-\section{Système de Hilbert}
-
 
 \end{document}

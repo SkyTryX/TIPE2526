@@ -1,0 +1,4 @@
+- Trouver la forme de formule à optimiser
+- Faire le diapo de 1ere présentation
+- Implémenter la méthode des tableaux
+- Preuve de programme, compléxité etc de la méthode des tableaux
