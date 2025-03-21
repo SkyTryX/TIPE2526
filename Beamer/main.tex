@@ -1,6 +1,6 @@
 \documentclass{beamer}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta, positioning}
+\usetikzlibrary{arrows.meta}
 \usetheme{Rochester}
 
 \title{TIPE 25/26 - Cycles et Boucles}
@@ -16,9 +16,10 @@
 
 \begin{frame}{Sommaire}
 \begin{enumerate}
-    \item Présentation
-    \item Implémentation
-    \item Ce qui est à faire
+    \item Présentation Méthode
+    \item Exemple d'Application
+    \item Implémentation en OCaml
+    \item Objectifs futurs
 \end{enumerate}
 \end{frame}
 
@@ -30,9 +31,9 @@
     \end{definition}
     \pause
     \begin{itemize}
-        \item On place $\lnot\phi$ dans la racine d'un arbre de déduction.
-        \item On applique des règles $(R_x)$ à chaque branche de l'arbre
-        \item Si in fine on trouve $a$ et $\lnot a$ dans une branche, alors $\phi$ est vrai
+        \item On place $\lnot\phi$ et ses hypothèses dans la racine.
+        \item On applique des règles $(R_x)$ à chaque formule en bout d'arbre qui sont developpables
+        \item Si on trouve $a$ et $\lnot a$ dans l'arbre (un \textit{cycle}), alors $\phi$ est vrai
     \end{itemize}
     \pause
     \begin{tikzpicture}[scale=0.75]
@@ -63,48 +64,33 @@
 \end{frame}
 
 
+\begin{frame}{Exemple}
+    \textbf{Formule:} $a \Rightarrow (b \Rightarrow a)$
 
-
-\begin{frame}{Analytic Tableau Example}
-    \frametitle{Application of the Method of Analytic Tableau}
-
-    % Define the logical formula
-    \textbf{Formula:} $P \land (Q \lor R) \implies S$
-
-    \vspace{1cm}
-
-    % Start the tableau
     \begin{center}
-    \begin{tikzpicture}[
-        node distance=1mm,
-        every node/.style={draw, rectangle, minimum width=2mm, minimum height=1mm},
-        every edge/.style={->, thick}
-    ]
+        \begin{tikzpicture}[
+            every node/.style={draw, minimum width=1.5cm, align=center},
+            every arrow/.style={thick,->,>=Stealth}
+        ]
+        \node (root) at (0,0) {$\lnot(a \Rightarrow (b \Rightarrow a))$};
+        \pause
+        \node (a) at (-3,-2) {$a$};
+        \node (not_b_a) at (3,-2) {$\lnot(b \Rightarrow a)$};
+        \draw[every arrow] (root) -- (a);
+        \draw[every arrow] (root) -- (not_b_a);
+        \pause
+        \node (b) at (1,-4) {$b$};
+        \node (not_a) at (4,-4) {$\lnot a$};
+        \draw[every arrow] (not_b_a) -- (not_a);
+        \draw[every arrow] (not_b_a) -- (b);
+        \pause
+        \draw[red] (a) -- (not_a);
+        \end{tikzpicture}
 
-    % Nodes
-    \node (start) {$\lnot$(P $\land$ (Q $\lor$ R) $\implies$ S)};
-    \node (negP) [below=of start] {P};
-    \node (negQorR) [below left=of negP] {$\lnot$(Q $\lor$ R)};
-    \node (negS) [below right=of negP] {$\lnot$S};
-    
-    \node (negQ) [below=of negQorR] {$\lnot$Q};
-    \node (negR) [right=of negQ] {$\lnot$R};
+        On trouve un \textcolor{red}{cycle} $a\leftrightarrow \lnot a$. Cette négation de la formule est insatisfaisable,
+        donc la formule a été prouvé.
 
-    % Edges
-    \path[every node/.style={sloped, anchor=center}]
-        (start) edge (negP)
-        (negP) edge (negQorR)
-        (negP) edge (negS)
-        (negQorR) edge (negQ)
-        (negQorR) edge (negR);
-    
-    \end{tikzpicture}
     \end{center}
-
-    \vspace{1cm}
-
-    % Conclusion of the tableau
-    \textbf{Conclusion:} The tableau closes if all branches lead to a contradiction.
 \end{frame}
 
 \begin{frame}{Implémentation}
@@ -112,7 +98,14 @@
 \end{frame}
 
 \begin{frame}{Ce qui est à faire}
-    Ce qui est prévu pour le futur :
+    Mon but sur le long terme
+    \begin{itemize}[<+->]
+        \item Implémenter les tableaux en logique propositionelle
+        \item Trouver et prouver des optimisations pour les formules (?)
+        \item Implémenter et commenter les résultats de l'optimisation
+        \item Faire de même cette méthode en logique du première ordre OU continuer à trouver des optimisations dans la logique propositionelle
+    \end{itemize}
+    Sur le court terme :
     \begin{itemize}[<+->]
         \item One
         \item Two

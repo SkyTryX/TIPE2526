@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1741957780 "/home/dorian/Documents/School/Prepa/TIPE/Beamer/main.tex" "main.pdf" "main" 1741957783 0
+["pdflatex"] 1742561056 "/home/dorian/Documents/School/Prepa/TIPE/Beamer/main.tex" "main.pdf" "main" 1742561059 0
   "/etc/texmf/web2c/texmf.cnf" 1721666663 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/dorian/Documents/School/Prepa/TIPE/Beamer/main.tex" 1741957777 3484 08050345236cd88dc297ff040298f3ae ""
+  "/home/dorian/Documents/School/Prepa/TIPE/Beamer/main.tex" 1742561055 3800 8fa398a79f827a9b0d1941f347f1b7ee ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -18,6 +18,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmss12.tfm" 1136768653 1324 37b971caf729d7edd9cbb9f9b0ea76eb ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmss8.tfm" 1136768653 1296 d77f431d10d47c8ea2cc18cf45346274 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmssbx10.tfm" 1136768653 1272 e2d13f0df30bf3ad990bb9d028e37f34 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmssi10.tfm" 1136768653 1520 ca2bb4b78ac9800bd686e30c6d19ef95 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
@@ -63,7 +64,6 @@
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.tex" 1601326656 35249 abd4adf948f960299a4b3d27c5dddf46 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformations.code.tex" 1673816307 22012 81b34a0aa8fa1a6158cc6220b00e4f10 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.code.tex" 1601326656 8893 e851de2175338fdf7c17f3e091d94618 ""
-  "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex" 1601326656 3937 3f208572dd82c71103831da976d74f1a ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopaths.code.tex" 1608933718 11518 738408f795261b70ce8dd47459171309 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex" 1673816307 186782 af500404a9edec4d362912fe762ded92 ""
   "/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta.code.tex" 1601326656 58801 1e750fb0692eb99aaac45698bbec96b1 ""
@@ -212,10 +212,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1681034085 39561 34c98e380bf7c7201ee6a7909aff625a ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1721724472 4623455 fa0568a71dd9a288d6c226ee477506c6 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1736937741 7880433 4c4d83a399ca315bc0e298b6a83c9e3f ""
-  "main.aux" 1741957783 1607 90cd9b6b90a297f1e30130b5b3de8f1a "pdflatex"
-  "main.nav" 1741957783 747 4c89d1c68612eae08ed7aa29f224f80a "pdflatex"
-  "main.out" 1741957782 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1741957777 3484 08050345236cd88dc297ff040298f3ae ""
+  "main.aux" 1742561058 1620 23ea5385872f6e7c33ff39e34e6ddb31 "pdflatex"
+  "main.nav" 1742561058 759 e1fc0130e3683805cb13b47b406aa772 "pdflatex"
+  "main.out" 1742561057 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1742561055 3800 8fa398a79f827a9b0d1941f347f1b7ee ""
   (generated)
   "main.aux"
   "main.log"

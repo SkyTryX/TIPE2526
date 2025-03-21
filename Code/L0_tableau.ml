@@ -1,30 +1,30 @@
-type formula = 
-  Literal | 
-  And of formula * formula | 
-  Or of formula * formula |
-  Not of formula |
-  Implies of formula * formula |
-  Equivalent of formula * formula;;
+type formula = (* Type caractérisant une formule *)
+  Literal of string | (* Un Litteral avec un nom qui le caractérise *)
+  And of formula * formula | (* Conjonction de formule *)
+  Or of formula * formula | (* Disjonction de formule *)
+  Not of formula;; (* Negation de formule *)
 
-type 'a tree = Nil | Node of 'a tree * 'a array * 'a tree;;
+type tableau = Nil of formula | Node of tableau * formula array * tableau;;
+
+let implies (a:formula) (b:formula) = Or(Not(a), b);;
+let equivalent (a:formula) (b:formula) = And(implies a b, implies b a);;
+(* Pour permettre l'utilisation d'équivalence et d'implication dans les formules *)
 
 (* Fonction qui a une formule avec des hypothèses associe son arbre de décision *)
-let rec formula2tree (f: formula) (hyp: formula array) : formula tree = match f with
-  | Literal -> Nil  
-  | Not(Literal) -> Nil
-  | Or(a, b) -> Node(formula2tree a hyp, hyp, formula2tree b hyp)
-  | And(a,b) -> Nil
-  | Implies(a,b) -> Node(formula2tree (Not(a)) hyp, hyp, formula2tree b hyp)
-  | Equivalent(a,b) -> Nil
-  | Not(Not(a)) -> Node(formula2tree a hyp, hyp, Nil)
-  | Not(Or(a, b)) -> Nil
-  | Not(And(a,b)) -> Node(formula2tree (Not(a)) hyp, hyp, formula2tree (Not(b)) hyp)
-  | Not(Implies(a,b)) -> Nil
-  | Not(Equivalent(a,b)) -> Nil
+let rec formula2tree_nohyp (f: formula) : tableau = match f with
+  | Literal(name) -> Nil(Literal(name))
+  | Not(Literal(name)) -> Nil(Not(Litteral(name)))
+  | Or(a, b) -> Node(formula2tree a, )
+  | And(a,b) -> ()
+  | Not(Not(a)) -> ()
+  | Not(Or(a, b)) -> ()
+  | Not(And(a,b)) -> ()
 
 (* Fonction qui renvoie si un arbre de décision d'une formule est fermé *)
-let rec tree_is_closed (t: formula tree) : bool = true;;
+let tree_has_cycle (t: tableau) : bool = 
+  let rec aux (t:tableau) (acc:array formula) = match t with
+in aux t [||];;
 
 (* Fonction principale du proover *)
 let proover (f : formula) (hyp: formula array) : bool = 
-  let f_tree = formula2tree (Not(f)) hyp in tree_is_closed f_tree;;
+  let f_tree = formula2tree (Not(f)) hyp in tree_has_cycle f_tree;;
