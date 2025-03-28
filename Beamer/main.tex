@@ -26,9 +26,10 @@
 \begin{frame}{Présentation}
     On souhaite prouver une formule dans la logique propositionelle :
     \begin{definition}[Méthode des tableaux]
-        Méthode par laquelle on prouve une assertion $B$ ayant pour hypothèse $(A_n)$ en montrant
-        que $\{A_1,\dots,A_n, \lnot B\}$ est insatisfaisable (Cela revient à montrer qu'une implication est vraie car sa négation ne peut être vraie).
+        Algorithme pour prouver une assertion $\phi$ ayant pour hypothèse $(H_n)$ en montrant
+        que $\lnot \phi$ est insatisfaisable.
     \end{definition}
+    On se propose ainsi d'optimiser cette méthode pour des cas particuliers de formules
     \pause
     \begin{itemize}
         \item On place $\lnot\phi$ et ses hypothèses dans la racine.
@@ -52,14 +53,12 @@
     \end{tikzpicture}
     \begin{tikzpicture}[level distance=8mm]
     \node {$\phi\land\psi$}
-        child {node {$\phi$} edge from parent }{
-        child {node {$\psi$} edge from parent[draw=none]}};
+        child {node {$\phi, \psi$}};
     \end{tikzpicture}  
     \begin{tikzpicture}[level distance=8mm,scale=0.75]
     \node {$\lnot(\phi\lor\psi)$}
-        child {node {$\lnot\phi$} edge from parent }{
-        child {node {$\lnot\psi$} edge from parent[draw=none]}};
-    \end{tikzpicture}
+        child {node {$\lnot\phi, \lnot\psi$}};
+   \end{tikzpicture}
     Les règles
 \end{frame}
 
@@ -74,22 +73,14 @@
         ]
         \node (root) at (0,0) {$\lnot(a \Rightarrow (b \Rightarrow a))$};
         \pause
-        \node (a) at (-3,-2) {$a$};
-        \node (not_b_a) at (3,-2) {$\lnot(b \Rightarrow a)$};
-        \draw[every arrow] (root) -- (a);
+        \node (not_b_a) at (0,-1) {$a, \lnot(b \Rightarrow a)$};
         \draw[every arrow] (root) -- (not_b_a);
         \pause
-        \node (b) at (1,-4) {$b$};
-        \node (not_a) at (4,-4) {$\lnot a$};
-        \draw[every arrow] (not_b_a) -- (not_a);
+        \node (b) at (0,-2) {$b, \lnot a$};
         \draw[every arrow] (not_b_a) -- (b);
         \pause
-        \draw[red] (a) -- (not_a);
+        \draw[red] (not_b_a) -- (b);
         \end{tikzpicture}
-
-        On trouve un \textcolor{red}{cycle} $a\leftrightarrow \lnot a$. Cette négation de la formule est insatisfaisable,
-        donc la formule a été prouvé.
-
     \end{center}
 \end{frame}
 
@@ -100,15 +91,17 @@
 \begin{frame}{Ce qui est à faire}
     Mon but sur le long terme
     \begin{itemize}[<+->]
-        \item Implémenter les tableaux en logique propositionelle
-        \item Trouver et prouver des optimisations pour les formules (?)
+        \item Implémenter la méthode entière en logique propositionelle
+        \item Trouver et prouver des optimisations pour les (?)
         \item Implémenter et commenter les résultats de l'optimisation
-        \item Faire de même cette méthode en logique du première ordre OU continuer à trouver des optimisations dans la logique propositionelle
+        \item Faire de même en logique du première ordre OU continuer à trouver des optimisations dans la logique propositionelle
     \end{itemize}
+    \pause
     Sur le court terme :
     \begin{itemize}[<+->]
-        \item One
-        \item Two
+        \item Finir l'implémentation complète de la méthode des tableaux en logique propositionelle
+        \item Faire les preuves de correction, terminaison
+        \item Commencer la recherche de d'optimisation
     \end{itemize}
 \end{frame}
 \end{document}
