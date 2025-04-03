@@ -1,7 +1,16 @@
-\documentclass{beamer}
-\usepackage{tikz}
+\documentclass[]{beamer}
+\usepackage{tikz,lstautogobble,listings}
 \usetikzlibrary{arrows.meta}
 \usetheme{Rochester}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\lstset{
+  language=caml,
+  basicstyle=\ttfamily\tiny,
+  breaklines=true,
+  autogobble=true,
+}
+
 
 \title{TIPE 25/26 - Cycles et Boucles}
 \author{GIL Dorian}
@@ -84,8 +93,60 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{Implémentation}
-    Le code
+\begin{frame}[fragile]{Implémentation 1}
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{lstlisting}
+                type formula =
+                    | Atom of string
+                    | Not of formula
+                    | And of formula * formula
+                    | Or of formula * formula
+
+                let rec expand formula =
+                    match formula with
+                    | Not (Not f) -> [[f]]
+                    | Not (And (f1, f2)) -> [[Not f1]; [Not f2]]
+                    | Not (Or (f1, f2)) -> [[Not f1; Not f2]]
+                    | And (f1, f2) -> [[f1; f2]]
+                    | Or (f1, f2) -> [[f1]; [f2]]
+                    | _ -> [];;
+
+                let rec has_cycle branch =
+                    List.exists (fun f -> List.mem (Not f) branch) branch;;
+            \end{lstlisting}
+        \end{tabular}
+      \end{center}
+\end{frame}
+
+\begin{frame}[fragile]{Implémentation 2}
+    \begin{center}
+        \begin{tabular}{c}
+            \begin{lstlisting}
+                let rec tableau branches =
+                    match branches with
+                    | [] -> false
+                    | branch :: rest -> 
+
+                    if has_cycle branch then
+                        tableau rest
+                    else
+                        match branch with
+                        | [] -> true
+                        | f :: fs ->
+
+                        let expansions = expand f in match expansions with
+                        | [] -> tableau (fs :: rest)
+                        | new_branches ->
+                        
+                        let expanded_branches = List.map (fun b -> b @ fs) new_branches in
+                        tableau (expanded_branches @ rest);;
+
+                    let is_satisfiable formula =
+                    let initial_branch = [formula] in tableau [initial_branch];;
+            \end{lstlisting}
+        \end{tabular}
+      \end{center}
 \end{frame}
 
 \begin{frame}{Ce qui est à faire}

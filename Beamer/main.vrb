@@ -1,0 +1,28 @@
+\frametitle{Implémentation 2}
+\begin{center}
+        \begin{tabular}{c}
+            \begin{lstlisting}
+                let rec tableau branches =
+                    match branches with
+                    | [] -> false
+                    | branch :: rest ->
+
+                    if has_cycle branch then
+                        tableau rest
+                    else
+                        match branch with
+                        | [] -> true
+                        | f :: fs ->
+
+                        let expansions = expand f in match expansions with
+                        | [] -> tableau (fs :: rest)
+                        | new_branches ->
+
+                        let expanded_branches = List.map (fun b -> b @ fs) new_branches in
+                        tableau (expanded_branches @ rest);;
+
+                    let is_satisfiable formula =
+                    let initial_branch = [formula] in tableau [initial_branch];;
+            \end{lstlisting}
+        \end{tabular}
+      \end{center}

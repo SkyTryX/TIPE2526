@@ -1,30 +1,45 @@
-type formula = (* Type caractérisant une formule *)
-  Literal of string | (* Un Litteral avec un nom qui le caractérise *)
-  And of formula * formula | (* Conjonction de formule *)
-  Or of formula * formula | (* Disjonction de formule *)
-  Not of formula;; (* Negation de formule *)
+type formula = (* Definition d'un type simple de formule logique *)
+  | Atom of string
+  | Not of formula
+  | And of formula * formula
+  | Or of formula * formula
 
-type tableau = Nil of formula | Node of tableau * formula array * tableau;;
+(* On utilise les règles de la méthode des tableaux *)
+let rec expand formula =
+  match formula with
+  | Not (Not f) -> [[f]]
+  | Not (And (f1, f2)) -> [[Not f1]; [Not f2]]
+  | Not (Or (f1, f2)) -> [[Not f1; Not f2]]
+  | And (f1, f2) -> [[f1; f2]]
+  | Or (f1, f2) -> [[f1]; [f2]]
+  | _ -> [];;
 
-let implies (a:formula) (b:formula) = Or(Not(a), b);;
-let equivalent (a:formula) (b:formula) = And(implies a b, implies b a);;
-(* Pour permettre l'utilisation d'équivalence et d'implication dans les formules *)
+(* On regarde si il existe un cycle i.e une contradiction *)
+let rec has_cycle branch =
+  List.exists (fun f -> List.mem (Not f) branch) branch;;
 
-(* Fonction qui a une formule avec des hypothèses associe son arbre de décision *)
-let rec formula2tree_nohyp (f: formula) : tableau = match f with
-  | Literal(name) -> Nil(Literal(name))
-  | Not(Literal(name)) -> Nil(Not(Litteral(name)))
-  | Or(a, b) -> Node(formula2tree a, )
-  | And(a,b) -> ()
-  | Not(Not(a)) -> ()
-  | Not(Or(a, b)) -> ()
-  | Not(And(a,b)) -> ()
+let rec tableau branches =
+  match branches with
+  | [] -> false (* Toutes les branches sont fermés *)
+  | branch :: rest -> 
 
-(* Fonction qui renvoie si un arbre de décision d'une formule est fermé *)
-let tree_has_cycle (t: tableau) : bool = 
-  let rec aux (t:tableau) (acc:array formula) = match t with
-in aux t [||];;
+  if has_cycle branch then (* Si la branche selectionné a un cycle *)
+    tableau rest (* On vérifie le reste *)
+  else (* Sinon, on le developpe *)
+    match branch with
+    | [] -> true (* Une branche non fermé pas developpable, c'est gagné! *)
+    | f :: fs ->
 
-(* Fonction principale du proover *)
-let proover (f : formula) (hyp: formula array) : bool = 
-  let f_tree = formula2tree (Not(f)) hyp in tree_has_cycle f_tree;;
+    let expansions = expand f in match expansions with
+    | [] -> tableau (fs :: rest) (* y'a rien a developpé, on continue *)
+    | new_branches ->
+      
+    let expanded_branches = List.map (fun b -> b @ fs) new_branches in
+    tableau (expanded_branches @ rest);;
+
+(* Petite fonction *)
+let is_satisfiable formula =
+  let initial_branch = [formula] in tableau [initial_branch];;
+  
+let f = And (And(Atom "P", Not(Atom "P")), Atom "Q") in
+is_satisfiable f;;
