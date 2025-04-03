@@ -25,4 +25,6 @@
                     let initial_branch = [formula] in tableau [initial_branch];;
             \end{lstlisting}
         \end{tabular}
+
+    Première implémentation en OCaml, sans les hypothèses
       \end{center}

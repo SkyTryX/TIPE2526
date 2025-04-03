@@ -5,7 +5,7 @@ type formula = (* Definition d'un type simple de formule logique *)
   | Or of formula * formula
 
 (* On utilise les règles de la méthode des tableaux *)
-let rec expand formula =
+let expand formula =
   match formula with
   | Not (Not f) -> [[f]]
   | Not (And (f1, f2)) -> [[Not f1]; [Not f2]]
@@ -15,7 +15,7 @@ let rec expand formula =
   | _ -> [];;
 
 (* On regarde si il existe un cycle i.e une contradiction *)
-let rec has_cycle branch =
+let has_cycle branch =
   List.exists (fun f -> List.mem (Not f) branch) branch;;
 
 let rec tableau branches =
@@ -31,11 +31,11 @@ let rec tableau branches =
     | f :: fs ->
 
     let expansions = expand f in match expansions with
-    | [] -> tableau (fs :: rest) (* y'a rien a developpé, on continue *)
+    | [] -> tableau (fs :: rest) (* rien n'a developpé, on continue *)
     | new_branches ->
       
     let expanded_branches = List.map (fun b -> b @ fs) new_branches in
-    tableau (expanded_branches @ rest);;
+    tableau (expanded_branches @ rest);; (* On appelle recursivement sur les versions developpés des branches*)
 
 (* Petite fonction *)
 let is_satisfiable formula =

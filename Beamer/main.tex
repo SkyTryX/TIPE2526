@@ -14,7 +14,7 @@
 
 \title{TIPE 25/26 - Cycles et Boucles}
 \author{GIL Dorian}
-\subtitle{Méthode des tableaux : Optimisation pour des formules de la forme (?)}
+\subtitle{Méthode des tableaux : Optimisation pour les clauses de Horn}
 \date{}
 
 \begin{document}
@@ -33,12 +33,13 @@
 \end{frame}
 
 \begin{frame}{Présentation}
-    On souhaite prouver une formule dans la logique propositionelle :
     \begin{definition}[Méthode des tableaux]
         Algorithme pour prouver une assertion $\phi$ ayant pour hypothèse $(H_n)$ en montrant
         que $\lnot \phi$ est insatisfaisable.
     \end{definition}
-    On se propose ainsi d'optimiser cette méthode pour des cas particuliers de formules
+    \begin{definition}[Clause de Horn]
+        Clause (i.e con/disjonction de littéraux) comportant au plus un littéral positif
+    \end{definition}
     \pause
     \begin{itemize}
         \item On place $\lnot\phi$ et ses hypothèses dans la racine.
@@ -88,7 +89,7 @@
         \node (b) at (0,-2) {$b, \lnot a$};
         \draw[every arrow] (not_b_a) -- (b);
         \pause
-        \draw[red] (not_b_a) -- (b);
+        \draw[red,every arrow] (b) -- (not_b_a);
         \end{tikzpicture}
     \end{center}
 \end{frame}
@@ -116,6 +117,8 @@
                     List.exists (fun f -> List.mem (Not f) branch) branch;;
             \end{lstlisting}
         \end{tabular}
+
+    Première implémentation en OCaml, sans les hypothèses
       \end{center}
 \end{frame}
 
@@ -146,23 +149,25 @@
                     let initial_branch = [formula] in tableau [initial_branch];;
             \end{lstlisting}
         \end{tabular}
+
+    Première implémentation en OCaml, sans les hypothèses
       \end{center}
 \end{frame}
 
 \begin{frame}{Ce qui est à faire}
     Mon but sur le long terme
     \begin{itemize}[<+->]
-        \item Implémenter la méthode entière en logique propositionelle
-        \item Trouver et prouver des optimisations pour les (?)
-        \item Implémenter et commenter les résultats de l'optimisation
-        \item Faire de même en logique du première ordre OU continuer à trouver des optimisations dans la logique propositionelle
+        \item Ajouter les hypothèses à l'implémentation et faire les preuves de correction, terminaison pour toutes formules.
+        \item Trouver et prouver des optimisations.
+        \item Implémenter et commenter les résultats de l'optimisation.
+        \item Faire de même en logique du première ordre OU continuer à trouver des optimisations dans la logique propositionelle.
     \end{itemize}
     \pause
     Sur le court terme :
     \begin{itemize}[<+->]
-        \item Finir l'implémentation complète de la méthode des tableaux en logique propositionelle
-        \item Faire les preuves de correction, terminaison
-        \item Commencer la recherche de d'optimisation
+        \item Ajouter les hypothèses à l'implémentation.
+        \item Faire les preuves de correction, terminaison pour toutes formules.
+        \item Commencer la recherche d'optimisation
     \end{itemize}
 \end{frame}
 \end{document}
