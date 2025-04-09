@@ -84,12 +84,12 @@
         \node (root) at (0,0) {$\lnot(a \Rightarrow (b \Rightarrow a))$};
         \pause
         \node (not_b_a) at (0,-1) {$a, \lnot(b \Rightarrow a)$};
-        \draw[every arrow] (root) -- (not_b_a);
+        \draw[thin] (root) -- (not_b_a);
         \pause
         \node (b) at (0,-2) {$b, \lnot a$};
-        \draw[every arrow] (not_b_a) -- (b);
+        \draw[thin] (not_b_a) -- (b);
         \pause
-        \draw[red,every arrow] (b) -- (not_b_a);
+        \draw[red, every arrow, thick] (b) -- (not_b_a);
         \end{tikzpicture}
     \end{center}
 \end{frame}
