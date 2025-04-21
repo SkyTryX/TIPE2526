@@ -19,15 +19,7 @@
 \setlength{\headheight}{13.07225pt}
 \addtolength{\topmargin}{-1.07225pt}
 
-\section*{Méthode des tableaux : Optimisation pour des formules de la forme (?)}
-Meilleur en terme de compléxité, d'hypothèse, facilité d'implementation (?), possibilité avec.
-
-Lien avec Cycle et boucle : se resteindre à des implémentations récursive ou itérative ? Ou se concentrer uniquement sur une méthode
-qui collerai bien avec le thême ?
-
-Dans Diapo Presentation:
-Dans Oral Presentation: 
-...
+\section*{Méthode des tableaux : Optimisation pour des formules de la forme alternée}
 
 
 Forme proposition pour accelerer methode tableau
@@ -100,7 +92,7 @@ Pour ainsi en déduire si une formule $\phi$ est vrai ou non, on adopte des règ
     \item Si l'arbre est in fine fermé, alors $\phi$ est vrai
 \end{itemize}
 
-Les règles $(R_x)$ sont:
+Les règles $(R_x)$ dites Smullyan-style sont:
 
 \begin{tikzpicture}
 \node {$\phi\lor\psi$}
@@ -162,22 +154,50 @@ $(R_{\Leftrightarrow})$
 $(R_{\lnot\Leftrightarrow})$
 
 Dans les cas où on trouve dans une même branche $a$ et $\lnot a$, on ferme la branche, si l'arbre devient fermé, alors $\lnot\phi$ est forcement faux, donc $\phi$ est vrai.
-
+a1 et (a2 ou a3)
 \begin{prop}
     Soit $\Psi$ un ensemble d'hypothèse et $\phi$ une formule, on note $\Psi\vdash\phi$ l'existence d'un arbre fermé pour $\Psi\cup\{\lnot\phi\}$.
     $$\Psi\vdash\phi \Leftrightarrow \Psi\vDash\phi$$
     Autrement dit, appliqué la méthode des tableaux est équivalent à prouver cette formule
 \end{prop}
+La preuve de cette proposition permet de prouver la correction de l'implémentation de base.
+
+\subsection{Optimisation pour les formules de forme alternée}
+
+\begin{defi}
+Soit $n\in\mathbb{N}^*$ $(\alpha_k)_{k\in[|1, n|]}$, une formule $\phi$ est de forme alternée ssi
+$$\phi := \alpha_1 \land (\alpha_2 \lor (\alpha_3 \land (\dots (\alpha_n))))$$
+\end{defi}
+On gardera les parenthèses dans la suite pour garder le coté intuitiff de cet ecriture
+
+On remarque une CNS pour que ce genre de formule soit vrai:
+\begin{prop}
+    $\phi$ de forme alternée est vrai ssi:
+    $$(\exists k\in\mathbb{N}^*, \alpha_{2k-2} \text{ OU n impair}\implies\alpha_n \text{ avec } k=\frac{n-1}{2})\text{ ET } \forall i\in[|1, k|], \alpha_{2i-1}$$
+\end{prop}
 
 \begin{preuve}
-\text{https://cs.uwaterloo.ca/~david/cl/tableaux-prop.pdf}
+    $(\impliedby)$ Immédiat
+    
+    $(\implies)$ Supposons $\phi$ de forme alternée vrai:
+    $\alpha_1$ est forcement vrai, deux possibilités :
+    soit $\alpha_2$ est vrai, soit $\alpha_3\land(\dots)$ est vrai. Dans le deuxième cas, on repète le raisonnement sur $\alpha_3\land(\dots)$ qui est bien de forme alternée.
+    
+    Deux cas de figure:
+    \begin{itemize}
+        \item On arrête donc le processus dès que un litteral indéxée par un nombre pair est vrai.
+        Dans ce cas là, tout les indéxées impair précedents sont aussi vrai.
+        \item Si aucun litteral pair est vrai, alors $n$ est impair sans quoi $\phi$ n'est pas vrai car $\alpha_n$ doit être vrai. 
+        On en déduit que tout les litteraux impairs sont vraies, donc la formule est vrai.
+    \end{itemize}    
 \end{preuve}
+Mais on cherche une CNS de satisfaisabilité.
 
-\subsection{Application en code}
-\dots
 
-\subsection{Analyse de programme}
-Preuve de Terminaison, Compléxité et Correction (equivalence entre le fait de trouver un tableau fermé pour $\lnot\phi$ et la satisfaisabilité de $\phi$ d'un tableau).
+
+
+
+
 
 \section{Logique du 1er ordre (FAIT PLUS TARD)}
 La logique propositionelle étant mathématiquement limité, on se propose l'utilisation de la logique du 1er ordre.
@@ -199,17 +219,4 @@ Cela nous permettra ainsi d'étudier Zenon, un prouveur d'automatique de theorè
     On note $\mathcal{T}(\mathcal{F}, X)$ l'ensemble des termes sur $\mathcal{F}$ et $X$.
 \end{defi}
 
-Forme Normale (Conjonctive, Disjonctive) (considerer que les formules sont sous cette forme ci à l'origine)
-
-- Type de formule à optimiser
-\begin{itemize}
-    \item Clause (Conjonctive, Disjonctive)
-    \item Clauses de Horn
-    \item Forme Normale Negative (\textit{Peut être trop compliqué car ne restreint pas assez le type de formule})
-\end{itemize}
-
--  (?)
-
-
-Dans oral, parler des règles style Smullyan-style, des règles deterministes ($\alpha$) et séparatrice ($\beta$)
 \end{document}
