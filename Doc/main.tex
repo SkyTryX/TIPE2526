@@ -63,13 +63,7 @@ On note $\mathcal{V}$ un vocabulaire qu'on définie par $\mathcal{V} := \{p, q,\
 \end{defi}
 
 On note $n\in\mathbb{N}^*$
-\begin{defi}
-    \textit{La méthode des tableaux} consistent à prouver une assertion $B$ ayant pour hypothèse $(A_n)$ en montrant
-    que $\{A_1,\dots,A_n, \lnot B\}$ est insatisfaisable (Cela revient à montrer qu'une implication est vraie car sa négation ne peut être vraie)
-    i.e $((A_1,\dots,A_n)\implies B) \Leftrightarrow Mod(\lnot((A_1,\dots,A_n)\implies B)) = \emptyset \Leftrightarrow Mod((A_1,\dots,A_n)\land \lnot B) = \emptyset$.
-\end{defi}
-
-Le procédé consiste donc à séparer les formules logiques complexes en plus petite formule jusqu'à que des pairs complementaires de litteraux ($a$ et $\lnot a$) soit extrait ou qu'on ne peut plus simplifier la formule.
+Le procédé de la méthode des tableaux consiste donc à séparer les formules logiques complexes en plus petite formule jusqu'à que des pairs complementaires de litteraux ($a$ et $\lnot a$) soit extrait ou qu'on ne peut plus simplifier la formule.
 Pour cela, on doit définir quelques concepts sur les arbres.
 
 \begin{defi}[Arbre de déduction]
@@ -85,7 +79,7 @@ Pour cela, on doit définir quelques concepts sur les arbres.
 \end{defi}
 
 \subsection{Principe}
-Pour ainsi en déduire si une formule $\phi$ est vrai ou non, on adopte des règles qu'on applique sur un arbre de déduction.
+Pour ainsi en déduire si une formule $\phi$ est insatisfaisable ou pas, on adopte des règles qu'on applique sur un arbre de déduction.
 \begin{itemize}
     \item On place $\lnot\phi$ dans la racine de l'arbre.
     \item On applique les règles $(R_x)$ suivantes à chaque branche non fermé de l'arbre
@@ -153,22 +147,37 @@ $(R_{\Leftrightarrow})$
 \end{tikzpicture}
 $(R_{\lnot\Leftrightarrow})$
 
-Dans les cas où on trouve dans une même branche $a$ et $\lnot a$, on ferme la branche, si l'arbre devient fermé, alors $\lnot\phi$ est forcement faux, donc $\phi$ est vrai.
-a1 et (a2 ou a3)
+Dans les cas où on trouve dans une même branche $a$ et $\lnot a$, on ferme la branche, si l'arbre devient fermé, alors $\lnot\phi$ est forcement faux, donc $\phi$ est forcement vrai.
+
 \begin{prop}
     Soit $\Psi$ un ensemble d'hypothèse et $\phi$ une formule, on note $\Psi\vdash\phi$ l'existence d'un arbre fermé pour $\Psi\cup\{\lnot\phi\}$.
     $$\Psi\vdash\phi \Leftrightarrow \Psi\vDash\phi$$
-    Autrement dit, appliqué la méthode des tableaux est équivalent à prouver cette formule
+    Autrement dit, appliqué la méthode des tableaux à la négation de la formule et ses hypothèses est équivalent à prouver cette formule (\textit{Prouver dans le sens que c'est une tautologie en suppossant $\Psi$})
 \end{prop}
-La preuve de cette proposition permet de prouver la correction de l'implémentation de base.
+\begin{preuve}
+    La preuve de cette proposition permet de prouver la correction de l'implémentation de base.
+    Elle est trouvable en ligne
+\end{preuve}
+Cette proposition assure un moyen de prouver une formule.
 
-\subsection{Optimisation pour les formules de forme alternée}
+\begin{prop}
+    Soit $\Psi$ un ensemble d'hypothèse et $\phi$ une formule, on note $\Psi\vdash\phi$ la non existence d'un arbre fermé pour $\Psi$.
+    $$\Psi\vdash\phi \Leftrightarrow \Psi\vDash\phi$$
+    Autrement dit, appliqué la méthode des tableaux est équivalent à prouver la satisfaisabilité de cette formule
+\end{prop}
+\begin{preuve}
+    En ligne
+\end{preuve}
+Cette proposition assure un moyen de prouver la satisfaisabilité d'une formule
+
+
+\subsection{Formules de forme alternée}
 
 \begin{defi}
-Soit $n\in\mathbb{N}^*$ $(\alpha_k)_{k\in[|1, n|]}$, une formule $\phi$ est de forme alternée ssi
+Soit $n\in\mathbb{N}^*$ et $(\alpha_k)_{k\in[|1, n|]}$ des litteraux, une formule $\phi$ est de forme alternée ssi
 $$\phi := \alpha_1 \land (\alpha_2 \lor (\alpha_3 \land (\dots (\alpha_n))))$$
 \end{defi}
-On gardera les parenthèses dans la suite pour garder le coté intuitiff de cet ecriture
+On gardera les parenthèses dans la suite pour garder le coté intuitif de cet ecriture
 
 On remarque une CNS pour que ce genre de formule soit vrai:
 \begin{prop}
@@ -191,7 +200,76 @@ On remarque une CNS pour que ce genre de formule soit vrai:
         On en déduit que tout les litteraux impairs sont vraies, donc la formule est vrai.
     \end{itemize}    
 \end{preuve}
-Mais on cherche une CNS de satisfaisabilité.
+
+Mais ceci n'est pas important, cela aide juste à se donner une idée de la structure
+
+
+
+\subsection{Satisfaisabilité}
+On peut résoudre facilement la satisfaisabilité de la formule en convertissant le tout en FNC et en
+implémentant un 2-SAT solver, mais ce n'est pas ce qui nous interesse ici.
+Revenons à la méthode des tableaux, en appliquant les règles à la famille de formule de forme alternée,
+on observe un patterne sur l'arbre résultant $\forall k\in\mathbb{N}^*$:
+
+\begin{tikzpicture}[level distance=8mm]
+    \node {$a_{2k-1}\land(a_{2k}\lor A)$}
+        child {node {$a_{2k-1}$} edge from parent }{
+        child {node {$a_{2k}\lor A$}
+        child {node {$a_{2k}$}}
+        child {node {$A$}}; edge from parent[draw=none]}};
+\end{tikzpicture}
+
+où $A$ est la suite de la forme alternée, de forme presque-equivalente à $a_{2k-1}\land(a_{2k}\lor A)$
+
+
+
+
+\subsection{Preuve sous hypothèse}
+
+\begin{prop}
+    Avec les mêmes définitions, soit $\phi = \alpha_1 \land (\alpha_2 \lor (\alpha_3 \land (\dots (\alpha_n))))$ une formule de formule alternée:
+    $$\lnot\phi = \lnot\alpha_1 \lor (\lnot\alpha_2 \land (\lnot\alpha_3 \lor (\dots (\lnot\alpha_n))))$$
+\end{prop}
+Cette forme est cohérente avec les propriétés de $\lnot$.
+
+\begin{preuve}
+    On prouve par recurrence forte sur $n\in\mathbb{N}^*$
+
+    $\mathcal{P}(n): \lnot\phi = \lnot\alpha_1 \lor (\lnot\alpha_2 \land (\lnot\alpha_3 \lor (\dots (\lnot\alpha_n))))$
+
+    $\mathcal{P}(1): \lnot\phi = \lnot\alpha_1$ vrai
+
+    $\forall k\in\mathbb{N}^*$, supposons $\mathcal{P}(k)$:
+
+    $\lnot\phi = \lnot (\alpha_1 \land (\alpha_2 \lor (\alpha_3 \land (\dots (\alpha_{n+1})))))$
+
+    $= \lnot\alpha_1 \lor (\lnot\alpha_2 \land \lnot(\alpha_3 \land (\dots (\alpha_{n+1}))))$
+
+    On trouve le résultat en appliquant l'hypothèse de recurrence sur $\alpha_3 \land (\dots (\alpha_{n+1}))$ qui est de forme alternée.
+
+    $\forall n\in\mathbb{N}^*, \mathcal{P}(n)$
+\end{preuve}
+
+De là, on peut enfin en déduire la forme de l'arbre induit par la méthode des tableaux sur la négation d'une formule de forme alternée sans hypothèse
+
+\begin{tikzpicture}
+\node {$\lnot\alpha_1\lor(\lnot\alpha_2\land \lnot A)$}
+    child {node {$\lnot\alpha_1$}}
+    child {node {$\lnot\alpha_2\land\lnot A$}
+        child {node {$\lnot\alpha_2$}}{
+        child {node {$\lnot A$} edge from parent[draw=none]}
+        }
+    };
+\end{tikzpicture}
+
+\begin{prop}
+    $\lnot\phi$ de forme alternée est vrai ssi:
+    $$(\forall k\in\mathbb{N}^*, \lnot\alpha_{2k-2} \text{ ET n impair ET } \lnot\alpha_n \text{ avec } k=\frac{n-1}{2}) \text{ OU } \exists i\in [|1,k], \lnot\alpha_{2i-1}$$
+\end{prop}
+
+\begin{preuve}
+    On utilise la négation de la proposition 3 ainsi que $\phi \rightarrow F \Leftrightarrow \lnot\phi \rightarrow T$  
+\end{preuve}
 
 
 
@@ -199,7 +277,27 @@ Mais on cherche une CNS de satisfaisabilité.
 
 
 
-\section{Logique du 1er ordre (FAIT PLUS TARD)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Logique du 1er ordre}
 La logique propositionelle étant mathématiquement limité, on se propose l'utilisation de la logique du 1er ordre.
 Cela nous permettra ainsi d'étudier Zenon, un prouveur d'automatique de theorème.
 \begin{defi}
@@ -218,5 +316,7 @@ Cela nous permettra ainsi d'étudier Zenon, un prouveur d'automatique de theorè
     \end{itemize} 
     On note $\mathcal{T}(\mathcal{F}, X)$ l'ensemble des termes sur $\mathcal{F}$ et $X$.
 \end{defi}
+
+
 
 \end{document}
