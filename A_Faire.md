@@ -1,2 +1,0 @@
-- Trouver la forme de formule à optimiser
-- Implémenter la méthode des tableaux sans hypothèse

@@ -19,16 +19,21 @@
 \setlength{\headheight}{13.07225pt}
 \addtolength{\topmargin}{-1.07225pt}
 
-\section*{Méthode des tableaux : Optimisation pour des formules de la forme alternée}
-
-
-Forme proposition pour accelerer methode tableau
-memoisation des propositions (SQL, dictionnaire, serialisation ?)
+\section*{Méthode des tableaux : Optimisation}
+memoisation, SQL, dictionnaire, serialisation
 
 \tableofcontents
 
+
+
+
+
 \section{Logique Propositionelle}
+
 \subsection{Definition}
+
+
+
 \begin{defi}
 La \textit{logique propositionelle} est un type de logique où les formules sont obtenus par des variables propositionelles reliées par des connecteurs.
 \end{defi}
@@ -40,31 +45,6 @@ La \textit{logique propositionelle} est un type de logique où les formules sont
 \begin{defi}[Conséquence Logique]
     Une formule $\phi$ est \textit{conséquence logique} d'une formule, notée $\psi$ si $Mod(\psi) \subseteq Mod(\phi)$. On note cela $\psi \vDash \phi$
 \end{defi}
-
-On note $\mathcal{V}$ un vocabulaire qu'on définie par $\mathcal{V} := \{p, q,\dots, \lnot, \land, \lor, \implies, \Leftrightarrow, (,) \}$ et $\mathcal{V}$* l'ensemble de toutes les expressions que l'on peut former avec le vocabulaire $\mathcal{V}$
-\begin{defi}[Système formel]
-    Un système formel est défini par un tuple $(\mathcal{V}, \mathcal{E}, \mathcal{A}, \mathcal{R})$, tel que:
-    \begin{itemize}
-        \item $\mathcal{V}$ est un ensemble de symboles
-        \item $\mathcal{E}$ est un ensemble d'expressions bien formées dans $\mathcal{V}$*
-        \item $\mathcal{A}$ est un ensemble d'axiomes ($\mathcal{A} \subset \mathcal{E}$)
-        \item $\mathcal{R}$ est un ensemble de règles de déduction de la forme: $r_i : f_1, f_2,\dots, f_n \vdash g$ avec $f_i, g \in \mathcal{E}$
-    \end{itemize}
-\end{defi}
-
-\begin{defi}[Déduction ou preuve]
-    Soit un système SF, une preuve de $c_p$ à partir de $h_1,\dots,h_n$ dans SF qu'on note $h_1,\dots, h_n \vdash c_p$
-    toute suite $c_1,\dots,c_p$ telle que $\forall i\in\mathcal{N} | 1 \leq i \leq p$, $c_i$ est un des suivants:
-    \begin{itemize}
-        \item Un axiome
-        \item Une hypothèse
-        \item Obtenu par application d'une règle $r_i$ telle que $c_{i_1},\dots c_{i_k} \vdash c_i$ où $ i_1,\dots,i_k < i$
-    \end{itemize}
-\end{defi}
-
-On note $n\in\mathbb{N}^*$
-Le procédé de la méthode des tableaux consiste donc à séparer les formules logiques complexes en plus petite formule jusqu'à que des pairs complementaires de litteraux ($a$ et $\lnot a$) soit extrait ou qu'on ne peut plus simplifier la formule.
-Pour cela, on doit définir quelques concepts sur les arbres.
 
 \begin{defi}[Arbre de déduction]
     Arbre dont les sommets sont composés de formule, qui sont soit une hypothèse à la racine de l'arbre, soit une formule obtenue par l'application d'une règle sur une formule présente dans la même branche plus proche de la racine.
@@ -78,8 +58,11 @@ Pour cela, on doit définir quelques concepts sur les arbres.
     Un arbre de déduction est fermé si toutes les branches le sont.
 \end{defi}
 
+
+
 \subsection{Principe}
-Pour ainsi en déduire si une formule $\phi$ est insatisfaisable ou pas, on adopte des règles qu'on applique sur un arbre de déduction.
+On note $n\in\mathbb{N}^*$, le procédé de la méthode des tableaux consiste donc à séparer les formules logiques complexes en plus petite formule jusqu'à que des pairs complementaires de litteraux ($a$ et $\lnot a$) soit extrait ou qu'on ne peut plus simplifier la formule.
+On en déduit ainsi si une formule $\phi$ est insatisfaisable ou pas en adoptant des règles qu'on applique sur un arbre de déduction.
 \begin{itemize}
     \item On place $\lnot\phi$ dans la racine de l'arbre.
     \item On applique les règles $(R_x)$ suivantes à chaque branche non fermé de l'arbre
@@ -154,6 +137,7 @@ Dans les cas où on trouve dans une même branche $a$ et $\lnot a$, on ferme la 
     $$\Psi\vdash\phi \Leftrightarrow \Psi\vDash\phi$$
     Autrement dit, appliqué la méthode des tableaux à la négation de la formule et ses hypothèses est équivalent à prouver cette formule (\textit{Prouver dans le sens que c'est une tautologie en suppossant $\Psi$})
 \end{prop}
+
 \begin{preuve}
     La preuve de cette proposition permet de prouver la correction de l'implémentation de base.
     Elle est trouvable en ligne
@@ -165,10 +149,12 @@ Cette proposition assure un moyen de prouver une formule.
     $$\Psi\vdash\phi \Leftrightarrow \Psi\vDash\phi$$
     Autrement dit, appliqué la méthode des tableaux est équivalent à prouver la satisfaisabilité de cette formule
 \end{prop}
+
 \begin{preuve}
     En ligne
 \end{preuve}
 Cette proposition assure un moyen de prouver la satisfaisabilité d'une formule
+
 
 
 \subsection{Formules de forme alternée}
@@ -177,10 +163,11 @@ Cette proposition assure un moyen de prouver la satisfaisabilité d'une formule
 Soit $n\in\mathbb{N}^*$ et $(\alpha_k)_{k\in[|1, n|]}$ des litteraux, une formule $\phi$ est de forme alternée ssi
 $$\phi := \alpha_1 \land (\alpha_2 \lor (\alpha_3 \land (\dots (\alpha_n))))$$
 \end{defi}
-On gardera les parenthèses dans la suite pour garder le coté intuitif de cet ecriture
+On gardera les parenthèses dans la suite pour garder le coté intuitif de cet ecriture et surtout ne pas laisser l'ambiguité sur la prioritée entre les opérateurs logiques
 
-On remarque une CNS pour que ce genre de formule soit vrai:
-\begin{prop}
+
+On remarque une CNS pour que ce type de formule soit vrai:
+\begin{prop}[CNS - A reformuler]
     $\phi$ de forme alternée est vrai ssi:
     $$(\exists k\in\mathbb{N}^*, \alpha_{2k-2} \text{ OU n impair}\implies\alpha_n \text{ avec } k=\frac{n-1}{2})\text{ ET } \forall i\in[|1, k|], \alpha_{2i-1}$$
 \end{prop}
@@ -201,13 +188,11 @@ On remarque une CNS pour que ce genre de formule soit vrai:
     \end{itemize}    
 \end{preuve}
 
-Mais ceci n'est pas important, cela aide juste à se donner une idée de la structure
-
+Mais ceci n'est pas important, cela aide juste à se donner une idée de la structure de la formule, pour trouver des CNS plus intéressantes.
 
 
 \subsection{Satisfaisabilité}
-On peut résoudre facilement la satisfaisabilité de la formule en convertissant le tout en FNC et en
-implémentant un 2-SAT solver, mais ce n'est pas ce qui nous interesse ici.
+On rappelle que pour prouver la satisfaisabilité d'une formule, on montre qu'il n'existe pas d'arbre fermé.
 Revenons à la méthode des tableaux, en appliquant les règles à la famille de formule de forme alternée,
 on observe un patterne sur l'arbre résultant $\forall k\in\mathbb{N}^*$:
 
@@ -219,7 +204,54 @@ on observe un patterne sur l'arbre résultant $\forall k\in\mathbb{N}^*$:
         child {node {$A$}}; edge from parent[draw=none]}};
 \end{tikzpicture}
 
-où $A$ est la suite de la forme alternée, de forme presque-equivalente à $a_{2k-1}\land(a_{2k}\lor A)$
+où $A$ est la suite de la forme alternée, qui est aussi de forme alterné ou un littéral.
+
+\begin{prop}
+   Chaque arbre induit par la méthode des tableaux est un arbrre binaire, tel qu'on nomme dans les nodes les hypothèses à l'étape associé de l'algorithme
+\end{prop}
+
+\begin{preuve}
+    Soit $A_1$ et $A_2$ deux arbres binaires représentant l'arbre induit par la méthode des tableaux $T_1$ et $T_2$ respectivement, etiquetés par des litteraux, on suppose qu'ils sont égaux. On peut les reconstruire par une succession d'opération sur une formule par la méthode des tableaux.
+    Etant donné que $A_1=A_2$, on applique les mêmes opérations, sans quoi on aura pas les mêmes arbres binaires, donc on a la même formule et les mêmes hypothèses, donc $T_1=T_2$
+\end{preuve}
+
+L'arbre induit ; pour $n=5$ ; et pour $n=4$
+
+\begin{tikzpicture}[level distance=8mm]
+    \node {$\alpha_{2k-1}$}
+        child {node {$\alpha_{2k}$}}
+        child {node {$A$}};
+\end{tikzpicture}
+\begin{tikzpicture}[level distance=8mm]
+    \node {$\alpha_1$}
+        child {node {$\alpha_2$}}
+        child {node {$\alpha_3$}
+        child {node {$\alpha_4$}}
+        child {node {$\alpha_5$}}};
+\end{tikzpicture}
+\begin{tikzpicture}[level distance=8mm]
+    \node {$\alpha_1$}
+        child {node {$\alpha_2$}}
+        child {node {$\alpha_3$}
+            child [xshift=-5mm]{node {$\alpha_4$}}};
+\end{tikzpicture}
+
+Faisons des raisonnements pour des formules de taille $n\in [|1, 3|]$:
+\begin{enumerate}
+    \item Toujours satisfaisable
+    \item Satisfaisable ssi $\alpha_2 \neq \lnot\alpha_1$
+    \item Satisfaisable ssi $\lnot(\alpha_1 = \lnot\alpha_2 = \lnot\alpha_3)$
+\end{enumerate}
+C'est à partir du cas $n=4$ que la satisfaisabilité devient difficile à retablir. On peut l'établir par 2-SAT, et trouver qu'il y a 
+4096 formules possibles avec 168 d'entres elles qui sont insatisfaisable, on sent que trouver une CNS peut être compliqué, surtout quand
+on va prendre des $n$ plus hauts
+
+
+
+
+
+
+
 
 
 
