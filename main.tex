@@ -1,11 +1,40 @@
 \documentclass{paper}
 
-\usepackage{amsmath,amssymb,amsfonts, listings, fancyhdr, stmaryrd, array, tikz}
+\usepackage{amsmath,lstautogobble,amssymb,amsfonts, listings, fancyhdr, stmaryrd, array, tikz}
 \usepackage[many]{tcolorbox}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 \usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm]{geometry}
 \newtheorem{prop}{Proposition}
 \newtheorem{defi}{Definition}
 \newtheorem{preuve}{Preuve}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    language=caml,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    autogobble=true
+}
+
+\lstset{style=mystyle}
 
 \newcolumntype{C}{>$c<$}
 \tcolorboxenvironment{prop}{enhanced, borderline={0.8pt}{0pt}{blue}, borderline={0.4pt}{2pt}{cyan}, boxrule=0.4pt, colback=white, coltitle=black, sharp corners}
@@ -19,16 +48,11 @@
 \setlength{\headheight}{13.07225pt}
 \addtolength{\topmargin}{-1.07225pt}
 
-\section*{Méthode des tableaux : Optimisation}
-memoisation, SQL, dictionnaire, serialisation
+\section*{Méthode des tableaux : Optimisation de la determination de la satisfaisabilité en logique propositionelle}
 
 \tableofcontents
 
-
-
-
-
-\section{Logique Propositionelle}
+\section{Introduction}
 
 \subsection{Definition}
 
@@ -153,11 +177,60 @@ Cette proposition assure un moyen de prouver une formule.
 \begin{preuve}
     En ligne
 \end{preuve}
-Cette proposition assure un moyen de prouver la satisfaisabilité d'une formule
+Cette proposition assure un moyen de prouver la satisfaisabilité d'une formule.
+
+On écrit donc l'algorithme de base de determination de la satisfaisabilité d'une formule 
+
+\begin{tabular}{c}
+    \begin{lstlisting}
+        type formula =
+            | Atom of string
+            | Not of formula
+            | And of formula * formula
+            | Or of formula * formula
+
+        let rec expand formula =
+            match formula with
+            | Not (Not f) -> [[f]]
+            | Not (And (f1, f2)) -> [[Not f1]; [Not f2]]
+            | Not (Or (f1, f2)) -> [[Not f1; Not f2]]
+            | And (f1, f2) -> [[f1; f2]]
+            | Or (f1, f2) -> [[f1]; [f2]]
+            | _ -> [];;
+
+        let rec has_cycle branch =
+            List.exists (fun f -> List.mem (Not f) branch) branch;;
+
+        let rec tableau branches =
+            match branches with
+            | [] -> false
+            | branch :: rest -> 
+
+            if has_cycle branch then
+                tableau rest
+            else
+                match branch with
+                | [] -> true
+                | f :: fs ->
+
+                let expansions = expand f in match expansions with
+                | [] -> tableau (fs :: rest)
+                | new_branches ->
+                
+                let expanded_branches = List.map (fun b -> b @ fs) new_branches in
+                tableau (expanded_branches @ rest);;
+
+        let is_satisfiable formula =
+            let initial_branch = [formula] in tableau [initial_branch];;
+    \end{lstlisting}
+\end{tabular}
+
+
+\section{Formules de forme alternée}
 
 
 
-\subsection{Formules de forme alternée}
+\subsection{Definition}
 
 \begin{defi}
 Soit $n\in\mathbb{N}^*$ et $(\alpha_k)_{k\in[|1, n|]}$ des litteraux, une formule $\phi$ est de forme alternée ssi
@@ -166,10 +239,10 @@ $$\phi := \alpha_1 \land (\alpha_2 \lor (\alpha_3 \land (\dots (\alpha_n))))$$
 On gardera les parenthèses dans la suite pour garder le coté intuitif de cet ecriture et surtout ne pas laisser l'ambiguité sur la prioritée entre les opérateurs logiques
 
 
-On remarque une CNS pour que ce type de formule soit vrai:
-\begin{prop}[CNS - A reformuler]
+On remarque une CNS pour que ce type de formule soit vrai (pas satisfaisable!):
+\begin{prop}[CNS de Vérité]
     $\phi$ de forme alternée est vrai ssi:
-    $$(\exists k\in\mathbb{N}^*, \alpha_{2k-2} \text{ OU n impair}\implies\alpha_n \text{ avec } k=\frac{n-1}{2})\text{ ET } \forall i\in[|1, k|], \alpha_{2i-1}$$
+    $$(\exists k\in\mathbb{N}^* \text{ minimal }, \alpha_{2k-2} \text{ OU n impair}\implies\alpha_n \text{ avec } k=\frac{n-1}{2})\text{ ET } \forall i\in[|1, k|], \alpha_{2i-1}$$
 \end{prop}
 
 \begin{preuve}
@@ -191,6 +264,7 @@ On remarque une CNS pour que ce type de formule soit vrai:
 Mais ceci n'est pas important, cela aide juste à se donner une idée de la structure de la formule, pour trouver des CNS plus intéressantes.
 
 
+
 \subsection{Satisfaisabilité}
 On rappelle que pour prouver la satisfaisabilité d'une formule, on montre qu'il n'existe pas d'arbre fermé.
 Revenons à la méthode des tableaux, en appliquant les règles à la famille de formule de forme alternée,
@@ -201,13 +275,13 @@ on observe un patterne sur l'arbre résultant $\forall k\in\mathbb{N}^*$:
         child {node {$a_{2k-1}$} edge from parent }{
         child {node {$a_{2k}\lor A$}
         child {node {$a_{2k}$}}
-        child {node {$A$}}; edge from parent[draw=none]}};
+        child {node {$Suite$}}; edge from parent[draw=none]}};
 \end{tikzpicture}
 
 où $A$ est la suite de la forme alternée, qui est aussi de forme alterné ou un littéral.
 
 \begin{prop}
-   Chaque arbre induit par la méthode des tableaux est un arbrre binaire, tel qu'on nomme dans les nodes les hypothèses à l'étape associé de l'algorithme
+   Chaque arbre induit par la méthode des tableaux est un arbre binaire, tel qu'on nomme dans les nodes les hypothèses à l'étape associé de l'algorithme
 \end{prop}
 
 \begin{preuve}
@@ -220,7 +294,7 @@ L'arbre induit ; pour $n=5$ ; et pour $n=4$
 \begin{tikzpicture}[level distance=8mm]
     \node {$\alpha_{2k-1}$}
         child {node {$\alpha_{2k}$}}
-        child {node {$A$}};
+        child {node {$Suite$}};
 \end{tikzpicture}
 \begin{tikzpicture}[level distance=8mm]
     \node {$\alpha_1$}
@@ -244,10 +318,15 @@ Faisons des raisonnements pour des formules de taille $n\in [|1, 3|]$:
 \end{enumerate}
 C'est à partir du cas $n=4$ que la satisfaisabilité devient difficile à retablir. On peut l'établir par 2-SAT, et trouver qu'il y a 
 4096 formules possibles avec 168 d'entres elles qui sont insatisfaisable, on sent que trouver une CNS peut être compliqué, surtout quand
-on va prendre des $n$ plus hauts
+on va prendre des $n$ plus hauts.
+De plus, ca reviendrait à résoudre une sous instance du problème k-SAT, on sent que trouver une CNS est tout bonnement impossible.
+Attaquons nous donc à des approches plus réaliste pour le moment.
 
 
 
+\subsection{Etude de compléxité}
+
+Etudions les points faibles de notre algorithme en terme de complexité pour pouvoir par la suite étudier des solutions à implémenter.
 
 
 
