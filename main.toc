@@ -5,5 +5,5 @@
 \contentsline {subsection}{\numberline {2.1}Definition}{3}{}%
 \contentsline {subsection}{\numberline {2.2}Satisfaisabilité}{4}{}%
 \contentsline {subsection}{\numberline {2.3}Etude de compléxité}{4}{}%
-\contentsline {subsection}{\numberline {2.4}Preuve sous hypothèse}{4}{}%
+\contentsline {subsection}{\numberline {2.4}Preuve sous hypothèse}{5}{}%
 \contentsline {section}{\numberline {3}Logique du 1er ordre}{5}{}%

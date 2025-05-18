@@ -327,8 +327,27 @@ Attaquons nous donc à des approches plus réaliste pour le moment.
 \subsection{Etude de compléxité}
 
 Etudions les points faibles de notre algorithme en terme de complexité pour pouvoir par la suite étudier des solutions à implémenter.
+En prenant $n$ le nombre de branches
 
+Premièrement, $expand$ et $has\_cycle$ sont respectivement en $\mathcal{O}(1)$ et $\mathcal{O}(n^2)$.
+Ensuite, dans le cas où on tombe à chaque fois sur un cycle en analysant une branche, on a une equation de récurrence de type :
+$$C(n) = n^2\times C(n-1)$$
+Soit par recurrence immédiate une méthode des tableaux en $\mathcal{O}(n!^2)$
 
+On peut montrer que l'algorithme a une compléxité qui est très largement pire que cela, intéressons nous au point critique en terme de compléxité.
+Premièrement, $has\_cycle$, qui est appelé à chaque appel recursif, mais aussi et surtout l'expansion.
+
+Rappellons premièrement le code de has cycle: 
+
+\begin{tabular}{c}
+    \begin{lstlisting}
+    let has_cycle branch =
+        List.exists (fun f -> List.mem (Not f) branch) branch;; 
+    \end{lstlisting}
+\end{tabular}
+
+Il regarde dans la liste représentant la branche et les hypothèses extraites si pour chaque element, il existe sa négation. Une optimisation triviale serait d'éviter les doubles tests,
+mais cela reste en $\mathcal{O}(n^2)$.
 
 
 

@@ -4,16 +4,6 @@ type formula = (* Definition d'un type simple de formule logique *)
   | And of formula * formula
   | Or of formula * formula
 
-(* On utilise les règles de la méthode des tableaux *)
-let expand formula =
-  match formula with
-  | Not (Not f) -> [[f]]
-  | Not (And (f1, f2)) -> [[Not f1]; [Not f2]]
-  | Not (Or (f1, f2)) -> [[Not f1; Not f2]]
-  | And (f1, f2) -> [[f1; f2]]
-  | Or (f1, f2) -> [[f1]; [f2]]
-  | _ -> [];;
-
 let rec print_formula (f:formula) = match f with
   | Atom(s) -> print_string s
   | Not f -> print_string "Not("; print_formula f;print_string ")"
@@ -25,6 +15,15 @@ let rec print_branches (b:formula list list) =
   List.iter (fun y -> print_string "[";List.iter (fun x -> print_formula x; print_string ", ";) y;print_string "]";) b;
   print_string "]";;
 
+(* On utilise les règles de la méthode des tableaux *)
+let expand formula = (* O(1) *)
+  match formula with
+  | Not (Not f) -> [[f]]
+  | Not (And (f1, f2)) -> [[Not f1]; [Not f2]]
+  | Not (Or (f1, f2)) -> [[Not f1; Not f2]]
+  | And (f1, f2) -> [[f1; f2]]
+  | Or (f1, f2) -> [[f1]; [f2]]
+  | _ -> [];;
 
 (* On regarde si il existe un cycle i.e une contradiction *)
 let has_cycle branch =
@@ -44,7 +43,10 @@ let rec tableau branches =
     | f :: fs ->
     
     let expansions = expand f in match expansions with
-    | [] -> tableau (fs :: rest) (* rien n'a developpé, on continue *)
+    | [] -> if List.exists (fun y -> match y with | Atom _ -> false | _ -> true) fs then
+        tableau ((fs@[f]) :: rest)
+        else 
+          tableau (fs :: rest)
     | new_branches ->
       
     let expanded_branches = List.map (fun b -> b @ fs) new_branches in
@@ -54,3 +56,9 @@ let rec tableau branches =
 let is_satisfiable formula =
   let initial_branch = [formula] in tableau [initial_branch];;
 
+let f = And(Atom "A", Or(Not (Atom "A"), Not(Atom "A")))in is_satisfiable f;;
+let f = And(Atom "A", Or(Not (Atom "A"), And(Not(Atom "D"), Atom "D")))in is_satisfiable f;;
+let f = And(Atom "D", Or(Not (Atom "A"), And(Not(Atom "D"), Atom "D")))in is_satisfiable f;;
+
+
+let f = And(Atom "A", Or(Not (Atom "A"), And(Not(Atom "D"), And(Atom "F", Or(Not (Atom "A"), And(Not(Atom "D"), And(Atom "A", Or(Not (Atom "F"), And(Not(Atom "D"), And(Atom "A", Or(Not (Atom "A"), And(Not(Atom "D"), And(Atom "A",  Atom "E"))))))))))))) in is_satisfiable f;;
