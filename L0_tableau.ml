@@ -61,4 +61,4 @@ let f = And(Atom "A", Or(Not (Atom "A"), And(Not(Atom "D"), Atom "D")))in is_sat
 let f = And(Atom "D", Or(Not (Atom "A"), And(Not(Atom "D"), Atom "D")))in is_satisfiable f;;
 
 
-let f = And(Atom "A", Or(Not (Atom "A"), And(Not(Atom "D"), And(Atom "F", Or(Not (Atom "A"), And(Not(Atom "D"), And(Atom "A", Or(Not (Atom "F"), And(Not(Atom "D"), And(Atom "A", Or(Not (Atom "A"), And(Not(Atom "D"), And(Atom "A",  Atom "E"))))))))))))) in is_satisfiable f;;
+let f = And(Atom "A", Or(Not (Atom "A"), Not(Atom "A"))) in is_satisfiable f;;
