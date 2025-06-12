@@ -59,6 +59,3 @@ let is_satisfiable formula =
 let f = And(Atom "A", Or(Not (Atom "A"), Not(Atom "A")))in is_satisfiable f;;
 let f = And(Atom "A", Or(Not (Atom "A"), And(Not(Atom "D"), Atom "D")))in is_satisfiable f;;
 let f = And(Atom "D", Or(Not (Atom "A"), And(Not(Atom "D"), Atom "D")))in is_satisfiable f;;
-
-
-let f = And(Atom "A", Or(Not (Atom "A"), Not(Atom "A"))) in is_satisfiable f;;

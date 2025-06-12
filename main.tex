@@ -349,7 +349,54 @@ Rappellons premièrement le code de has cycle:
 Il regarde dans la liste représentant la branche et les hypothèses extraites si pour chaque element, il existe sa négation. Une optimisation triviale serait d'éviter les doubles tests,
 mais cela reste en $\mathcal{O}(n^2)$.
 
-Il faudrait donc utiliser une structure de donnée permettant de vérifier l'existence de la négation d'une formule en un meilleur temps que
+Il faudrait donc utiliser une structure de donnée permettant de vérifier l'existence de la négation d'une formule en un meilleur temps que $\mathcal{O}(n^2)$
+
+Voici les approches que nous allons testé en terme de rapidité:
+
+\begin{itemize}
+    \item Par filtrage de la liste, utilisation de tableau ?
+    \item Utilisation d'un dictionnaire
+    \item Utilisation de serialisation
+    \item Utilisation de SQL
+    \item Par segmentation de donnée par arbre
+\end{itemize}
+
+\subsection{Optimisation du stockage par segmentation de donnée}
+
+On va s'interesser au dernier étant le plus intéressant pour exploiter la forme particulière de formule qu'on étudie.
+
+Actuellement, nos branches sont stockés sous forme de liste de liste, et nos formules ont une forme générale. Nous allons maintenant stocker nos formules et branches sous forme d'arbre.
+
+\begin{lstlisting}{c}
+type formula = (* Definition d'un type simple de formule logique *)
+  | Atom of string
+  | Not of string
+  | And of string * formula
+  | Or of string * formula
+
+type branch = (* Definition de notre stockage des branches*)
+  | Empty
+  | Node of (formula option * formula * branch);;
+
+\end{lstlisting}
+
+Par exemple, en faisant tourner l'algorithme, sur l'exmple $\alpha_1\land(\alpha_2\lor(\alpha_3\land(\alpha_4\lor\alpha_5)))$ 
+
+\begin{tikzpicture}[level distance=8mm]
+    \node {$\alpha_1$}
+        child {node {$\alpha_2$}}
+        child {node {$\alpha_3$}
+        child {node {$\alpha_4$}}
+        child {node {$\alpha_5$}}};
+\end{tikzpicture}
+
+Mais on remarque quelque chose, on peut assimiler un tel arbre à une liste chainée, il faudrait trouver un moyen d'equilibrer les arbres qu'on utilise.
+Mais pour l'instant, on ignore \textit{gentillement} ce problème d'équilibrage (ce problème implique la recherche d'une bijection qui préserve les propriétés).
+
+
+
+
+
 
 
 
