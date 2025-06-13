@@ -27,6 +27,7 @@ let rec print_branches (b:branch) =
 let rec formula2branch (f:formula) : branch = match f with
   | And(a, Or(b, Atom(c))) -> Node(Some(Atom b), Atom a, Node(None, Atom(c), Empty))
   | And(a, Or(b, c)) ->  Node(Some(Atom b), Atom a, formula2branch c)
+  | And(a, Atom(b)) -> Node(Some (Atom b), Atom a, Empty)
   | _ -> failwith "Pas alternée"
 
 let has_cycle (br:branch) : bool = 
@@ -36,12 +37,36 @@ let has_cycle (br:branch) : bool =
       Hashtbl.find d f = b
     else
       true
-  | Node(Some (Atom (fo, bo)), Atom (f, b), nb) ->
-    if Hashtbl.mem d f then 
-      Hashtbl.find d f = b
+  | Node(Some(Atom(fg, bg)), Atom (fd, bd), Empty) -> 
+        if Hashtbl.mem d fd then
+          if Hashtbl.find d fd = bd then
+            not @@ Hashtbl.mem d fg && Hashtbl.find d fg <> bg
+          else 
+            false
+        else(
+          Hashtbl.add d fd bd;
+          not @@ Hashtbl.mem d fg && Hashtbl.find d fg <> bg)
+  | Node(Some (Atom (fg, bg)), Atom (fd, bd), nb) ->
+    if Hashtbl.mem d fd then
+      if Hashtbl.find d fd <> bd then
+        false
+      else
+        if Hashtbl.mem d fg then
+          if Hashtbl.find d fg = bg then
+            true
+          else
+            aux nb d
+        else
+          true
     else
-      (Hashtbl.add d f b;
-      aux br d;)
+      (Hashtbl.add d fd bd;
+      if Hashtbl.mem d fg then
+        if Hashtbl.find d fg = bg then
+          true
+        else
+          aux nb d
+      else
+        true)
   | _ -> failwith "Pas alternée"
   in aux br (Hashtbl.create 100);;
 

@@ -380,7 +380,7 @@ type branch = (* Definition de notre stockage des branches*)
 
 \end{lstlisting}
 
-Par exemple, en faisant tourner l'algorithme, sur l'exmple $\alpha_1\land(\alpha_2\lor(\alpha_3\land(\alpha_4\lor\alpha_5)))$ 
+Par exemple, en faisant tourner l'algorithme, sur l'exemple $\alpha_1\land(\alpha_2\lor(\alpha_3\land(\alpha_4\lor\alpha_5)))$ 
 
 \begin{tikzpicture}[level distance=8mm]
     \node {$\alpha_1$}
@@ -392,6 +392,66 @@ Par exemple, en faisant tourner l'algorithme, sur l'exmple $\alpha_1\land(\alpha
 
 Mais on remarque quelque chose, on peut assimiler un tel arbre à une liste chainée, il faudrait trouver un moyen d'equilibrer les arbres qu'on utilise.
 Mais pour l'instant, on ignore \textit{gentillement} ce problème d'équilibrage (ce problème implique la recherche d'une bijection qui préserve les propriétés).
+Mais en réalité, on se rend compte que la méthode des tableaux est absolument parfaite pour ce type de formule:
+\begin{prop}[Alternée-SAT est dans P]
+    Il existe un algorithme permettant de résoudre en un temps polynomial le problème Alternée-SAT.
+\end{prop}
+La preuve réside dans l'algorithme qui suit qui est dérivé de la méthode des tableaux.
+Nous décrirons sa compléxité et comment il marche ici.
+
+Avant cela, il faut affirmer la coherence de ceci, car Alternée SAT est dérivable en 2-FNC-SAT qui est connu comme résolvable polynomiallement
+
+\begin{lstlisting}{c}
+let rec formula2branch (f:formula) : branch = match f with
+  | And(a, Or(b, Atom(c))) -> Node(Some(Atom b), Atom a, Node(None, Atom(c), Empty))
+  | And(a, Or(b, c)) ->  Node(Some(Atom b), Atom a, formula2branch c)
+  | And(a, Atom(b)) -> Node(Some (Atom b), Atom a, Empty)
+  | _ -> failwith "Pas alternee"
+
+let has_cycle (br:branch) : bool = 
+  let rec aux (br:branch) (d:(string,bool) Hashtbl.t) : bool = match br with
+  | Node(None, Atom (f, b), Empty) -> 
+    if Hashtbl.mem d f then 
+      Hashtbl.find d f = b
+    else
+      true
+  | Node(Some(Atom(fg, bg)), Atom (fd, bd), Empty) -> 
+        if Hashtbl.mem d fd then
+          if Hashtbl.find d fd = bd then
+            not @@ Hashtbl.mem d fg && Hashtbl.find d fg <> bg
+          else 
+            false
+        else(
+          Hashtbl.add d fd bd;
+          not @@ Hashtbl.mem d fg && Hashtbl.find d fg <> bg)
+  | Node(Some (Atom (fg, bg)), Atom (fd, bd), nb) ->
+    if Hashtbl.mem d fd then
+      if Hashtbl.find d fd <> bd then
+        false
+      else
+        if Hashtbl.mem d fg then
+          if Hashtbl.find d fg = bg then
+            true
+          else
+            aux nb d
+        else
+          true
+    else
+      (Hashtbl.add d fd bd;
+      if Hashtbl.mem d fg then
+        if Hashtbl.find d fg = bg then
+          true
+        else
+          aux nb d
+      else
+        true)
+  | _ -> failwith "Pas alternee"
+  in aux br (Hashtbl.create 100);;
+
+let is_satisfiable (f:formula) : bool = let b = formula2branch f in has_cycle b;;
+\end{lstlisting}
+
+
 
 
 
