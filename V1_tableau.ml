@@ -70,5 +70,4 @@ let has_cycle (br:branch) : bool =
   | _ -> failwith "Pas alternée"
   in aux br (Hashtbl.create 100);;
 
-
 let is_satisfiable (f:formula) : bool = let b = formula2branch f in has_cycle b;;
