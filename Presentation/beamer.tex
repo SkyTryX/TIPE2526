@@ -25,105 +25,36 @@
 
 \begin{frame}{Sommaire}
 \begin{enumerate}
-    \item Introduction Générale et Objectifs
-    \item Etude Préliminaire: Forme Alternée
-    \begin{enumerate}
-        \item Definition & Propriétés
-        \item Algorithme de résolution
-        \item Conséquence et conclusion
-    \end{enumerate}
+    \item Où on s'est quitté
+    \item Ce que j'ai fait
     \item Objectifs futurs
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Introduction - Definition}
-    \begin{definition}[Méthode des tableaux]
-        Algorithme pour prouver qu'une assertion $\phi$ ayant pour hypothèse $(H_n)$ soit satisfiable
-    \end{definition}
-    On supposera que aucune hypothèse n'est faite, on peut facilement adapter l'étude que l'on va faire lors d'ajout d'hypothèse.
-    \pause
-    \begin{itemize}
-        \item On place $\phi$ et ses hypothèses dans la racine.
-        \item On applique des règles $(R_x)$ à chaque formule en bout d'arbre qui sont developpables
-        \item Si on trouve des contradictions (des \textit{cycles}) dans toutes les branches de l'arbre (branches fermées), l'arbre est fermé donc la formule est insatisfiable.
-    \end{itemize}
-    \pause
-    \begin{tikzpicture}[scale=0.75]
-    \node {$\phi\lor\psi$}
-        child {node {$\phi$}}
-        child {node {$\psi$}};
-    \end{tikzpicture}
-    \begin{tikzpicture}[scale=0.75]
-    \node {$\lnot(\phi\land\psi)$}
-        child {node {$\lnot\phi$}}
-        child {node {$\lnot\psi$}};
-    \end{tikzpicture}
-    \begin{tikzpicture}[scale=0.75]
-    \node {$\lnot\lnot\phi$}
-        child {node {$\phi$}};
-    \end{tikzpicture}
-    \begin{tikzpicture}[level distance=8mm]
-    \node {$\phi\land\psi$}
-        child {node {$\phi, \psi$}};
-    \end{tikzpicture}  
-    \begin{tikzpicture}[level distance=8mm,scale=0.75]
-    \node {$\lnot(\phi\lor\psi)$}
-        child {node {$\lnot\phi, \lnot\psi$}};
-   \end{tikzpicture}
+\begin{frame}{Où on s'est quitté}
+    On s'était quitté la dernière fois sur une discussion sur l'orientation du questionnement de mon TIPE.
+
+    La remarque principale étant que je devais faire mon étude de la méthode des tableaux sur une forme particulière de formule que je devais poser moi même.
+
+    J'ai donc décidé en lien avec les remarques que vous m'avez fait de bien re-orienter mon TIPE.
 \end{frame}
 
-
-\begin{frame}{Introduction - Definition}
-    Les règles définis précedemment sont dites Smullyan-Style
-
-    \begin{definition}[Branche fermée]
-        Une branche est fermée si elle contient $\phi$ et $\lnot\phi$
-    \end{definition}
-    Une formule est insatisfisable ssi son arbre associé est dit fermé ssi toutes les branches le sont.
-\end{frame}
-
-\begin{frame}{Introduction - Remarques}
-    \begin{itemize}
-        \item On peut utiliser la méthode des tableaux pour montrer qu'une formule est une tautologie:
-        \begin{enumerate}
-            \item On place $\lnot\phi$ et ses hypothèses dans la racine.
-            \item On applique des règles $(R_x)$ à chaque formule en bout d'arbre qui sont developpables
-            \item Si on trouve $a$ et $\lnot a$ dans les branches de l'arbre (des \textit{cycles}), alors $\phi$ est une tautologie
-        \end{enumerate}
-        On pourra donc aussi adapter nos recherches pour la recherche de tautologie.
-        
-        \item Nous allons maintenant introduire un type de formule et étudier la méthode des tableaux sur ce cas particulier, pour en déduire des propriétés interessantes.
-        Ou même des optimisations de cette méthode.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Alternée - Definition}
+\begin{frame}{Ce que j'ai fait - Définition}
     \begin{definition}[Forme Alternée]
         Soit $n\in\mathbb{N}^*$, et $(a_k)_{k\in [|1,n|]}$ des litteraux, on dit que $\varphi$ est de forme alternée ssi
         $$\varphi = a_1\land(a_2\lor(a_3\land(\dots(a_n))))$$
     \end{definition}
     \pause
-    On remarquera le parenthesage qui enlève toute ambiguité sur la prioritée entre les opérateurs logiques.
-\end{frame}
-
-\begin{frame}{Alternée - Propriétés}
-    \begin{theorem}[Forme Negative]
-        $\varphi$ une forme alternée: 
-        $$\lnot\varphi = \lnot a_1\lor(\lnot a_2\land(\lnot a_3 \lor(\dots(\lnot a_n))))$$
-    \end{theorem}
-    \pause
     \begin{theorem}
-        Chaque arbre induit par la méthode des tableaux sur une forme alternée est un arbre binaire tel qu'on nomme dans les nodes les hypothèses.
+        \begin{itemize}
+            \item Si $\varphi$ une forme alternée: $$\lnot\varphi = \lnot a_1\lor(\lnot a_2\land(\lnot a_3 \lor(\dots(\lnot a_n))))$$
+            \item Chaque arbre induit des formes alternées par la méthode des tableaux peut être écrit comme un arbre binaire tel qu'on nomme dans les nodes les hypothèses, l'écriture est en $\mathcal{O}(n)$
+        \end{itemize}
     \end{theorem}
 \end{frame}
 
-\begin{frame}{Alternée - Recherche Algorithme}
-    Nous recherchons maintenant un algorithme utilisant la méthode des tableaux pour trouver la satisfiabilité des formes alternées.
-
-    Nous allons modéliser conformement à la méthode des tableaux et au dernier theorème présenté comme un arbre binaire, plus précisement en liste chainée:
-    Par exemple pour $n=5$, on aura le schéma suivant:
-    
-    \pause
+\begin{frame}{Ce que j'ai fait - Algorithme}
+    En utilisant la 2ème propriétés, on peut trouver un moyen d'écrire l'algorithme de la méthode des tableaux, en utilisant la forme spéciale de l'arbre induit (exemple si dessous pour $n=5$)
     \begin{tikzpicture}[level distance=8mm]
         \node {$a_1$}
             child {node {$a_2$}}
@@ -131,83 +62,31 @@
             child {node {$a_4$}}
             child {node {$a_5$}}};
     \end{tikzpicture}
-    
     \pause
-    Et ce conformement au règle de la méthode des tableaux.
-    La construction de cette arbre binaire se fait à priori en $\mathcal{O}(n)$
-\end{frame}
+    On décrit donc un algorithme en $\mathcal{O}(n)$:
 
-\begin{frame}{Alternée - Observations}
-    On va faire 3 observations, et on va en déduire un algorithme:
-    \begin{itemize}
-        \item Si un des litteraux dans un arbre gauche (les pairs) ne provoquent aucune contradiction, c'est gagné.
-        \item Dans le cas inverse, on doit rechercher plus profond dans l'arbre (parcours de la branche droite)
-        \item et ce ainsi de suite, jusqu'à en déduire un arbre fermé, ou pas
-    \end{itemize}
-
-    \begin{tikzpicture}[level distance=8mm]
-        \node {$a_1$}
-            child {node {$a_2$}}
-            child {node {$a_3$}
-            child {node {$a_4$}}
-            child {node {$a_5$}}};
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Alternée - Schema Algorithme}
-    On décrit un appel de l'algorithme qu'on implémente de manière recursive (dans le cas général):
     Avant cela on créé un dictionnaire. 
     On appelle litteral droit les litteraux impairs et gauche les pairs:  
     \begin{enumerate}
         \item On analyse le litteral droit, si il y a contradiction, l'arbre est fermé, sinon on ajoute eventuellement dans le dictionnaire le litteral
         \item On analyse le litteral gauche, si il produit une contradiction, appel recursif plus profond dans l'arbre, sinon la formule est satisfiable
     \end{enumerate}
-    On peut montrer que cette algorithme est en $\mathcal{O}(n)$
 \end{frame}
 
-\begin{frame}{Alternée - Conséquence}
-    On a donc trouvé un moyen polynomial pour montrer la satisfiabilité d'une forme alternée !!
-    \pause
-    Mais il y a une arnaque:
-    \begin{theorem}
-        Toute forme alternée peut être écrit en 2-FNC.
-    \end{theorem}
-    \pause
-    Donc heureusement qu'on arrive à trouver un algorithme polynomial pour résoudre le problème\dots
-    Néanmoins on gagne théoriquement un tout petit peu en terme de compléxité (même si 2-SAT se résout aussi linéairement)
-\end{frame}
-
-\begin{frame}{Alternée - Conclusion}
-    On conclut de cette analyse plusieurs choses:
-    \begin{enumerate}
-        \item Il faut voir avant toute chose si on ne peut pas trivialement se dériver le problème qu'on pose en un problème déjà résolu
-        \item Cette étude m'a permit de mieux comprendre la méthode des tableaux.
-    \end{enumerate}
-    Nous allons maintenant traiter un cas plus robuste.
-\end{frame}
-
-
-\begin{frame}{Forme ...}
-    \begin{definition}[Forme ...]
-        $\varphi$ est de forme ... ssi
-        $$\varphi = a_1 \implies a_2 a_3 \dots a_n$$
-    \end{definition}
-\end{frame}
-
-
-\begin{frame}{Objectifs Futurs et Conclusion}
+\begin{frame}{Objectifs Futurs}
     Voici ce que j'aimerai faire pendant les grandes vacances
     \begin{enumerate}
-        \item Avancer mon étude de la forme ...
-        \item M'intéresser à la logique du premier ordre pour faire une ultime étude de la méthode des tableaux
+        \item Trouver une formule plus difficile de la logique propositionelle à étudier.
+        \item M'intéresser à la logique du premier ordre pour faire une ultime étude de la méthode des tableaux.
     \end{enumerate}
+    Voir de possiblement de directement passer à une étude en logique du première ordre.
 \end{frame}
 
 \begin{frame}{Bibliographie}
 \begin{enumerate}
     \item Logique: fondements et applications (Dunod) de Pierre Le Barbenchon, Sophie Pinchinat, François Schwarzentruber
     \item Mathematical Logic: Tableaux Reasoning for Propositional Logic de Chiara Ghidini (https://dit.unitn.it/~ldkr/ml2015/slides/PLtableau.pdf)
-    \item Tableau Methods  for Propositional Logic and Term Logic de Tomasz Jarmużek
+    \item Tableau Methods for Propositional Logic and Term Logic de Tomasz Jarmużek
 \end{enumerate}
 \end{frame}
 
@@ -359,7 +238,7 @@
                         | _ -> failwith "Pas alternee"
                         in aux br (Hashtbl.create 100);;
           
-            let is_satisfiable (f:formula) : bool = let b = formula2branch f in has_cycle b;;
+                        let is_satisfiable (f:formula) : bool = let b = formula2branch f in has_cycle b;;
             \end{lstlisting}
         \end{tabular}
     \end{center}   
