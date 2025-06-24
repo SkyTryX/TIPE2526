@@ -40,12 +40,13 @@ let has_cycle (br:branch) : bool =
   | Node(Some(Atom(fg, bg)), Atom (fd, bd), Empty) -> 
         if Hashtbl.mem d fd then
           if Hashtbl.find d fd = bd then
-            not @@ Hashtbl.mem d fg && Hashtbl.find d fg <> bg
+            not @@ (Hashtbl.mem d fg && Hashtbl.find d fg <> bg)
           else 
             false
         else(
           Hashtbl.add d fd bd;
-          not @@ Hashtbl.mem d fg && Hashtbl.find d fg <> bg)
+          not @@ (Hashtbl.mem d fg && Hashtbl.find d fg <> bg)
+        )
   | Node(Some (Atom (fg, bg)), Atom (fd, bd), nb) ->
     if Hashtbl.mem d fd then
       if Hashtbl.find d fd <> bd then
@@ -71,3 +72,13 @@ let has_cycle (br:branch) : bool =
   in aux br (Hashtbl.create 100);;
 
 let is_satisfiable (f:formula) : bool = let b = formula2branch f in has_cycle b;;
+
+(* TESTS *)
+is_satisfiable (And(("a", false), Atom("a", true)));; (* false *)
+is_satisfiable (And(("a", false), Atom("b", true)));; (* true *)
+is_satisfiable (And(("a", false), Or(("b", false),  Atom("a", true))));; (* true *)
+is_satisfiable (And(("a", false), Or(("a", true),  Atom("a", true))));; (* false *)
+is_satisfiable (And(("a", true), Or(("a", true),  And(("", false), Atom("", true)))));; (* true *)
+is_satisfiable (And(("a", true), Or(("a", false),  And(("a", true), Atom("b", true)))));; (* true *)
+is_satisfiable (And(("a", false), Or(("a", true),  And(("b", false), Atom("b", true)))));; (* false *)
+is_satisfiable (And(("a", false), Or(("a", true),  And(("a", true), Atom("a", false)))));; (* false *)

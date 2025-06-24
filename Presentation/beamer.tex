@@ -54,7 +54,7 @@
 \end{frame}
 
 \begin{frame}{Ce que j'ai fait - Algorithme}
-    En utilisant la 2ème propriétés, on peut trouver un moyen d'écrire l'algorithme de la méthode des tableaux, en utilisant la forme spéciale de l'arbre induit (exemple si dessous pour $n=5$)
+    En utilisant la 2ème propriétée, on peut trouver un moyen d'écrire l'algorithme de la méthode des tableaux, en utilisant la forme spéciale de l'arbre induit (exemple si dessous pour $n=5$)
     \begin{tikzpicture}[level distance=8mm]
         \node {$a_1$}
             child {node {$a_2$}}
@@ -62,11 +62,11 @@
             child {node {$a_4$}}
             child {node {$a_5$}}};
     \end{tikzpicture}
+    $\varphi = a_1\land(a_2\lor(a_3\land(a_4\lor a_5)))$
     \pause
-    On décrit donc un algorithme en $\mathcal{O}(n)$:
 
-    Avant cela on créé un dictionnaire. 
-    On appelle litteral droit les litteraux impairs et gauche les pairs:  
+    On créé un dictionnaire. 
+    On appelle litteraux droits les litteraux impairs et gauche les pairs:  
     \begin{enumerate}
         \item On analyse le litteral droit, si il y a contradiction, l'arbre est fermé, sinon on ajoute eventuellement dans le dictionnaire le litteral
         \item On analyse le litteral gauche, si il produit une contradiction, appel recursif plus profond dans l'arbre, sinon la formule est satisfiable
@@ -80,14 +80,6 @@
         \item M'intéresser à la logique du premier ordre pour faire une ultime étude de la méthode des tableaux.
     \end{enumerate}
     Voir de possiblement de directement passer à une étude en logique du première ordre.
-\end{frame}
-
-\begin{frame}{Bibliographie}
-\begin{enumerate}
-    \item Logique: fondements et applications (Dunod) de Pierre Le Barbenchon, Sophie Pinchinat, François Schwarzentruber
-    \item Mathematical Logic: Tableaux Reasoning for Propositional Logic de Chiara Ghidini (https://dit.unitn.it/~ldkr/ml2015/slides/PLtableau.pdf)
-    \item Tableau Methods for Propositional Logic and Term Logic de Tomasz Jarmużek
-\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]{Code - Méthode des tableaux classique 1}
