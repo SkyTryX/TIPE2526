@@ -27,11 +27,7 @@
 \begin{enumerate}
     \item Introduction Générale et Objectifs
     \item Etude Préliminaire: Forme Alternée
-    \begin{enumerate}
-        \item Definition & Propriétés
-        \item Algorithme de résolution
-        \item Conséquence et conclusion
-    \end{enumerate}
+   
     \item Objectifs futurs
 \end{enumerate}
 \end{frame}
@@ -140,9 +136,10 @@
 \begin{frame}{Alternée - Observations}
     On va faire 3 observations, et on va en déduire un algorithme:
     \begin{itemize}
-        \item Si un des litteraux dans un arbre gauche (les pairs) ne provoquent aucune contradiction, c'est gagné.
+        \item Si un des litteraux dans une branche gauche (les pairs) ne provoquent aucune contradiction, c'est gagné.
         \item Dans le cas inverse, on doit rechercher plus profond dans l'arbre (parcours de la branche droite)
-        \item et ce ainsi de suite, jusqu'à en déduire un arbre fermé, ou pas
+        \item Et ce ainsi de suite, jusqu'à en déduire un arbre fermé, ou pas
+        \item Et ce en prenant aussi en compte les litteraux impairs
     \end{itemize}
 
     \begin{tikzpicture}[level distance=8mm]
@@ -168,40 +165,18 @@
 \begin{frame}{Alternée - Conséquence}
     On a donc trouvé un moyen polynomial pour montrer la satisfiabilité d'une forme alternée !!
     \pause
-    Mais il y a une arnaque:
-    \begin{theorem}
-        Toute forme alternée peut être écrit en 2-FNC.
-    \end{theorem}
-    \pause
-    Donc heureusement qu'on arrive à trouver un algorithme polynomial pour résoudre le problème\dots
-    Néanmoins on gagne théoriquement un tout petit peu en terme de compléxité (même si 2-SAT se résout aussi linéairement)
+    \begin{itemize}
+        \item En effet, ce programme est en $\mathcal{O}(n)$, c'est un parcours linéaire d'une liste chainée, utilisant des opérateurs sur les Hashtbl qu'on peut supposé constant.
+        \item On prouve la terminaison: 
+        \item On prouve la correction: 
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Alternée - Conclusion}
-    On conclut de cette analyse plusieurs choses:
-    \begin{enumerate}
-        \item Il faut voir avant toute chose si on ne peut pas trivialement se dériver le problème qu'on pose en un problème déjà résolu
-        \item Cette étude m'a permit de mieux comprendre la méthode des tableaux.
-    \end{enumerate}
-    Nous allons maintenant traiter un cas plus robuste.
+    On décide de tester la vitesse d'execution de mon algorithme contre un algorithme de satisfiabilité optimisé:
+    
 \end{frame}
 
-
-\begin{frame}{Forme ...}
-    \begin{definition}[Forme ...]
-        $\varphi$ est de forme ... ssi
-        $$\varphi = a_1 \implies a_2 a_3 \dots a_n$$
-    \end{definition}
-\end{frame}
-
-
-\begin{frame}{Objectifs Futurs et Conclusion}
-    Voici ce que j'aimerai faire pendant les grandes vacances
-    \begin{enumerate}
-        \item Avancer mon étude de la forme ...
-        \item M'intéresser à la logique du premier ordre pour faire une ultime étude de la méthode des tableaux
-    \end{enumerate}
-\end{frame}
 
 \begin{frame}{Bibliographie}
 \begin{enumerate}
