@@ -167,14 +167,20 @@
     \pause
     \begin{itemize}
         \item En effet, ce programme est en $\mathcal{O}(n)$, c'est un parcours linéaire d'une liste chainée, utilisant des opérateurs sur les Hashtbl qu'on peut supposé constant.
-        \item On prouve la terminaison: 
-        \item On prouve la correction: 
+        \item On a prouvé la terminaison et la correction du programme; 
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Alternée - Conclusion}
-    On décide de tester la vitesse d'execution de mon algorithme contre un algorithme de satisfiabilité optimisé:
-    
+    On décide de tester la vitesse d'execution de mon algorithme contre deux algorithmes de satisfiabilités optimisés: Quine et Coq.
+    On utilise un script Python pour générer les mêmes formules pour les différentes structures données demandés par les algorithmes.
+    Sur un dataset de 100 formules genere pseudo-aléatoirement, nous avons les résultats suivants:
+
+    \begin{itemize}
+        \item \textbf{Alternée:} 0.000485s
+        \item \textbf{Quine:} 0.024931s
+    \end{itemize}    
+    Donc notre algorithme est 50 fois plus rapide sur ce dataset, ce qui n'est pas tellement supprenant.
 \end{frame}
 
 
