@@ -4,6 +4,7 @@
 \usetheme{Rochester}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
+\usetikzlibrary{arrows.meta}
 \lstset{
   language=caml,
   basicstyle=\ttfamily\tiny,
@@ -23,14 +24,6 @@
 \titlepage
 \end{frame}
 
-\begin{frame}{Sommaire}
-\begin{enumerate}
-    \item Où on s'est quitté
-    \item Ce que j'ai fait
-    \item Objectifs futurs
-\end{enumerate}
-\end{frame}
-
 \begin{frame}{Position du problème}
     \begin{itemize}[<+->]
         \item On cherche à étudier une méthode algorithmique permettant de montrer la satisfiabilité d'une formule: la Méthode des tableaux.
@@ -38,9 +31,27 @@
         \item On regarde ensuite si il y a des contradictions dans toutes les branches, si c'est le cas, la formule est insatisfaisable.
         \item Cette méthode est utilisé dans diverses logiques, pour l'instant, on se restreint à la logique propositionnelle.
     \end{itemize}
-    \pause
-    Un exemple graphique:
-    % EXEMPLE A FAIRE
+\end{frame}
+
+\begin{frame}{Un exemple graphique}
+    \textbf{Formule:} $\lnot(a \Rightarrow (b \Rightarrow a))$
+
+    \begin{center}
+        \begin{tikzpicture}[
+            every node/.style={draw, minimum width=1.5cm, align=center},
+            every arrow/.style={thick,->,>=Stealth}
+        ]
+        \node (root) at (0,0) {$\lnot(a \Rightarrow (b \Rightarrow a))$};
+        \pause
+        \node (not_b_a) at (0,-1) {$a, \lnot(b \Rightarrow a)$};
+        \draw[every arrow] (root) -- (not_b_a);
+        \pause
+        \node (b) at (0,-2) {$b, \lnot a$};
+        \draw[every arrow] (not_b_a) -- (b);
+        \pause
+        \draw[red,every arrow] (b) -- (not_b_a);
+        \end{tikzpicture}
+    \end{center}
 \end{frame}
 
 \begin{frame}{Première approche}
@@ -65,9 +76,22 @@
             child {node {$a_4$}}
             child {node {$a_5$}}};
     \end{tikzpicture}
-   
+
+    Au lieu de :
+
+    \begin{tikzpicture}[level distance=8mm]
+        \node {$a_1$}
+            child {node {$a_1 , a_2\lor(a_3\land(a_4\lor a_5))$}
+                child {node {$a_2$}}
+                child {node {$a_3\land(a_4\lor a_5)$}
+                    child {node {$a_3 , a_4\lor a_5$}
+                        child {node {$a_4$}}
+                        child {node {$a_5$}}
+                        }
+                }
+            };
+    \end{tikzpicture}
     Pour $\varphi = a_1\land(a_2\lor(a_3\land(a_4\lor a_5)))$
-    % METTRE LE AVANT (ya le après et la formule)
 \end{frame}
 
 \begin{frame}{Résolution du problème}
@@ -96,9 +120,9 @@
     \pause
     On créé une base de donnée de 100 formules de forme alternée et on fait tourner Quine et notre algorithme dessus.
     \begin{itemize}
-        \item \textbf{Alternée:}  %FAIRE LE TEST
-        \item \textbf{Quine:} 
-        \item \textbf{Tableaux:} 
+        \item \textbf{Alternée:} 0.000493s
+        \item \textbf{Quine (avec conversion en CNF):} 0.025874s
+        \item \textbf{Quine (sans conversion en CNF):} 0.018691s
     \end{itemize}  
 \end{frame}
  
@@ -149,8 +173,8 @@
     \begin{center}
         \begin{tabular}{c}
             \begin{lstlisting}
-                (* La decomposition usuelle faites durant la methode des tableaux *)
-                let decompose_once (br : branch) : branch list option =
+            (* La decomposition usuelle faites durant la methode des tableaux *)
+            let decompose_once (br : branch) : branch list option =
                 let rec find_nonlit acc = function
                     | [] -> None
                     | x :: xs ->

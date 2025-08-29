@@ -32,20 +32,22 @@ modale.
 Une grande problématique dans le domaine de la logique (en outre de la logique propositionnelle) est la recherche d'un algorithme permettant de 
 résoudre le problème de satisfiabilité (SAT) en temps polynomial. La résolution de ce colossal problème impliquerait $P=NP$ [3]. Le but de notre étude
 n'est évidemment pas de résoudre ce problème, mais de présenter une approche personnelle du problème de la satisfiabilité en utilisant la méthode des
-tableaux et en proposant des implémentations dans le langage OCaml.
+tableaux et en proposant des implémentations dans le langage OCaml. Dans cette approche, nous essayerons de trouver des algorithmes qui résolvent une
+sous-instance de SAT en temps polynomial, et si ce n'est pas possible, nous trouverons des moyens d'optimiser l'algorithme exponentiel.
 
 \section{Problématique retenue}
-Comment implémenter et optimiser la méthode des tableaux dans la logique propositionnelle ?
+Comment implémenter et optimiser la méthode des tableaux dans la logique propositionnelle pour résoudre le problème SAT ?
 
 \section{Objectifs du TIPE}
-À l'issue de l'étude, je souhaite proposer plusieurs études complètes de formules logiques. Ces études contiennent :
+À l'issue de l'étude, je souhaite proposer plusieurs études complètes de formules logiques. Ces études contiennent:
 \begin{itemize}
     \item Un sous-ensemble de formules
     \item Un algorithme (polynomial ou pas) et son implémentation résolvant SAT pour ce type de formule avec la démarche scientifique de recherche derrière l'algorithme.
     \item Une comparaison avec d'autres algorithmes connus
     \item Une preuve de terminaison et de correction
 \end{itemize}
-Et la somme permet de proposer, comme d'annoncer, une approche personnelle du SAT, avec la méthode des tableaux, et à partir de nos recherches, de déduire  ces avantages et ces inconvénients.
+Et la somme permet de proposer, comme d'annoncer, une approche personnelle du problème SAT, avec la méthode des tableaux, et à partir de nos recherches, 
+de déduire ces avantages et ces inconvénients.
 
 \section{Liste de références bibliographiques}
 \begin{enumerate}
