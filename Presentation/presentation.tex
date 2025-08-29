@@ -62,12 +62,12 @@
     \end{definition}
     Notre but en faisant une restriction du problème est:
     \begin{itemize}
-        \item De mieux comprendre les avantages de cette méthode (dans quelle type de formule la méthode est-il meilleur ?)
+        \item De mieux comprendre les avantages de cette méthode (dans quelle type de formule la méthode est-elle meilleur ?)
         \item De trouver des algorithmes polynomiales pour nos restrictions (si ce n'est possible, alors on améliorera aux maximum l'algorithme)
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Ce que j'ai fait - Algorithme}
+\begin{frame}{Une reecriture}
     En utilisant une propriété que j'ai démontré, on va re-écrire l'arbre induit par la méthode des tableaux d'une manière différente:
     \begin{tikzpicture}[level distance=8mm]
         \node {$a_1$}
@@ -100,7 +100,7 @@
         \item On analyse le litteral droit, si il y a contradiction, l'arbre est fermé, sinon on ajoute eventuellement dans le dictionnaire le litteral
         \item On analyse le litteral gauche, si il produit une contradiction, appel recursif plus profond dans l'arbre, sinon la formule est satisfiable
     \end{enumerate}
-    Le cas de base étant l'arriver au bout du peigne.
+    Le cas de base étant l'arrivée au bout du peigne.
     \begin{tikzpicture}[level distance=8mm]
         \node {$a_1$}
             child {node {$a_2$}}
@@ -111,7 +111,7 @@
 \end{frame}
 
 \begin{frame}{Preuves et stats}
-    L'algorithme est en $\mathcal{O}(n)$, en supposant les opérations Hashtbl constant.
+    L'algorithme est en $\mathcal{O}(n)$, en supposant les opérations Hashtbl constantes.
     \pause
     \begin{itemize}
         \item La correction (preuve faite) est assuré par l'invariant "Toutes les branches déjà traités sont fermés"
@@ -130,7 +130,7 @@
     J'hésite toujours actuellement entres deux dernières approches de mon TIPE:
     \begin{enumerate}
         \item Soit trouver une autre formule de la logique propositionelle à étudier.
-        \item Soit étudier la méthode des tableaux dans la logique du premier ordre.
+        \item Soit étudier la méthode des tableaux dans la logique du premier ordre (dans ce cas là, s'intéresser aux preuves ?).
     \end{enumerate}
 \end{frame}
 
