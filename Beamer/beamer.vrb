@@ -23,7 +23,7 @@
                         | _ -> failwith "Pas alternee"
                         in aux br (Hashtbl.create 100);;
 
-            let is_satisfiable (f:formula) : bool = let b = formula2branch f in has_cycle b;;
+                        let is_satisfiable (f:formula) : bool = let b = formula2branch f in has_cycle b;;
             \end{lstlisting}
         \end{tabular}
     \end{center}
