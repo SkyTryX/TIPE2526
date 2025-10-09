@@ -176,9 +176,9 @@
 \begin{frame}{Alternée - Conversion}
     On se demande naturellement quelles sont les formules qu'on peut transformer en formule alternée.
     \begin{itemize}
-        \item Quand on traduit une forme alternée, on obtient une FNC dont la taille des monomes est strictement croissante.
+        \item Quand on traduit une forme alternée, on obtient une FNC dont la taille des clauses est strictement croissante.
         \item On peut trouver des contres exemples: par exemple $a_1\lor a_2$ ne pourra pas s'exprimer sous forme alternée (sauf si on fixe un des littéraux)
-        \item En convertissant toutes les formules en FNC, seules certaines formules ayant des clauses à taille croissante.
+        \item En convertissant toutes les formules en FNC, seules certaines formules ayant des clauses à taille croissante pourront être reconvertit en forme alternée.
     \end{itemize}
 \end{frame}
 
@@ -197,7 +197,7 @@
 
 \begin{frame}{La logique du 1er ordre}
     \begin{itemize}
-        \item Les quantificateurs $\exists$ et $\forall$
+        \item On ajoute les quantificateurs $\exists$ et $\forall$
         \item Un ensemble de fonctions de symboles $\mathcal{S}_F$ qui a des symboles associe un symbole
         \item Un ensemble de symbole relationnel $\mathcal{S}_p$ qui a des symboles associe un booléen.
     \end{itemize}
@@ -213,7 +213,34 @@
 \end{frame}
 
 \begin{frame}{La méthode des tableaux pour logique du 1er ordre}
+    On ajoute deux règles: une sur les $\forall$ et une pour les $\exists$:
 
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\forall x, P(x)$}
+        child {node {$P(t)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\exists x, P(x)$}
+        child {node {$P(c)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\forall x, P(x))$}
+        child {node {$\exists x, \lnot P(x)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\exists x, P(x))$}
+        child {node {$\forall x, \lnot P(x)$}};
+    \end{tikzpicture}
+    
+    où $t$ et $c$ est une variable fixe quelquonque.
+    Pour la 1ère règle, on peut prendre $t$ différent, pour la deuxième, on ne peut pas!
+    En effet, $c$ est une constante fraiche qu'on construit par skolémisation.
+
+    A Corriger
+\end{frame}
+
+\begin{frame}{Une étude en premier ordre}
+    Je ne sais pas si je ne devrais pas plutot commencer par une étude dans le 1er ordre, ce serait + smart
 \end{frame}
 
 \begin{frame}{Définition - Logique Modale}

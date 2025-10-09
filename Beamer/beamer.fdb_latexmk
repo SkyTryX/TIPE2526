@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1759243944.31689 "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" "beamer.pdf" "beamer" 1759243948.75501 0
-  "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" 1759243939.49465 20895 4d51274fd5ee2030819cb4344d24a008 ""
+["pdflatex"] 1759849844.56743 "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" "beamer.pdf" "beamer" 1759849849.10663 0
+  "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" 1759849844.18882 21965 2b2cb938b3263903703fb1aa04ef395e ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecit0800.tfm" 1136768653 1536 09682d3e827df9145fea3c41a21d8b01 ""
@@ -244,11 +244,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1752162640 5523539 cbe340ff87ac4cfddcdc6361a84e52ac ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1752162748 3604909 76315c4aad85d1f43d1d3cb83380097e ""
   "/usr/local/texlive/2025/texmf.cnf" 1752162626.34851 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "beamer.aux" 1759243948.45518 3669 2d6009ccb87763945ffd6959722ea333 "pdflatex"
-  "beamer.nav" 1759243948.45734 2516 8027fbd845bcf64a4fe4f406f90b6efb "pdflatex"
-  "beamer.out" 1759243945.83085 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "beamer.tex" 1759243939.49465 20895 4d51274fd5ee2030819cb4344d24a008 ""
-  "beamer.vrb" 1759243948.38987 1125 0d45832f95ca5ffaa79a530901cd559d "pdflatex"
+  "beamer.aux" 1759849848.80711 3798 183600970d72bed3253d87f7010c4ac1 "pdflatex"
+  "beamer.nav" 1759849848.80911 2609 2ed2d2a99fd657852aa3a5dd33b94127 "pdflatex"
+  "beamer.out" 1759849846.08311 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "beamer.tex" 1759849844.18882 21965 2b2cb938b3263903703fb1aa04ef395e ""
+  "beamer.vrb" 1759849848.74311 1125 0d45832f95ca5ffaa79a530901cd559d "pdflatex"
   (generated)
   "beamer.aux"
   "beamer.log"
