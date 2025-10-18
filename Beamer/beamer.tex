@@ -198,22 +198,22 @@
 \begin{frame}{La logique du 1er ordre}
     \begin{itemize}
         \item On ajoute les quantificateurs $\exists$ et $\forall$
-        \item Un ensemble de fonctions de symboles $\mathcal{S}_F$ qui a des symboles associe un symbole
-        \item Un ensemble de symbole relationnel $\mathcal{S}_p$ qui a des symboles associe un booléen.
+        \item Un ensemble de fonctions de symboles $\mathcal{F}$ qui a des symboles associe un symbole
+        \item Un ensemble de relation $\mathcal{R}$ qui a des symboles associe un booléen.
     \end{itemize}
-    On note l'arité le nombre d'argument d'une fonction.
+    On note l'arité le nombre d'argument d'une fonction et $X$ les variables.
     \begin{definition}
-        On définit les termes $\mathcal{T}$ récursivement:
+        On définit les termes $\mathcal{T}(\mathcal{F}, X)$ par induction:
         \begin{itemize}
-            \item $\mathcal{T}_0 = \mathcal{V}\cup\mathcal{S}_F^0$ qui dénote les fonctions d'arité $0$.
-            \item $\mathcal{T}_n = \mathcal{T}_{n-1}\cup\{ f(t_1,\dots, t_k) | k\in\mathbb{N} \land f\in\mathcal{S}_F^k \land t_1,\dots,t_k\in\mathcal{T}_{n-1} \}$ 
-            \item $\mathcal{T} = \bigcup_{n\in\mathbb{N}} \mathcal{T}_n$
+            \item Tout $x\in X$ est un terme.
+            \item Les constantes sont des termes (symbole d'arité 0).
+            \item $f(t_1,\dots, t_n)$ est un terme si $f$ est un symbole d'arité $n$ et $t_1,\dots,t_n$ sont des termes.
         \end{itemize}
     \end{definition}
 \end{frame}
 
 \begin{frame}{La méthode des tableaux pour logique du 1er ordre}
-    On ajoute deux règles: une sur les $\forall$ et une pour les $\exists$:
+    On ajoute quatres règles:
 
     \begin{tikzpicture}[scale=0.75]
     \node {$\forall x, P(x)$}
@@ -233,40 +233,20 @@
     \end{tikzpicture}
     
     où $t$ et $c$ est une variable fixe quelquonque.
-    Pour la 1ère règle, on peut prendre $t$ différent, pour la deuxième, on ne peut pas!
-    En effet, $c$ est une constante fraiche qu'on construit par skolémisation.
-
-    A Corriger
+    
+    \textbf{Attention:} Pour la règle $\forall$, on peut choisir $t$, pour la règle $\exists$, on prend une variable fraiche $c$ quelquonque!
 \end{frame}
 
-\begin{frame}{Une étude en premier ordre}
-    Je ne sais pas si je ne devrais pas plutot commencer par une étude dans le 1er ordre, ce serait + smart
-\end{frame}
+\begin{frame}{Logique temporelle du temps linéaire: une branche de la logique Modale}
 
-\begin{frame}{Définition - Logique Modale}
-    \begin{definition}[Logique Modale]
-        C'est une logique qui étend la logique propositionnelle, la logique du premier ordre avec des modalités
-    \end{definition}
-    \pause
-    \begin{definition}[Modalite]
-        Terme modifiant le rapport entre un prédicat et un sujet.
-    \end{definition}
-    \pause
-    Il existe plusieurs types de modalité:
-    \begin{itemize}
-        \item Il est nécessaire que ... $\square$
-        \item modalité temporelle: “Demain, ...” $X$
-        \item modalité épistémique: “Alice croit que Paul sait que ... ”($B_{Alice}$, $K_{Paul}$ ...)
-        \item modalité déontique: “Il est obligatoire ...” $O$, “Il est permis ...” $P$
-        \item Ou: $p \implies[\pi]q$: Si $p$ avant l'exécution de $\pi$, alors $q$ après”
-    \end{itemize}
 \end{frame}
 
 \begin{frame}{Bibliographie}
 \begin{enumerate}
     \item Logique: fondements et applications (Dunod) de Pierre Le Barbenchon, Sophie Pinchinat, François Schwarzentruber
     \item Mathematical Logic: Tableaux Reasoning for Propositional Logic de Chiara Ghidini (https://dit.unitn.it/~ldkr/ml2015/slides/PLtableau.pdf)
-    \item Tableau Methods  for Propositional Logic and Term Logic de Tomasz Jarmużek
+    \item Tableau Methods for Propositional Logic and Term Logic de Tomasz Jarmużek
+    \item Principles of Model Checking - Christel Baier et Joost-Pieter Katoen
 \end{enumerate}
 \end{frame}
 

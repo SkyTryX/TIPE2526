@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1759849844.56743 "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" "beamer.pdf" "beamer" 1759849849.10663 0
-  "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" 1759849844.18882 21965 2b2cb938b3263903703fb1aa04ef395e ""
+["pdflatex"] 1760454464.97561 "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" "beamer.pdf" "beamer" 1760454469.63287 0
+  "/home/dorian/Documents/School/Prepa/TIPE/Beamer/beamer.tex" 1760454464.59945 20942 1cc9e2eb9c312ca5746f8abe5c8ec247 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/ecit0800.tfm" 1136768653 1536 09682d3e827df9145fea3c41a21d8b01 ""
@@ -37,7 +37,6 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi10.tfm" 1336178347 1696 aaa5bbd1f47f001247d42218ce371101 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/sansmathaccent/mathkerncmssi8.tfm" 1336178347 1676 fb6c6a335484692abff897d6e8965829 ""
-  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1248133631 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb" 1248133631 24457 5cbb7bdf209d5d1ce9892a9b80a307cc ""
@@ -46,7 +45,6 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb" 1248133631 25168 33771b85f45c82138dd7745db7092d1c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
-  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1248133631 31764 459c573c03a4949a528c2cc7f557e217 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0800.pfb" 1215737283 150882 85f9c798053ab155eb37c34984ba1d2f ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsi1000.pfb" 1215737283 103607 8dec125a771685406ae21998f7cfb6f2 ""
@@ -244,11 +242,11 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1752162640 5523539 cbe340ff87ac4cfddcdc6361a84e52ac ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1752162748 3604909 76315c4aad85d1f43d1d3cb83380097e ""
   "/usr/local/texlive/2025/texmf.cnf" 1752162626.34851 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "beamer.aux" 1759849848.80711 3798 183600970d72bed3253d87f7010c4ac1 "pdflatex"
-  "beamer.nav" 1759849848.80911 2609 2ed2d2a99fd657852aa3a5dd33b94127 "pdflatex"
-  "beamer.out" 1759849846.08311 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "beamer.tex" 1759849844.18882 21965 2b2cb938b3263903703fb1aa04ef395e ""
-  "beamer.vrb" 1759849848.74311 1125 0d45832f95ca5ffaa79a530901cd559d "pdflatex"
+  "beamer.aux" 1760454469.3255 3669 a1b7b9f2ed23d122515fa8a1acd478f3 "pdflatex"
+  "beamer.nav" 1760454469.3275 2516 ac2429c1d4b2d49cea259affb6f31532 "pdflatex"
+  "beamer.out" 1760454466.63447 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "beamer.tex" 1760454464.59945 20942 1cc9e2eb9c312ca5746f8abe5c8ec247 ""
+  "beamer.vrb" 1760454469.2595 1125 0d45832f95ca5ffaa79a530901cd559d "pdflatex"
   (generated)
   "beamer.aux"
   "beamer.log"
