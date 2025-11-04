@@ -26,9 +26,8 @@
 \begin{frame}{Sommaire}
 \begin{enumerate}
     \item Introduction Générale et Objectifs
-    \item Etude Préliminaire: Forme Alternée
-   
-    \item Objectifs futurs
+    \item Etude Introductive: Forme Alternée
+    \item Etude dans le cadre de la logique temporelle linéaire
 \end{enumerate}
 \end{frame}
 
@@ -100,17 +99,6 @@
     \end{definition}
     \pause
     On remarquera le parenthesage qui enlève toute ambiguité sur la prioritée entre les opérateurs logiques.
-\end{frame}
-
-\begin{frame}{Alternée - Propriétés}
-    \begin{theorem}[Forme Negative]
-        $\varphi$ une forme alternée: 
-        $$\lnot\varphi = \lnot a_1\lor(\lnot a_2\land(\lnot a_3 \lor(\dots(\lnot a_n))))$$
-    \end{theorem}
-    \pause
-    \begin{theorem}
-        Chaque arbre induit par la méthode des tableaux sur une forme alternée est un arbre binaire tel qu'on nomme dans les nodes les hypothèses.
-    \end{theorem}
 \end{frame}
 
 \begin{frame}{Alternée - Recherche Algorithme}
@@ -234,11 +222,108 @@
     
     où $t$ et $c$ est une variable fixe quelquonque.
     
-    \textbf{Attention:} Pour la règle $\forall$, on peut choisir $t$, pour la règle $\exists$, on prend une variable fraiche $c$ quelquonque!
+    \textbf{Attention:} Pour la règle $\forall$, on peut choisir $t$, pour la règle $\exists$, on prend une variable fraiche $c$!
 \end{frame}
 
-\begin{frame}{Logique temporelle du temps linéaire: une branche de la logique Modale}
+\begin{frame}{La logique temporelle du temps linéaire}
+    \begin{definition}[Formule de la LTL]
+        On définit $F$ l'ensemble des formules de la LTL inductivement par:
+        \begin{itemize}
+            \item $p\in AP \implies p\in F$
+            \item si $\psi$ et $\phi$ sont des formules de LTL alors $\lnot\psi, \phi\lor\psi, X\psi, \phi U\psi$ sont des formules de LTL
+        \end{itemize}
+        $AP$ un ensemble fini de variables propositionnelles.
+    \end{definition}
+    \begin{definition}[Opérateurs X et U]
+            \begin{itemize}
+                \item $X\phi$ : $\phi$ doit être satisfaite dans l'état suivant (neXt)
+                \item $\psi U\phi$ : $\psi$ doit être satisfaite dans tous les états jusqu'à un état où $\phi$ est satisfait (Until)
+            \end{itemize}
+        \end{definition}
+\end{frame}
 
+\begin{frame}{Etat dans la LTL}
+    \begin{definition}[Monde]
+        On définit un tel objet comme $\omega := w_0,w_1,\dots$ une suite infinie d'état.
+        On écrira $\omega^i:=w_i,w_{i+1},\dots$ un suffixe de $\omega$.
+    \end{definition}
+    Soit $v : \omega\times F \rightarrow \{T,F\}$ une fonction de valuation.
+    \begin{definition}[Satisfaction d'un monde]
+        En LTL, on définit $\omega \models f$ via:
+        \begin{itemize}
+            \item $\omega \models a$ si $v(w_0,a) = T$ si $a$ atomique 
+            \item $\omega \models \lnot f$ si $\lnot(\omega \models f)$ 
+            \item $\omega \models f\lor g$ si $\omega \models f$ ou $\omega \models g$
+            \item $\omega \models \textbf{X}f$ si $\omega^1 \models f$
+            \item $\omega \models f\textbf{U}g$ si $\omega \models g$ ou $\omega \models f\land\textbf{X}(f\textbf{U}g)$
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Méthode des tableaux en LTL}
+    On définit deux nouvelles règles pour la méthode des tableaux en LTL:
+
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot\textbf{X}f$}
+        child {node {$\textbf{X}\lnot f$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=3cm}]
+    \node {$f\textbf{U}g$}
+        child {node {$g$}}
+        child{node {$f$, $\textbf{X}(f\textbf{U}g)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=4cm}]
+    \node {$\lnot(f\textbf{U}g)$}
+        child {node {$g$}}
+        child{node {$\lnot g$, $\lnot f \lor \lnot\textbf{X}(f\textbf{U}g)$}};
+    \end{tikzpicture}
+
+    \begin{definition}[Formule élementaire]
+        $f$ est élementaire ssi il respecte un de ses 2 points:
+        \begin{itemize}
+            \item C'est une formule atomique (ou la négation d'une formule atomique)
+            \item Il a comme connecteur logique "principale" $\textbf{X}$ (des X-formules)
+        \end{itemize}
+    \end{definition}
+    Si un noeud contient uniquement des formules elementaires, alors on créé un fils
+    du noeud contenant toutes les \textbf{X}-formules sans leur connecteur logique principal $\textbf{X}$
+\end{frame}
+
+\begin{frame}{Exemples d'utilisation de la méthode des tableaux}
+    On peut trouver plusieurs applications à la LTL et à la méthode des tableaux:
+    \begin{itemize}
+        \item Preuve de programme concurrentiel
+        \item Raisonnement sur des circuits intégrés
+        \item Raisonnement sur les protocoles de communications
+    \end{itemize}
+    Toutes ces applications s'inscrivent dans le cadre de la vérification de modèles qui est une méthode permettant de montrer
+    la correction de systèmes informatiques complexes.
+
+\begin{definition}[Verification de modèle (Model Checking)]
+    Technique de vérification qui explore tout les états possible d'un système de manière force brute.
+\end{definition}
+\end{frame}
+
+
+\begin{frame}{A propos du model checking}
+    \begin{itemize}
+        \item Ce n'est pas avec la LTL que nous allons faire des gros exemples de model checking (Un model checker de base peut s'occuper de $10^9$ états environ, allant jusqu'à $10^{476}$ pour les meilleurs!).
+        \item Ainsi un model checker typique pourrait utiliser entre autres la LTL pour s'occuper en particulier des deadlocks. C'est ainsi qu'on pourrait utiliser la méthode des tableaux pour prouver une formule qui montre
+            que des algorithmes vont bien s'executer de manière à ne pas avoir d'inter-dépendance.
+        \item Ainsi nous allons examiner un exemple dans lequel nous allons appliquer la méthode des tableaux pour prouver le bon fonctionnement du système choisit!
+    \end{itemize}    
+\end{frame}
+
+\begin{frame}{Automate de Büchi}
+Definitions Explications etc...
+\end{frame}
+
+\begin{frame}{Contexte}
+Application, un simple feu rouge ?
+\end{frame}
+
+\begin{frame}{Notre But}
+Résolution par Tableau et par Buchi (après implémentation des solutions). Comparaison des algorithmes en terme de rapidité ? 
 \end{frame}
 
 \begin{frame}{Bibliographie}
@@ -246,6 +331,7 @@
     \item Logique: fondements et applications (Dunod) de Pierre Le Barbenchon, Sophie Pinchinat, François Schwarzentruber
     \item Mathematical Logic: Tableaux Reasoning for Propositional Logic de Chiara Ghidini (https://dit.unitn.it/~ldkr/ml2015/slides/PLtableau.pdf)
     \item Tableau Methods for Propositional Logic and Term Logic de Tomasz Jarmużek
+    \item The tableau method for temporal logic: an overview - Pierre WOLPER
     \item Principles of Model Checking - Christel Baier et Joost-Pieter Katoen
 \end{enumerate}
 \end{frame}

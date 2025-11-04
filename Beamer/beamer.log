@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.10)  14 OCT 2025 17:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.10)  4 NOV 2025 17:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -794,15 +794,15 @@ Dictionary: translator-theorem-dictionary, Language: English
 [2
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 69.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 68.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 69.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 68.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 69.
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 68.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
 )
@@ -894,6 +894,26 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 [24
 
 ]
+
+[25
+
+]
+
+[26
+
+]
+
+[27
+
+]
+
+[28
+
+]
+
+[29
+
+]
 \openout4 = `beamer.vrb'.
 
  (./beamer.vrb
@@ -901,14 +921,14 @@ LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <6> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 5.
 )
 
-[25
+[30
 
 ]
 \openout4 = `beamer.vrb'.
 
  (./beamer.vrb)
 
-[26
+[31
 
 ]
 \openout4 = `beamer.vrb'.
@@ -920,21 +940,21 @@ Overfull \hbox (87.11981pt too wide) in paragraph at lines 3--33
 
 )
 
-[27
+[32
 
 ]
 \openout4 = `beamer.vrb'.
 
  (./beamer.vrb)
 
-[28
+[33
 
 ]
 \openout4 = `beamer.vrb'.
 
  (./beamer.vrb)
 
-[29
+[34
 
 ]
 \openout4 = `beamer.vrb'.
@@ -946,7 +966,7 @@ Overfull \hbox (182.72223pt too wide) in paragraph at lines 3--31
 
 )
 
-[30
+[35
 
 ]
 \openout4 = `beamer.vrb'.
@@ -958,7 +978,7 @@ Overfull \hbox (33.58246pt too wide) in paragraph at lines 3--32
 
 )
 
-[31
+[36
 
 ]
 \openout4 = `beamer.vrb'.
@@ -970,7 +990,7 @@ Overfull \hbox (14.46198pt too wide) in paragraph at lines 3--29
 
 )
 
-[32
+[37
 
 ]
 \tf@nav=\write6
@@ -991,18 +1011,18 @@ Package rerunfilecheck Info: File `beamer.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27855 strings out of 467822
- 542324 string characters out of 5432409
+ 27936 strings out of 467822
+ 543774 string characters out of 5432409
  1373461 words of memory out of 5000000
- 55855 multiletter control sequences out of 15000+600000
- 646586 words of font info for 91 fonts, out of 8000000 for 9000
+ 55924 multiletter control sequences out of 15000+600000
+ 648136 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,123p,469b,1433s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsi1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsi1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb>
-Output written on beamer.pdf (32 pages, 278653 bytes).
+Output written on beamer.pdf (37 pages, 285316 bytes).
 PDF statistics:
- 936 PDF objects out of 1000 (max. 8388607)
- 851 compressed objects within 9 object streams
- 65 named destinations out of 1000 (max. 500000)
+ 1068 PDF objects out of 1200 (max. 8388607)
+ 977 compressed objects within 10 object streams
+ 75 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
