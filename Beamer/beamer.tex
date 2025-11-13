@@ -315,15 +315,34 @@
 \end{frame}
 
 \begin{frame}{Automate de Büchi}
-Definitions Explications etc...
+Un automate de Büchi est un 5-uplets $(S, I, T, F, \Sigma)$ tel que
+\begin{itemize}
+    \item $S$ est un ensemble fini d'état
+    \item $I\subseteq S$ un ensemble d'état initiaux
+    \item $F\subseteq S$ un ensemble d'état finaux
+    \item $\Sigma$ Un ensemble fini de symboles appelé alphabet
+    \item $T: \{S\times \Sigma\}\mapsto \mathcal{P}(S)$ Une fonction de transition.
+\end{itemize}
+Cet automate particulier accepte des séquences infinis (donc des mots infinis) ssi le mot passe par un état acceptant une infinité de fois.
+C'est un outil utilisé dans le cadre de la vérification de modèle en LTL.
 \end{frame}
 
-\begin{frame}{Contexte}
-Application, un simple feu rouge ?
+\begin{frame}{Büchi en LTL}
+    On va utiliser l'algorithme de Gerth pour transformer notre formule LTL en Automate de Büchi Généralisé (GBA)
+    \begin{definition}[GBA]
+        Un GBA est un automate de Büchi avec la seule particularité que $F$ est un ensemble d'ensemble d'état acceptant appelé \textbf{condition d'acceptation}.
+        
+        Un GBA accepte un mot ssi il est passé au moins une fois par un état dans chaque ensemble d'état acceptant.
+    \end{definition}
+    Nous nous ramenerons à un Automate de Büchi via un autre algorithme pour simplifier.
 \end{frame}
 
 \begin{frame}{Notre But}
 Résolution par Tableau et par Buchi (après implémentation des solutions). Comparaison des algorithmes en terme de rapidité ? 
+\end{frame}
+
+\begin{frame}{Contexte}
+Application, un simple feu rouge ?
 \end{frame}
 
 \begin{frame}{Bibliographie}
