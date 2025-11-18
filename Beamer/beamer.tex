@@ -337,8 +337,32 @@ C'est un outil utilisé dans le cadre de la vérification de modèle en LTL.
     Nous nous ramenerons à un Automate de Büchi via un autre algorithme pour simplifier.
 \end{frame}
 
-\begin{frame}{Notre But}
-Résolution par Tableau et par Buchi (après implémentation des solutions). Comparaison des algorithmes en terme de rapidité ? 
+\begin{frame}{GBA to BA}
+    Un ensemble multiple d'état acceptant peut être traduit en un ensemble en construisant un automate par une "counting construction". 
+    C'est à dire si $A = (S,I, \{F_1,\dots,F_n\}, \Sigma, T)$, alors il est equivalent à $A' = (S',I', F, \Sigma, T')$ telle que
+    \begin{itemize}
+        \item $Q' = Q\times\{1,...,n\}$
+        \item $I' = I\times\{1\}$
+        \item $F'=F_1\times \{1\}$
+        \item $\Delta' = \{ ( (q,i), a, (q',j) ) | (q,a,q') \in \Delta$ et si $q \in F_i$, $j= i+1 \mod n$ sinon $j=i \}$
+    \end{itemize}
+    qui est bien un automate de Büchi.
+\end{frame}
+
+
+
+\begin{frame}{Résumé}
+    Pour résumé, nous devons:
+    \begin{enumerate}
+        \item Implémentation de la méthode des tableaux en LTL
+        \item Implémentation des automates de Büchi
+        \begin{itemize}
+            \item Implémentation des automates de Büchi
+            \item Implémentation de l'algorithme de Gerth
+            \item Implémentation de la traduction entre GBA et BA
+        \end{itemize}
+        \item Comparaison dans un exemple du model checking en terme de rapidité et compléxité (théorique et pratique)
+    \end{enumerate}
 \end{frame}
 
 \begin{frame}{Contexte}

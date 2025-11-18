@@ -1,0 +1,332 @@
+\documentclass{paper}
+
+\usepackage{amsmath,lstautogobble,amssymb,amsfonts, listings, fancyhdr, stmaryrd, array, tikz}
+\usepackage[many]{tcolorbox}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm]{geometry}
+\newtheorem{prop}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{preuve}{Preuve}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    language=caml,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    autogobble=true
+}
+
+\lstset{style=mystyle}
+
+\newcolumntype{C}{>$c<$}
+\tcolorboxenvironment{prop}{enhanced, borderline={0.8pt}{0pt}{blue}, borderline={0.4pt}{2pt}{cyan}, boxrule=0.4pt, colback=white, coltitle=black, sharp corners}
+\tcolorboxenvironment{definition}{ enhanced, borderline={0.8pt}{0pt}{red}, borderline={0.4pt}{2pt}{orange}, boxrule=0.4pt, colback=white, coltitle=black, sharp corners}
+\tcolorboxenvironment{preuve}{ enhanced, borderline={0.8pt}{0pt}{green}, borderline={0.4pt}{2pt}{lime}, boxrule=0.4pt, colback=white, coltitle=black, sharp corners}
+
+\pagestyle{fancy}
+\fancyhead[C]{TIPE 25/26 - Dorian GIL}
+
+\begin{document}
+\setlength{\headheight}{13.07225pt}
+\addtolength{\topmargin}{-1.07225pt}
+
+\section*{Model Checking et LTL: Application et comparaison des automates de Büchi et de la méthode des tableaux}
+
+\tableofcontents
+
+
+\section{Introduction}
+Dans un monde dont la dépendance à divers technologies est très importante, il est important de s'assurer du bon fonctionnement de ces technologies.
+C'est ainsi que la vérification de modèle rentre en jeu pour répondre à ces problèmatiques. La vérification de problème requiert des algorithmes permettant justement de faire ces vérifications...
+C'est donc dans le cadre de la logique temporelle linéaire appliqué à la vérification de modèle, que nous allons examiner les deux méthodes décrites plus tard.
+
+
+\section{Préliminaires}
+
+\subsection{Model Checking et LTL}
+
+    \begin{definition}[Formule de la LTL]
+        On définit $F$ l'ensemble des formules de la LTL inductivement par:
+        \begin{itemize}
+            \item $p\in AP \implies p\in F$
+            \item si $\psi$ et $\phi$ sont des formules de LTL alors $\lnot\psi, \phi\lor\psi, X\psi, \phi U\psi$ sont des formules de LTL
+        \end{itemize}
+        $AP$ un ensemble fini de variables propositionnelles.
+    \end{definition}
+    \begin{definition}[Opérateurs X et U]
+        On les définit par:
+            \begin{itemize}
+                \item $X\phi$ : $\phi$ doit être satisfaite dans l'état suivant (neXt)
+                \item $\psi U\phi$ : $\psi$ doit être satisfaite dans tous les états jusqu'à un état où $\phi$ est satisfait (Until)
+            \end{itemize}
+        \end{definition}
+
+
+    \begin{definition}[Monde]
+        On définit un tel objet comme $\omega := w_0,w_1,\dots$ une suite infinie d'état.
+        On écrira $\omega^i:=w_i,w_{i+1},\dots$ un suffixe de $\omega$.
+    \end{definition}
+    Soit $v : \omega\times F \rightarrow \{T,F\}$ une fonction de valuation.
+    \begin{definition}[Satisfaction d'un monde]
+        En LTL, on définit $\omega \models f$ via:
+        \begin{itemize}
+            \item $\omega \models a \Leftrightarrow v(w_0,a) = T$ si $a$ atomique 
+            \item $\omega \models \lnot f$ si $\lnot(\omega \models f)$ 
+            \item $\omega \models f\lor g$ si $\omega \models f$ ou $\omega \models g$
+            \item $\omega \models \textbf{X}f$ si $\omega^1 \models f$
+            \item $\omega \models f\textbf{U}g$ si $\omega \models g$ ou $\omega \models f\land\textbf{X}(f\textbf{U}g)$
+        \end{itemize}
+    \end{definition}
+
+    On peut trouver plusieurs applications à la LTL:
+    \begin{itemize}
+        \item Preuve de programme concurrentiel
+        \item Raisonnement sur des circuits intégrés
+        \item Raisonnement sur les protocoles de communications
+    \end{itemize}
+    Toutes ces applications s'inscrivent dans le cadre de la vérification de modèles qui est une méthode permettant de montrer
+    la correction de systèmes informatiques complexes.
+
+    \begin{definition}[Verification de modèle (Model Checking)]
+        Technique de vérification qui explore tout les états possible d'un système de manière force brute.
+    \end{definition}
+
+    \begin{itemize}
+        \item Ce n'est pas avec la LTL que nous allons faire des gros exemples de model checking (Un model checker de base peut s'occuper de $10^9$ états environ, allant jusqu'à $10^{476}$ pour les meilleurs!).
+        \item Ainsi un model checker typique pourrait utiliser entre autres la LTL pour s'occuper en particulier des deadlocks. C'est ainsi qu'on pourrait utiliser la méthode des tableaux pour prouver une formule qui montre
+            que des algorithmes vont bien s'executer de manière à ne pas avoir d'inter-dépendance.
+        \item Ainsi nous allons examiner un exemple dans lequel nous allons appliquer la méthode des tableaux pour prouver le bon fonctionnement du système choisit!
+    \end{itemize}    
+
+\subsection{Méthode des tableaux}
+
+    \begin{definition}[Méthode des tableaux]
+        Algorithme pour prouver qu'une assertion $\phi$ ayant pour hypothèse $(H_n)$ soit satisfiable
+    \end{definition}
+    On supposera que aucune hypothèse n'est faite, on peut facilement adapter l'étude que l'on va faire lors d'ajout d'hypothèse.
+    \begin{itemize}
+        \item On place $\phi$ et ses hypothèses dans la racine.
+        \item On applique des règles $(R_x)$ à chaque formule en bout d'arbre qui sont developpables
+        \item Si on trouve des contradictions (des \textit{cycles}) dans toutes les branches de l'arbre (branches fermées), l'arbre est fermé donc la formule est insatisfiable.
+    \end{itemize}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\phi\lor\psi$}
+        child {node {$\phi$}}
+        child {node {$\psi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\phi\land\psi)$}
+        child {node {$\lnot\phi$}}
+        child {node {$\lnot\psi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot\lnot\phi$}
+        child {node {$\phi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[level distance=8mm]
+    \node {$\phi\land\psi$}
+        child {node {$\phi, \psi$}};
+    \end{tikzpicture}  
+    \begin{tikzpicture}[level distance=8mm,scale=0.75]
+    \node {$\lnot(\phi\lor\psi)$}
+        child {node {$\lnot\phi, \lnot\psi$}};
+   \end{tikzpicture}
+
+
+    Les règles définis précedemment sont dites Smullyan-Style
+
+    \begin{definition}[Branche fermée]
+        Une branche est fermée si elle contient $\phi$ et $\lnot\phi$
+    \end{definition}
+    Une formule est insatisfisable ssi son arbre associé est dit fermé ssi toutes les branches le sont.
+
+    On peut utiliser la méthode des tableaux pour montrer qu'une formule est une tautologie:
+    \begin{enumerate}
+        \item On place $\lnot\phi$ et ses hypothèses dans la racine.
+        \item On applique des règles $(R_x)$ à chaque formule en bout d'arbre qui sont developpables
+        \item Si on trouve $a$ et $\lnot a$ dans les branches de l'arbre (des \textit{cycles}), alors $\phi$ est une tautologie
+    \end{enumerate}
+    On pourra donc aussi adapter nos recherches pour la recherche de tautologie.
+    \begin{itemize}
+        \item On ajoute les quantificateurs $\exists$ et $\forall$
+        \item Un ensemble de fonctions de symboles $\mathcal{F}$ qui a des symboles associe un symbole
+        \item Un ensemble de relation $\mathcal{R}$ qui a des symboles associe un booléen.
+    \end{itemize}
+    On note l'arité le nombre d'argument d'une fonction et $X$ les variables.
+    \begin{definition}
+        On définit les termes $\mathcal{T}(\mathcal{F}, X)$ par induction:
+        \begin{itemize}
+            \item Tout $x\in X$ est un terme.
+            \item Les constantes sont des termes (symbole d'arité 0).
+            \item $f(t_1,\dots, t_n)$ est un terme si $f$ est un symbole d'arité $n$ et $t_1,\dots,t_n$ sont des termes.
+        \end{itemize}
+    \end{definition}
+    On ajoute quatres règles pour le 1er ordre (?):
+
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\forall x, P(x)$}
+        child {node {$P(t)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\exists x, P(x)$}
+        child {node {$P(c)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\forall x, P(x))$}
+        child {node {$\exists x, \lnot P(x)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\exists x, P(x))$}
+        child {node {$\forall x, \lnot P(x)$}};
+    \end{tikzpicture}
+    
+    où $t$ et $c$ est une variable fixe quelquonque.
+    
+    \textbf{Attention:} Pour la règle $\forall$, on peut choisir $t$, pour la règle $\exists$, on prend une variable fraiche $c$!
+
+
+    On définit deux nouvelles règles pour la méthode des tableaux en LTL:
+
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot\textbf{X}f$}
+        child {node {$\textbf{X}\lnot f$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=3cm}]
+    \node {$f\textbf{U}g$}
+        child {node {$g$}}
+        child{node {$f$, $\textbf{X}(f\textbf{U}g)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=4cm}]
+    \node {$\lnot(f\textbf{U}g)$}
+        child {node {$g$}}
+        child{node {$\lnot g$, $\lnot f \lor \lnot\textbf{X}(f\textbf{U}g)$}};
+    \end{tikzpicture}
+
+    \begin{definition}[Formule élementaire]
+        $f$ est élementaire ssi il respecte un de ses 2 points:
+        \begin{itemize}
+            \item C'est une formule atomique (ou la négation d'une formule atomique)
+            \item Il a comme connecteur logique "principale" $\textbf{X}$ (des X-formules)
+        \end{itemize}
+    \end{definition}
+    Si un noeud contient uniquement des formules elementaires, alors on créé un fils
+    du noeud contenant toutes les \textbf{X}-formules sans leur connecteur logique principal $\textbf{X}$
+
+
+\subsection{Automate de Buchi}
+
+    \begin{definition}[BA]
+        Un automate de Büchi est un 5-uplets $(S, I, T, F, \Sigma)$ tel que
+        \begin{itemize}
+            \item $S$ est un ensemble fini d'état
+            \item $I\subseteq S$ un ensemble d'état initiaux
+            \item $F\subseteq S$ un ensemble d'état finaux
+            \item $\Sigma$ Un ensemble fini de symboles appelé alphabet
+            \item $T: \{S\times \Sigma\}\mapsto \mathcal{P}(S)$ Une fonction de transition.
+        \end{itemize}
+        Cet automate particulier accepte des séquences infinis (donc des mots infinis) ssi le mot passe par un état acceptant une infinité de fois.
+    \end{definition}
+    C'est un outil utilisé dans le cadre de la vérification de modèle en LTL.
+    
+
+    On va utiliser l'algorithme de Gerth pour transformer notre formule LTL en Automate de Büchi Généralisé (GBA)
+    \begin{definition}[GBA]
+        Un GBA est un automate de Büchi avec la seule particularité que $F$ est un ensemble d'ensemble d'état acceptant appelé \textbf{condition d'acceptation}.
+        
+        Un GBA accepte un mot ssi il est passé au moins une fois par un état dans chaque ensemble d'état acceptant.
+    \end{definition}
+    Nous nous ramenerons à un Automate de Büchi via un autre algorithme pour simplifier.
+
+
+    Un ensemble multiple d'état acceptant peut être traduit en un ensemble en construisant un automate par une "counting construction". 
+    C'est à dire si $A = (S,I, \{F_1,\dots,F_n\}, \Sigma, T)$, alors il est equivalent à $A' = (S',I', F, \Sigma, T')$ telle que
+    \begin{itemize}
+        \item $Q' = Q\times\{1,...,n\}$
+        \item $I' = I\times\{1\}$
+        \item $F'=F_1\times \{1\}$
+        \item $\Delta' = \{ ( (q,i), a, (q',j) ) | (q,a,q') \in \Delta$ et si $q \in F_i$, $j= i+1 \mod n$ sinon $j=i \}$
+    \end{itemize}
+    qui est bien un automate de Büchi.
+
+\subsection{Résumé}
+    Pour résumé, nous devons:
+    \begin{enumerate}
+        \item Implémentation de la méthode des tableaux en LTL
+        \item Implémentation des automates de Büchi
+        \begin{itemize}
+            \item Implémentation des automates de Büchi
+            \item Implémentation de l'algorithme de Gerth
+            \item Implémentation de la traduction entre GBA et BA
+        \end{itemize}
+        \item Comparaison dans un exemple du model checking en terme de rapidité et compléxité (théorique et pratique)
+    \end{enumerate}
+
+    Ensuite, nous mettrons cela en application sur la vérification du bon fonctionnement d'un feu rouge. Nous donnerons une formule logique définissant son clignotement et nous vérifirons via
+    la méthode des tableaux que la formule est correcte selon ce qu'on attend d'elle. Et nous ferons de même avec l'automate de Buchi.
+
+
+\section{Implémentation}
+
+\subsection{Méthode des tableaux}
+Adapter une ancienne implémentation (en rajoutant les elements de LTL)
+
+\subsection{Automates de Büchi}
+\subsubsection{Implémentation de base}
+...
+
+\subsubsection{Algorithme de Gerth}
+...
+
+\subsubsection{Traduction GBA > BA}
+...
+
+
+\section{Application}
+
+\subsection{A la méthode des tableaux}
+...
+
+\subsection{Aux automates de Büchi}
+...
+
+\subsection{Comparaison pratique}
+...
+
+\subsection{Comparaison théorique}
+...
+
+
+\section{Conclusion et Bibliographie}
+
+\subsection{Conclusion}
+...
+
+\subsection{Bibliographie}
+\begin{enumerate}
+    \item Logique: fondements et applications (Dunod) de Pierre Le Barbenchon, Sophie Pinchinat, François Schwarzentruber
+    \item Mathematical Logic: Tableaux Reasoning for Propositional Logic de Chiara Ghidini
+    \item The tableau method for temporal logic: an overview - Pierre WOLPER
+    \item Principles of Model Checking - Christel Baier et Joost-Pieter Katoen
+\end{enumerate}
+(1) Notation Logique (2) Méthode des tableaux LP (3) Méthode des tableaux LTL (4) Model Checking
+
+Noté Bibliographie pour Buchi
+\end{document}
