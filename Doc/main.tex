@@ -5,6 +5,12 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, total={170mm,257mm}, left=20mm, top=20mm]{geometry}
+\usepackage{adjustbox}
+\definecolor{color0}{HTML}{000000}
+\definecolor{color1}{HTML}{000000}
+\definecolor{bgColor}{HTML}{ffffff}
+\usetikzlibrary {arrows.meta,bending} 
+
 \newtheorem{prop}{Proposition}
 \newtheorem{definition}{Definition}
 \newtheorem{preuve}{Preuve}
@@ -48,7 +54,7 @@
 \setlength{\headheight}{13.07225pt}
 \addtolength{\topmargin}{-1.07225pt}
 
-\section*{Model Checking et LTL: Application et comparaison des automates de Büchi et de la méthode des tableaux}
+\section*{Model Checking et LTL: Application de la méthode des tableaux et de l'algorithme de Gerth}
 
 \tableofcontents
 
@@ -251,7 +257,7 @@ C'est donc dans le cadre de la logique temporelle linéaire appliqué à la vér
     \begin{definition}[GBA]
         Un GBA est un automate de Büchi avec la seule particularité que $F$ est un ensemble d'ensemble d'état acceptant appelé \textbf{condition d'acceptation}.
         
-        Un GBA accepte un mot ssi il est passé au moins une fois par un état dans chaque ensemble d'état acceptant.
+        Un GBA accepte un mot ssi il est passé une infinité de fois par un état dans chaque ensemble d'état acceptant.
     \end{definition}
     Nous nous ramenerons à un Automate de Büchi via un autre algorithme pour simplifier.
 
@@ -266,34 +272,70 @@ C'est donc dans le cadre de la logique temporelle linéaire appliqué à la vér
     \end{itemize}
     qui est bien un automate de Büchi.
 
+\begin{definition}[Intersection de BA]
+    
+\end{definition}
+
+\begin{definition}[Test BA Vide]
+    
+\end{definition}
+
+\begin{definition}[GBA2BA]
+    
+\end{definition}
+
 \subsection{Résumé}
-    Pour résumé, nous devons:
+    Pour résumé, nous devons faire:
     \begin{enumerate}
         \item Implémentation de la méthode des tableaux en LTL
         \item Implémentation des automates de Büchi
         \begin{itemize}
-            \item Implémentation des automates de Büchi
+            \item Implémentation des bases
             \item Implémentation de l'algorithme de Gerth
             \item Implémentation de la traduction entre GBA et BA
         \end{itemize}
-        \item Comparaison dans un exemple du model checking en terme de rapidité et compléxité (théorique et pratique)
+        \item Vérification de modèle en utilisant les 2
     \end{enumerate}
 
     Ensuite, nous mettrons cela en application sur la vérification du bon fonctionnement d'un feu rouge. Nous donnerons une formule logique définissant son clignotement et nous vérifirons via
     la méthode des tableaux que la formule est correcte selon ce qu'on attend d'elle. Et nous ferons de même avec l'automate de Buchi.
 
+\begin{adjustbox}{center}
+\begin{tikzpicture}
+\tikzset{x=1ex,y=1ex} 
+\clip (0,0) rectangle (85.50, 47.44);
+\fill[bgColor] (0,0) rectangle (85.50, 47.44);
+\node[color=color0, anchor=north west, scale=0.8, rotate=0.00, text width=2.12cm] at (33.39, 41.71) {Vérification};
+\draw[line width=1.24pt, color=color0, ] (29.94, 29.27) -- (33.92, 37.52);
+\draw[line width=1.24pt, color=color0, ] (50.67, 29.27) -- (46.52, 37.57);
+\node[color=color0, anchor=north west, scale=0.8, rotate=0.00, text width=2.69cm] at (23.87, 29.03) {Automate $A_m$};
+\node[color=color0, anchor=north west, scale=0.8, rotate=0.00, text width=3.66cm] at (44.60, 28.89) {Automate $A_{\lnot(\varphi)}$};
+\draw[line width=1.24pt, color=color0, ] (38.23, 20.98) -- (29.94, 25.13);
+\draw[line width=1.24pt, color=color0, ] (42.38, 20.98) -- (50.67, 25.13);
+\node[color=color0, anchor=north west, scale=0.8, rotate=0.00, text width=4.07cm] at (31.58, 20.27) {Automate Syncronisé $A_m \times A_{\lnot(\varphi)}$};
+\draw[line width=1.24pt, color=color0, ] (40.39, 9.65) -- (40.39, 15.46);
+\node[color=color0, anchor=north west, scale=0.8, rotate=0.00, text width=4.15cm] at (31.33, 9.49) {Test Automate Vide};
+\end{tikzpicture}
+\end{adjustbox}
+
+Schématisation du principe de model checking par automate. (La création d'un algorithm)
+La création de $A_m$ se fait selon le modèle que l'on souhaite vérifier et $A_{\lnot{\varphi}}$ se construit via l'algorithme de Gerth + GBA2BA
+
+
+
+
+
 
 \section{Implémentation}
-
 \subsection{Méthode des tableaux}
 Adapter une ancienne implémentation (en rajoutant les elements de LTL)
 
 \subsection{Automates de Büchi}
 \subsubsection{Implémentation de base}
-...
+Càd fonction de base des Automates de Büchi, produit de deux autommtes, montrer qu'un automate de Büchi est vide.
 
 \subsubsection{Algorithme de Gerth}
-...
+Gerth et al. 1995 (on-the-fly) utilise la méthode des tableaux
 
 \subsubsection{Traduction GBA > BA}
 ...
@@ -313,7 +355,6 @@ Adapter une ancienne implémentation (en rajoutant les elements de LTL)
 \subsection{Comparaison théorique}
 ...
 
-
 \section{Conclusion et Bibliographie}
 
 \subsection{Conclusion}
@@ -325,6 +366,8 @@ Adapter une ancienne implémentation (en rajoutant les elements de LTL)
     \item Mathematical Logic: Tableaux Reasoning for Propositional Logic de Chiara Ghidini
     \item The tableau method for temporal logic: an overview - Pierre WOLPER
     \item Principles of Model Checking - Christel Baier et Joost-Pieter Katoen
+    \item Algorithmes pour la vérification de formules LTL par l'approche automate
+Alexandre DURET-LUTZ
 \end{enumerate}
 (1) Notation Logique (2) Méthode des tableaux LP (3) Méthode des tableaux LTL (4) Model Checking
 
