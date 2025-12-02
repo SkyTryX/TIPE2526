@@ -222,8 +222,8 @@ C'est donc dans le cadre de la logique temporelle linéaire appliqué à la vér
     \end{tikzpicture}
     \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=4cm}]
     \node {$\lnot(f\textbf{U}g)$}
-        child {node {$g$}}
-        child{node {$\lnot g$, $\lnot f \lor \lnot\textbf{X}(f\textbf{U}g)$}};
+        child {node {$\lnot f, \lnot g$}}
+        child{node {$\lnot g$, $\textbf{X}\lnot(f\textbf{U}g)$}};
     \end{tikzpicture}
 
     \begin{definition}[Formule élementaire]
@@ -273,15 +273,35 @@ C'est donc dans le cadre de la logique temporelle linéaire appliqué à la vér
     qui est bien un automate de Büchi.
 
 \begin{definition}[Intersection de BA]
-    
+    On définit l'automate reconnaissant l'intersection de deux langages comme $A'= (S', I', F', \Sigma, T')$ telle que
+    \begin{itemize}
+        \item $S'=S_1\times S_2\times \{1,2\}$
+        \item $T'=T_1'\cup T_2'$
+        \begin{itemize}
+            \item $T_1=\{((q_1,q_2,1),a,(q_1',q_2',i)), (q_1,a,q_1')\in T_1, (q_2,a,q_2')\in T_2, q_1\in F_1 \Leftrightarrow i= 2, i\in[|1,2|]\}$
+            \item $T_2=\{((q_1,q_2,2),a,(q_1',q_2',i)), (q_1,a,q_1')\in T_1, (q_2,a,q_2')\in T_2,  q_2\in F_2 \Leftrightarrow i= 1, i\in[|1,2|]\}$
+        \end{itemize}
+        \item $I'= I_1\times I_2 \times \{1\}$
+        \item $F'= \{(q_1,q_2,2), q_2\in F_2 \}$
+    \end{itemize}
 \end{definition}
 
 \begin{definition}[Test BA Vide]
+    Un BA est non vide ssi il existe un état final qui est atteignable depuis un état initial et appartient à un cycle.
     
+    Pour cela on considère notre automate comme un graphe orienté, qu'on décompose en CFC, puis on fait un DFS depuis les etats initiaux et on trouve une CFC non trivial tq il contient un etat final et est atteignable par un état initial.
 \end{definition}
 
 \begin{definition}[GBA2BA]
-    
+    Un ensemble multiple d'état acceptant peut être traduit en un ensemble en construisant un automate par une "counting construction". 
+    C'est à dire si $A = (S,I, \{F_1,\dots,F_n\}, \Sigma, T)$, alors il est equivalent à $A' = (S',I', F, \Sigma, T')$ telle que
+    \begin{itemize}
+        \item $Q' = Q\times\{1,...,n\}$
+        \item $I' = I\times\{1\}$
+        \item $F'=F_1\times \{1\}$
+        \item $\Delta' = \{ ( (q,i), a, (q',j) ) | (q,a,q') \in \Delta$ et si $q \in F_i$, $j= i+1 \mod n$ sinon $j=i \}$
+    \end{itemize}
+    qui est bien un automate de Büchi (non généralisé).
 \end{definition}
 
 \subsection{Résumé}
@@ -321,44 +341,42 @@ C'est donc dans le cadre de la logique temporelle linéaire appliqué à la vér
 Schématisation du principe de model checking par automate. (La création d'un algorithm)
 La création de $A_m$ se fait selon le modèle que l'on souhaite vérifier et $A_{\lnot{\varphi}}$ se construit via l'algorithme de Gerth + GBA2BA
 
+\section{Tetra Concours}
+Voici le plan d'attaque pour le TIPE Tétra concours:
+
+\begin{itemize}
+    \item Accroche avec Model Checking (sans rentrer dans les détails)
+    \item Introduction et Définitions
+\begin{itemize}
+    \item Présentation de la méthode des tableaux (Application sur exemple simple)
+    \item Présentation de la LTL (Application sur un exemple simple)
+    \item Présentation de la méthode des tableaux en LTL (règle en plus, explication de l'implémentation, avec subtilité au niveau des formules élémentaires)
+\end{itemize}
+    \item Problématique: Comment utiliser la méthode des tableaux pour s'assurer du bon fonctionnement d'un programme ?
+    \item Explication en détail de l'algorithme utiliser pour résoudre le problème
+    \item Application (Feu de circulation)
+    \item Observations (Rapidité et Compléxité, piste d'amélioration, limite)
+    \item Ouverture: Model Checking, en réalité il est plus répandue d'utiliser des automates de Büchi.
+\end{itemize}
 
 
+\section{ENS}
+Voici le plan d'attaque pour le TIPE ENS:
+\begin{itemize}
+    \item Accroche avec Model Checking
+    \item Introduction et Définitions
+    \begin{itemize}
+        \item Présentation du Model Checking et de la LTL
+        \item Présentation de la Méthode des Tableaux
+        \item Présentation des Automates de Buchi 
+    \end{itemize}
+    \item Problématique: Comment s'assurer du bon fonctionnement d'un système informatique par vérification de modèle ?
+    \item Schéma d'implémentation et de l'algorithme
+    \item Explication des étapes (Gerth, Emptiness, Intersection, GBA2BA)
+    \item Application(Feu de circulation)
+    \item Ouverture: Promela et SPIN
+\end{itemize}
 
-
-
-\section{Implémentation}
-\subsection{Méthode des tableaux}
-Adapter une ancienne implémentation (en rajoutant les elements de LTL)
-
-\subsection{Automates de Büchi}
-\subsubsection{Implémentation de base}
-Càd fonction de base des Automates de Büchi, produit de deux autommtes, montrer qu'un automate de Büchi est vide.
-
-\subsubsection{Algorithme de Gerth}
-Gerth et al. 1995 (on-the-fly) utilise la méthode des tableaux
-
-\subsubsection{Traduction GBA > BA}
-...
-
-
-\section{Application}
-
-\subsection{A la méthode des tableaux}
-...
-
-\subsection{Aux automates de Büchi}
-...
-
-\subsection{Comparaison pratique}
-...
-
-\subsection{Comparaison théorique}
-...
-
-\section{Conclusion et Bibliographie}
-
-\subsection{Conclusion}
-...
 
 \subsection{Bibliographie}
 \begin{enumerate}
@@ -366,10 +384,7 @@ Gerth et al. 1995 (on-the-fly) utilise la méthode des tableaux
     \item Mathematical Logic: Tableaux Reasoning for Propositional Logic de Chiara Ghidini
     \item The tableau method for temporal logic: an overview - Pierre WOLPER
     \item Principles of Model Checking - Christel Baier et Joost-Pieter Katoen
-    \item Algorithmes pour la vérification de formules LTL par l'approche automate
-Alexandre DURET-LUTZ
+    \item Algorithmes pour la vérification de formules LTL par l'approche automate Alexandre DURET-LUTZ
 \end{enumerate}
-(1) Notation Logique (2) Méthode des tableaux LP (3) Méthode des tableaux LTL (4) Model Checking
-
-Noté Bibliographie pour Buchi
+(1) Notation Logique (2) Méthode des tableaux LP (3) Méthode des tableaux LTL (4) Model Checking (5) Buchi
 \end{document}
