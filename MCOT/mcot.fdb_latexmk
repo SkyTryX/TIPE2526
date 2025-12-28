@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1765900277.21172 "/home/dorian/Documents/School/Prepa/TIPE/MCOT/mcot.tex" "mcot.pdf" "mcot" 1765900277.94368 0
-  "/home/dorian/Documents/School/Prepa/TIPE/MCOT/mcot.tex" 1765900276.87131 914 cef1b775d9a60c73b88552a005605946 ""
+["pdflatex"] 1766947257.21931 "/home/dorian/Documents/School/Prepa/TIPE/MCOT/mcot.tex" "mcot.pdf" "mcot" 1766947258.2134 0
+  "/home/dorian/Documents/School/Prepa/TIPE/MCOT/mcot.tex" 1766947255.93492 4308 80ab13ff9b014aebfa7b582960fad5a8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1136768653 1288 655e228510b4c2a1abe905c368440826 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr9.tfm" 1136768653 1292 6b21b9c2c7bebb38aa2273f7ca0fb3af ""
@@ -10,6 +10,7 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb" 1248133631 33993 9b89b85fd2d9df0482bd47194d1d3bf3 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb" 1248133631 28902 2f5c04fd2884d1878057baa5aad22765 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/iftex.sty" 1734129479 7984 7dbb9280f03c0a315425f1b4f35d43ee ""
   "/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty" 1572645307 1057 525c2192b5febbd8c1f662c9468335bb ""
   "/usr/local/texlive/2025/texmf-dist/tex/latex/base/size10.clo" 1748806692 8448 686612a86f0e04f41ea577f5ec7e83d8 ""
@@ -22,8 +23,8 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1752162640 5523539 cbe340ff87ac4cfddcdc6361a84e52ac ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1752162748 3604909 76315c4aad85d1f43d1d3cb83380097e ""
   "/usr/local/texlive/2025/texmf.cnf" 1752162626.34851 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
-  "mcot.aux" 1765900277.86647 829 ca946dcc005bfd0756d2568f423ebe6a "pdflatex"
-  "mcot.tex" 1765900276.87131 914 cef1b775d9a60c73b88552a005605946 ""
+  "mcot.aux" 1766947258.09595 844 092b29d7682990cf5484febaf7016a8f "pdflatex"
+  "mcot.tex" 1766947255.93492 4308 80ab13ff9b014aebfa7b582960fad5a8 ""
   (generated)
   "mcot.aux"
   "mcot.log"

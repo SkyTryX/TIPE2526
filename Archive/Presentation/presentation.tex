@@ -15,7 +15,7 @@
 
 \title{TIPE 25/26 - Cycles et Boucles}
 \author{GIL Dorian}
-\subtitle{Méthode des tableaux : Optimisation et étude de la satisfiabilité de formule}
+\subtitle{Une étude de la Méthode des tableaux}
 \date{}
 
 \begin{document}
@@ -26,8 +26,8 @@
 
 \begin{frame}
     \begin{itemize}
-        \item Introduction à la méthode des tableaux
-        \item 
+        \item Une étude en logique propositionelle
+        \item Une étude en logique linéaire temporelle
     \end{itemize}
 \end{frame}
 \begin{frame}{Position du problème}
@@ -129,15 +129,101 @@
         \item \textbf{Alternée:} 0.000493s
         \item \textbf{Quine (avec conversion en CNF):} 0.025874s
         \item \textbf{Quine (sans conversion en CNF):} 0.018691s
-    \end{itemize}  
+    \end{itemize} 
 \end{frame}
  
-\begin{frame}{Objectifs Spé}
-    J'hésite toujours actuellement entres deux dernières approches de mon TIPE:
-    \begin{enumerate}
-        \item Soit trouver une autre formule de la logique propositionelle à étudier.
-        \item Soit étudier la méthode des tableaux dans la logique du premier ordre (dans ce cas là, s'intéresser aux preuves ?).
-    \end{enumerate}
+\begin{frame}{Conclusion}
+    Bien entendu, il n'est pas possible de convertir toutes les formules en Alternée.
+
+    On a donc trouvé un exemple de type de formule qui est facile à analyser par méthode des tableaux.
+\end{frame}
+
+\begin{frame}{Introduction à la LTL 1}
+    \begin{definition}[Formule de la LTL]
+        On définit $F$ l'ensemble des formules de la LTL inductivement par:
+        \begin{itemize}
+            \item $p\in AP \implies p\in F$
+            \item si $\psi$ et $\phi$ sont des formules de LTL alors $\lnot\psi, \phi\lor\psi, X\psi, \phi U\psi$ sont des formules de LTL
+        \end{itemize}
+        $AP$ un ensemble fini de variables propositionnelles.
+    \end{definition}
+    \begin{definition}[Opérateurs X et U]
+        On les définit par:
+            \begin{itemize}
+                \item $X\phi$ : $\phi$ doit être satisfaite dans l'état suivant (neXt)
+                \item $\psi U\phi$ : $\psi$ doit être satisfaite dans tous les états jusqu'à un état où $\phi$ est satisfait (Until)
+            \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Introduction à la LTL 2}
+     \begin{definition}[Monde]
+        On définit un tel objet comme $\omega := w_0,w_1,\dots$ une suite infinie d'état.
+        On écrira $\omega^i:=w_i,w_{i+1},\dots$ un suffixe de $\omega$.
+    \end{definition}
+    Soit $v : \omega\times F \rightarrow \{T,F\}$ une fonction de valuation.
+    \begin{definition}[Satisfaction d'un monde]
+        En LTL, on définit $\omega \models f$ via:
+        \begin{itemize}
+            \item $\omega \models a \Leftrightarrow v(w_0,a) = T$ si $a$ atomique 
+            \item $\omega \models \lnot f$ si $\lnot(\omega \models f)$ 
+            \item $\omega \models f\lor g$ si $\omega \models f$ ou $\omega \models g$
+            \item $\omega \models \textbf{X}f$ si $\omega^1 \models f$
+            \item $\omega \models f\textbf{U}g$ si $\omega \models g$ ou $\omega \models f\land\textbf{X}(f\textbf{U}g)$
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Introduction à la LTL 3}
+    On peut trouver plusieurs applications à la LTL:
+    \begin{itemize}
+        \item Preuve de programme concurrentiel
+        \item Raisonnement sur des circuits intégrés
+        \item Raisonnement sur les protocoles de communications
+    \end{itemize}
+    Toutes ces applications s'inscrivent dans le cadre de la vérification de modèles qui est une méthode permettant de montrer
+    la correction de systèmes informatiques complexes.
+
+    \begin{definition}[Verification de modèle (Model Checking)]
+        Technique de vérification qui explore tout les états possible d'un système de manière force brute.
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Model Checking}
+    Ici, nous nous interesserons pas aux techniques utilisés dans le domaine.
+    On retiendra seulement que la méthode des tableaux est très utilisé dans la logique modale qui englobe la LTL et que
+    elle est particulièrement utile pour certaines techniques de vérifications de modèles.
+
+    Ainsi, nous allons étudier un exemple de formule de la LTL et étudier sa résolution par méthode des tableaux.
+\end{frame}
+
+\begin{frame}{Méthode des tableaux}
+\begin{tikzpicture}[scale=0.75]
+    \node {$\lnot\textbf{X}f$}
+        child {node {$\textbf{X}\lnot f$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=3cm}]
+    \node {$f\textbf{U}g$}
+        child {node {$g$}}
+        child{node {$f$, $\textbf{X}(f\textbf{U}g)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=4cm}]
+    \node {$\lnot(f\textbf{U}g)$}
+        child {node {$\lnot f, \lnot g$}}
+        child{node {$\lnot g$, $\textbf{X}\lnot(f\textbf{U}g)$}};
+    \end{tikzpicture}
+
+    \begin{definition}[Formule élementaire]
+        $f$ est élementaire ssi il respecte un de ses 2 points:
+        \begin{itemize}
+            \item C'est une formule atomique (ou la négation d'une formule atomique)
+            \item Il a comme connecteur logique "principale" $\textbf{X}$ (des X-formules)
+        \end{itemize}
+    \end{definition}
+    Si un noeud contient uniquement des formules elementaires, alors on créé un fils
+    du noeud contenant toutes les \textbf{X}-formules sans leur connecteur logique principal $\textbf{X}$
+
+    A REVOIR
 \end{frame}
 
 \begin{frame}[fragile]{Code - Méthode des tableaux classique 1}

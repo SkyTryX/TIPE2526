@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.10)  1 NOV 2025 16:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.10)  26 DEC 2025 18:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/home/dorian/Documents/School/Prepa/TIPE/Presentation/presentation.tex
-(/home/dorian/Documents/School/Prepa/TIPE/Presentation/presentation.tex
+**/home/dorian/Documents/School/Prepa/TIPE/Archive/Presentation/presentation.tex
+(/home/dorian/Documents/School/Prepa/TIPE/Archive/Presentation/presentation.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-30>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/beamer/beamer.cls
@@ -866,6 +866,26 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 [17
 
 ]
+
+[18
+
+]
+
+[19
+
+]
+
+[20
+
+]
+
+[21
+
+]
+
+[22
+
+]
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb
@@ -878,21 +898,21 @@ Overfull \hbox (87.11981pt too wide) in paragraph at lines 3--33
 
 )
 
-[18
+[23
 
 ]
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
 
-[19
+[24
 
 ]
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
 
-[20
+[25
 
 ]
 \openout4 = `presentation.vrb'.
@@ -904,7 +924,7 @@ Overfull \hbox (182.72223pt too wide) in paragraph at lines 3--31
 
 )
 
-[21
+[26
 
 ]
 \openout4 = `presentation.vrb'.
@@ -916,7 +936,7 @@ Overfull \hbox (33.58246pt too wide) in paragraph at lines 3--32
 
 )
 
-[22
+[27
 
 ]
 \openout4 = `presentation.vrb'.
@@ -928,7 +948,7 @@ Overfull \hbox (14.46198pt too wide) in paragraph at lines 3--29
 
 )
 
-[23
+[28
 
 ]
 \tf@nav=\write6
@@ -949,18 +969,18 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27470 strings out of 467822
- 535197 string characters out of 5432409
+ 27553 strings out of 467822
+ 536693 string characters out of 5432409
  1373485 words of memory out of 5000000
- 55497 multiletter control sequences out of 15000+600000
- 638840 words of font info for 72 fonts, out of 8000000 for 9000
+ 55568 multiletter control sequences out of 15000+600000
+ 640390 words of font info for 74 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,123p,481b,1435s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,15n,123p,489b,1435s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb>
-Output written on presentation.pdf (23 pages, 229057 bytes).
+Output written on presentation.pdf (28 pages, 246048 bytes).
 PDF statistics:
- 689 PDF objects out of 1000 (max. 8388607)
- 621 compressed objects within 7 object streams
- 47 named destinations out of 1000 (max. 500000)
+ 818 PDF objects out of 1000 (max. 8388607)
+ 744 compressed objects within 8 object streams
+ 57 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 

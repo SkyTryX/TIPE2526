@@ -19,23 +19,51 @@
 \begin{enumerate}
     \item Méthode des tableaux // Method of Analytic Tableaux
     \item Logique Linéaire Temporelle // Linear Temporal Logic
-    \item Logique // Logic
-    \item \dots // \dots
-    \item \dots // \dots
+    \item Logique Propositionelle // Propositionnal Logic
+    \item Satisfiabilité // Satisfiability
+    \item Vérification de modèle // Model checking
 \end{enumerate}
 
-\section{Bibliographie commentée}
-\dots
+\section{Bibliographie commentée (300/650 mots)}
+On souhaite étudier la satisfiabilité de formules logiques dans le contexte de la logique propositionnelle [1]. Des
+théorèmes connus montrent que ce problème est NP-complet [1], mais il subsiste la question de
+la recherche de la satisfiabilité en temps polynomial. Différents algorithmes ont été imaginés pour résoudre ce
+problème en temps exponentiel. Nous nous intéressons notamment à l'une des plus populaires dans la logique
+modale : la méthode des tableaux [2].
+
+Une grande problématique dans le domaine de la logique (en outre de la logique propositionnelle) est la
+recherche d'un algorithme permettant de résoudre le problème de satisfiabilité (SAT) en temps polynomial. La
+résolution de ce colossal problème impliquerait P = NP [3]. Le but de notre étude n'est évidemment pas de
+résoudre ce problème, mais de présenter une approche personnelle du problème de la satisfiabilité en utilisant
+la méthode des tableaux et en proposant des implémentations dans le langage OCaml. Dans cette approche,
+nous essayerons de trouver des algorithmes qui résolvent une sous-instance de SAT en temps polynomial, et si
+ce n'est pas possible, nous trouverons des moyens d'optimiser l'algorithme exponentiel
+
+Or, il semblerait que la méthode des tableaux soient plus utilisés en logique modale, en particulier dans la logique 
+linéaire temporelle [4], dans le cadre de la vérification de modèle [5]. En effet dans un monde toujours plus dépendant aux
+différentes technologies dont la création repose sur des algorithmes, on souhaite vérifier le bon fonctionnement de nos 
+programmes informatiques par rapport aux cahiers des charges associés à un produit. Nous étudierons ainsi l'application de
+la méthode des tableaux dans ce cadre en proposant une implémentation OCaml de la méthode des tableaux dans la logique linéaire
+temporelle tout en proposant un exemple d'objet technique pouvant correspondre à une telle formule.
 
 \section{Problématique retenue}
-\dots
+Comment utiliser la méthode des tableaux pour la résolution de différents problèmes comtemporains (En particulier SAT et la Vérification de Modèle) ?
 
 \section{Objectifs du TIPE}
-\dots
+Les objectifs du TIPE sont d'étudier les différentes utilisations de la méthode des tableaux dans différentes logiques. Nous nous interesserons en particulier:
+\begin{itemize}
+    \item A la logique propositionelle avec une étude de la satisfiabilité d'une famille de formule
+    \item A la logique linéaire temporelle avec l'étude d'une formule logique modélisant le fonctionnement attendu d'un objet technologique.
+\end{itemize}
+Nous nous intéresserons seulement à des exemples précis de formules plutôt que le cas général dans le cadre de ce TIPE.
 
 \section{Liste de références bibliographiques}
 \begin{enumerate}
-    \item \dots
+    \item Pierre Le Barbenchon, Sophie Pichinat, François Schwarzentruber ; Logique: fondements et applications ; Dunod ; ISBN: 978-2-10-082158-7
+    \item Chiara Ghidini (Università Di Trento) ; Mathematical Logic: Tableaux Reasoning for Propositional Logic ; https://dit.unitn.it/\textasciitilde ldkr/ml2015/slides/PLtableau.pdf
+    \item Garey M.R., Johnson D.S. ; Computers and Intractability: A Guide to the Theory of NP-Completeness, 1 ed.; San Francisco: W. H. Freeman and Company, 1979
+    \item The tableau method for temporal logic: an overview - Pierre WOLPER
+    \item Principles of Model Checking - Christel Baier et Joost-Pieter Katoen
 \end{enumerate}
 
 \end{document}
