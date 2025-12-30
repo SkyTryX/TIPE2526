@@ -24,12 +24,13 @@
 \titlepage
 \end{frame}
 
-\begin{frame}
-    \begin{itemize}
+\begin{frame}{Sommaire}
+    \begin{enumerate}
         \item Une étude en logique propositionelle
         \item Une étude en logique linéaire temporelle
-    \end{itemize}
+    \end{enumerate}
 \end{frame}
+
 \begin{frame}{Position du problème}
     \begin{itemize}[<+->]
         \item On cherche à étudier une méthode algorithmique permettant de montrer la satisfiabilité d'une formule: la Méthode des tableaux.
@@ -151,7 +152,8 @@
         On les définit par:
             \begin{itemize}
                 \item $X\phi$ : $\phi$ doit être satisfaite dans l'état suivant (neXt)
-                \item $\psi U\phi$ : $\psi$ doit être satisfaite dans tous les états jusqu'à un état où $\phi$ est satisfait (Until)
+                \item $F\phi$ : $\phi$ doit être satisfaite une fois plus tard (Finally)
+                \item $G\phi$ : $\psi$ doit être satisfaite dans tous les états futurs (Globally)
             \end{itemize}
     \end{definition}
 \end{frame}
@@ -169,7 +171,8 @@
             \item $\omega \models \lnot f$ si $\lnot(\omega \models f)$ 
             \item $\omega \models f\lor g$ si $\omega \models f$ ou $\omega \models g$
             \item $\omega \models \textbf{X}f$ si $\omega^1 \models f$
-            \item $\omega \models f\textbf{U}g$ si $\omega \models g$ ou $\omega \models f\land\textbf{X}(f\textbf{U}g)$
+            \item $\omega \models \textbf{F}f$ si $\exists i, \omega^i \models f$
+            \item $\omega \models \textbf{G}f$ si $\forall i, \omega^i \models f$
         \end{itemize}
     \end{definition}
 \end{frame}
@@ -198,32 +201,28 @@
 \end{frame}
 
 \begin{frame}{Méthode des tableaux}
-\begin{tikzpicture}[scale=0.75]
+    \begin{tikzpicture}[scale=0.75]
     \node {$\lnot\textbf{X}f$}
         child {node {$\textbf{X}\lnot f$}};
     \end{tikzpicture}
-    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=3cm}]
-    \node {$f\textbf{U}g$}
-        child {node {$g$}}
-        child{node {$f$, $\textbf{X}(f\textbf{U}g)$}};
-    \end{tikzpicture}
-    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=4cm}]
-    \node {$\lnot(f\textbf{U}g)$}
-        child {node {$\lnot f, \lnot g$}}
-        child{node {$\lnot g$, $\textbf{X}\lnot(f\textbf{U}g)$}};
-    \end{tikzpicture}
-
-    \begin{definition}[Formule élementaire]
-        $f$ est élementaire ssi il respecte un de ses 2 points:
-        \begin{itemize}
-            \item C'est une formule atomique (ou la négation d'une formule atomique)
-            \item Il a comme connecteur logique "principale" $\textbf{X}$ (des X-formules)
-        \end{itemize}
-    \end{definition}
-    Si un noeud contient uniquement des formules elementaires, alors on créé un fils
-    du noeud contenant toutes les \textbf{X}-formules sans leur connecteur logique principal $\textbf{X}$
 
     A REVOIR
+\end{frame}
+
+\begin{frame}{Implementation}
+    En réalité, la version de la méthode des tableaux que je présente en LTL est celle de Mark Reynolds, qui est une approche "tree-style"
+    plus simple que les autres implémentations, mais qui reste correct et interessant à coder.
+    Faire une bonne implémentation d'une telle méthode est assez fastidieux et il n'est pas astucieux ici de créer nous même
+    une implémentation. C'est pour ça que l'on va s'aider de l'implémentation de Anatole Leterrier trouvable ici:
+    \begin{center}
+        https://github.com/anatcaramba/LTL-SAT-Solver-by-Reynolds-Tableaux
+    \end{center}
+
+    Nous allons maintenant étudier une application de la méthode des tableaux.
+\end{frame}
+
+\begin{frame}{Etude}
+
 \end{frame}
 
 \begin{frame}[fragile]{Code - Méthode des tableaux classique 1}

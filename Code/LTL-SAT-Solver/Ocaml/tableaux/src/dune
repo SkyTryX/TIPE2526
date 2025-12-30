@@ -1,0 +1,5 @@
+(executable
+ (name tests)
+ (libraries ounit2))
+
+ 
