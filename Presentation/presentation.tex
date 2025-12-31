@@ -144,14 +144,14 @@
         On définit $F$ l'ensemble des formules de la LTL inductivement par:
         \begin{itemize}
             \item $p\in AP \implies p\in F$
-            \item si $\psi$ et $\phi$ sont des formules de LTL alors $\lnot\psi, \phi\lor\psi, X\psi, \phi U\psi$ sont des formules de LTL
+            \item si $\psi$ et $\phi$ sont des formules de LTL alors $\lnot\psi, \phi\lor\psi, X\psi, \phi U\psi, F\psi, G\psi$ sont des formules de LTL
         \end{itemize}
         $AP$ un ensemble fini de variables propositionnelles.
     \end{definition}
-    \begin{definition}[Opérateurs X et U]
-        On les définit par:
+    \begin{definition}[Opérateurs X, U, F, G]
             \begin{itemize}
                 \item $X\phi$ : $\phi$ doit être satisfaite dans l'état suivant (neXt)
+                \item $\psi U\phi$ : $\psi$ doit être satisfaite dans tous les états jusqu'à un état où $\phi$ est satisfait (Until)
                 \item $F\phi$ : $\phi$ doit être satisfaite une fois plus tard (Finally)
                 \item $G\phi$ : $\psi$ doit être satisfaite dans tous les états futurs (Globally)
             \end{itemize}
@@ -164,13 +164,13 @@
         On écrira $\omega^i:=w_i,w_{i+1},\dots$ un suffixe de $\omega$.
     \end{definition}
     Soit $v : \omega\times F \rightarrow \{T,F\}$ une fonction de valuation.
-    \begin{definition}[Satisfaction d'un monde]
-        En LTL, on définit $\omega \models f$ via:
+    \begin{definition}[Satisfaction d'un monde ($\omega \models f$)]
         \begin{itemize}
             \item $\omega \models a \Leftrightarrow v(w_0,a) = T$ si $a$ atomique 
             \item $\omega \models \lnot f$ si $\lnot(\omega \models f)$ 
             \item $\omega \models f\lor g$ si $\omega \models f$ ou $\omega \models g$
             \item $\omega \models \textbf{X}f$ si $\omega^1 \models f$
+            \item $\omega \models f\textbf{U}g$ si $\omega \models g$ ou $\omega \models f\land\textbf{X}(f\textbf{U}g)$
             \item $\omega \models \textbf{F}f$ si $\exists i, \omega^i \models f$
             \item $\omega \models \textbf{G}f$ si $\forall i, \omega^i \models f$
         \end{itemize}
@@ -200,25 +200,65 @@
     Ainsi, nous allons étudier un exemple de formule de la LTL et étudier sa résolution par méthode des tableaux.
 \end{frame}
 
-\begin{frame}{Méthode des tableaux}
-    \begin{tikzpicture}[scale=0.75]
-    \node {$\lnot\textbf{X}f$}
-        child {node {$\textbf{X}\lnot f$}};
-    \end{tikzpicture}
-
-    A REVOIR
-\end{frame}
-
 \begin{frame}{Implementation}
     En réalité, la version de la méthode des tableaux que je présente en LTL est celle de Mark Reynolds, qui est une approche "tree-style"
     plus simple que les autres implémentations, mais qui reste correct et interessant à coder.
-    Faire une bonne implémentation d'une telle méthode est assez fastidieux et il n'est pas astucieux ici de créer nous même
+    Faire une bonne implémentation d'une telle méthode reste assez fastidieux et il n'est pas astucieux ici de créer nous même
     une implémentation. C'est pour ça que l'on va s'aider de l'implémentation de Anatole Leterrier trouvable ici:
     \begin{center}
         https://github.com/anatcaramba/LTL-SAT-Solver-by-Reynolds-Tableaux
     \end{center}
 
     Nous allons maintenant étudier une application de la méthode des tableaux.
+\end{frame}
+
+\begin{frame}{Méthode des tableaux 1}
+    On rajoute donc les règles suivantes:
+    
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=3cm}]
+    \node {$\phi\textbf{U}\psi$}
+        child {node {$\psi$}}
+        child {node {$\phi, \textbf{X}(\phi\textbf{U}\psi)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\textbf{F}\phi$}
+        child {node {$\phi$}}
+        child {node {$\textbf{XF}\phi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node{$\textbf{G}\phi$}
+        child {node {$\phi, \textbf{XG}\phi$}};
+    \end{tikzpicture}
+
+    \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=3cm}]
+    \node {$\lnot(\phi\textbf{U}\psi)$}
+        child {node {$\lnot\psi, \lnot\phi$}}
+        child {node {$\lnot\psi, \textbf{X}\lnot(\phi\textbf{U}\psi)$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\textbf{F}\phi)$}
+        child {node {$\lnot\phi, \textbf{X}\lnot\textbf{F}\phi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\textbf{G}\phi)$}
+        child {node {$\lnot\phi$}}
+        child {node {$\textbf{X}\lnot\textbf{G}\phi$}};
+    \end{tikzpicture}
+
+    En plus on rajoute des règles supplémentaires:
+    \begin{definition}
+        On rappelle \textbf{X-eventualite} les formules de la forme $\textbf{X}(a\textbf{U}b)$ et $\text{XF}b$   
+    \end{definition}
+    On notera $x\leq y$ si $y$ est descendant de $x$ (resp < pour descendant strict)
+\end{frame}
+
+\begin{frame}{Méthode des tableaux 2}
+    \begin{itemize}
+        \item \textbf{LOOP:} Si un noeud $v$ a un ancètre strict $u$ tq $\Gamma_v \subseteq \Gamma_u$ et pour chaque $\textbf{X}(a\textbf{U}b)$ ou  $\textbf{XF}b$ dans $\Gamma_u$, il existe un noeud $w$ tq $b\in\Gamma_w$ et $u < w \leq v$ alors la formule de départ est satisfiable.
+        \item \textbf{PRUNE:} Si $u < v < w$ et ont les mêmes hypothèses $\Gamma$ et que pour chaque $\textbf{X}(a\textbf{U}b)$ ou $\textbf{XF}b$ dans $\Gamma$, si on a $x$ tq $b\in\Gamma_x$ et $v < x \leq w$ alors $\exists y, b\in\Gamma_y$ et $u < y \leq v$ et $w$ ferme sa branche.
+        \item \textbf{PRUNE$_0$:} Si $u < v$ et ont les mêmes hypothèses $\Gamma$ et que il y a au u moins une formule X-eventuelle, mais pas de formule de la forme $\textbf{X}(a\textbf{U}b)$ ou $\textbf{XF}b$ dans $\Gamma$ où $\exists x, b\in\Gamma_x$ et $u < x \leq v$ alors $v$ ferme sa branche.
+        \item \textbf{TRANSITION:} Si aucune des autres règles ne s'applique, alors un noeud étiqueté par $\Gamma$ peut avoir un enfant dont l'étiquette est $\Delta = \{a | Xa\in\Gamma\}\bigcup\{\lnot a | \lnot Xa\in\Gamma\}$
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Etude}
