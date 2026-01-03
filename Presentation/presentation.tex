@@ -262,7 +262,24 @@
 \end{frame}
 
 \begin{frame}{Etude}
+    Intéressons nous à une porte de métro, comment modéliser un tel objet en LTL ?
 
+    Déjà nous devons faire des hypothèses:
+    \begin{itemize}
+        \item Chaque état de notre monde correspond à $\varepsilon$ un temps assez petit
+        \item On suppose que notre porte a trois états: fermé, ouvert, fermeture, attente
+        \item Une porte ne peut être que dans un seul de ces états à la fois.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{En LTL}
+    On note F, O, Ft, A les différentes variables, et on note $D$ une variable qui est vrai si quelqu'un si quelqu'un entrave la fermeture de la porte
+    On a en hypothèses:
+    \begin{itemize}
+        \item \textbf{G}$[(F\land\lnot O \land\lnot Ft \land\lnot A)\lor(\lnot F\land O \land\lnot Ft \land\lnot A)\lor(\lnot F\land\lnot O \land Ft \land\lnot A)\lor(\lnot F\land\lnot O \land\lnot Ft \land A)]$
+        \item $D\implies$ \textbf{X}($\lnot F \land A$)
+        \item 
+    \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Code - Méthode des tableaux classique 1}
