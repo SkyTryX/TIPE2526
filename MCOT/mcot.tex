@@ -7,12 +7,19 @@
 
 \section*{Mise en cohérence des objectifs du TIPE (MCOT) - GIL Dorian}
 
+\section{Intro}
+\begin{itemize}
+    \item \textbf{Titre: }Etude de la Méthode des tableaux: Application en logique propositionelle et en logique linéaire temporelle
+    \item \textbf{Ancrage: }La méthode des tableaux est un algorithme qui renvoie la satisfiabilité d'une formule. Nous étudierons une variante où le tableau aura la forme d'un arbre [7]. Une formule est insatisfaisable ssi toutes les branches ont des cycles (c'est à dire $\phi$ et $\lnot\phi$ sur une même branche)
+    \item \textbf{Motivations: }Etant interessé par mes cours de logiques, et après des recherches, j'ai découvert la méthode des tableaux. Après plus de recherches notamment dans ces applications, j'ai découvert et je me suis intéressé à la vérification de modèle, d'où l'étude de la méthode des tableaux dans le cadre de la vérification de modèle.
+\end{itemize}
+
 \section{Positionnements thématiques et mots-clés}
 \subsection{Thème}
 \begin{enumerate}
-\item Informatique
-\item Informatique théorique
-\item Informatique pratique
+\item Informatique - Théorique
+\item Informatique - Pratique
+\item Mathématiques - Autres (Logiques classiques et non-classiques ; Algorithmique)
 \end{enumerate}
 
 \subsection{Mots clés - Key words}
@@ -24,29 +31,39 @@
 \item Vérification de modèle // Model checking
 \end{enumerate}
 
-\section{Bibliographie commentée (318/650 mots)}
-On souhaite étudier la satisfiabilité de formules logiques dans le contexte de la logique propositionnelle [1]. Des
-théorèmes connus montrent que ce problème est NP-complet [1], mais il subsiste la question de
-la recherche de la satisfiabilité en temps polynomial. Différents algorithmes ont été imaginés pour résoudre ce
-problème en temps exponentiel. Nous nous intéressons notamment à l'une des plus populaires dans la logique
-modale : la méthode des tableaux [2].
-
-Une grande problématique dans le domaine de la logique (outre la logique propositionnelle) est la
+\section{Bibliographie commentée (493/650 mots)}
+Dans un premier temps, on souhaite étudier la satisfiabilité de formules logiques dans le contexte de la logique propositionnelle. 
+Des théorèmes connus montrent que ce problème est NP-complet [1], c'est ainsi que la 
+question de la satisfiabilité en temps polynomial est devenue une question à un million de dollars.
+C'est ainsi qu'une grande problématique dans le domaine de la logique (en outre la logique propositionnelle) est la
 recherche d'un algorithme permettant de résoudre le problème de satisfiabilité (SAT) en temps polynomial. La
-résolution de ce colossal problème impliquerait P = NP [3]. Le but de notre étude n'est évidemment pas de
+résolution de ce colossal problème impliquerait en effet P = NP [3]. Différents algorithmes ont été imaginés pour 
+résoudre ce problème en temps exponentiel en la taille de la formule étudiée. Nous nous intéressons notamment à la 
+méthode des tableaux.
+
+Dans le cadre de notre étude, cette méthode consiste à construire un arbre avec la formule à la racine, et à 
+utiliser des règles pour développer ou créer des branches. On regarde ensuite s'il y a des contradictions dans 
+toutes les branches. Si c'est le cas, la formule est insatisfaisable. Le but de notre étude n'est évidemment pas de
 résoudre ce problème, mais de présenter une approche personnelle du problème de la satisfiabilité en utilisant
 la méthode des tableaux et en proposant des implémentations dans le langage OCaml. Dans cette approche,
 nous essaierons de trouver des algorithmes qui résolvent une sous-instance de SAT en temps polynomial, et si
-ce n'est pas possible, nous trouverons des moyens d'optimiser l'algorithme exponentiel.
+ce n'est pas possible, nous trouverons des moyens d'optimiser l'algorithme exponentiel [2].
 
-Or, il semblerait que la méthode des tableaux soit plus utilisée en logique modale, en particulier dans la logique
-linéaire temporelle [4], dans le cadre de la vérification de modèle [5], en particulier dans un algorithme de vérification automatique
-en LTL [6]. En effet, dans un monde toujours plus dépendant des différentes technologies dont la création repose sur des algorithmes,
-on souhaite vérifier le bon fonctionnement de nos programmes informatiques par rapport aux cahiers des charges associés à un produit.
-Nous étudierons ainsi l'application de la méthode des tableaux dans ce cadre en utilisant une implémentation OCaml de la méthode des
-tableaux dans la logique linéaire temporelle, tout en proposant un exemple d'objet technique pouvant correspondre à une telle formule.
-Cette implémentation de la méthode des tableaux utilise un système de tableau en forme d'arbre, comme on peut le voir traditionnellement
-en logique propositionnelle [7].
+Or, il semblerait que la méthode des tableaux soit plus utilisée en logique linéaire temporelle [4], dans le cadre de 
+la vérification de modèle, en particulier dans un algorithme de vérification automatique en logique linéaire temporelle [6].
+La logique linéaire temporelle est une logique propositionnelle à laquelle on rajoute des opérateurs temporels, ainsi les variables peuvent
+avoir des valeurs de vérité qui dépendent du temps, représenté par une suite infinie d'évaluations de vérité des variables. 
+La vérification de modèle est un problème dans lequel on souhaite vérifier si le modèle d'un système satisfait une propriété.
+La méthode des tableaux est utile dans le cadre d'une méthode utilisant les automates de Büchi pour créer un modèle de notre système
+ainsi que des formules logiques modélisant les propriétés que notre modèle doit vérifier. Nous ferons abstraction des algorithmes
+derrière et nous admettrons dans le cadre de ce TIPE que la méthode des tableaux est grandement utilisée dans le cadre de la vérification 
+de modèle. [5]
+
+C'est ainsi que, dans un monde toujours plus dépendant des différentes technologies dont la création repose sur des algorithmes, on souhaite 
+vérifier le bon fonctionnement de nos programmes informatiques par rapport aux cahiers des charges associés à un produit.
+Nous étudierons ainsi l'application de la méthode des tableaux dans ce cadre en utilisant une implémentation OCaml de la 
+méthode des tableaux dans la logique linéaire temporelle, tout en proposant un exemple d'objet technique pouvant correspondre
+à une telle formule.
 
 \section{Problématique retenue}
 Comment utiliser la méthode des tableaux pour la résolution de différents problèmes contemporains (en particulier SAT et la vérification de modèle) ?
@@ -54,10 +71,10 @@ Comment utiliser la méthode des tableaux pour la résolution de différents pro
 \section{Objectifs du TIPE}
 Les objectifs du TIPE sont d'étudier les différentes utilisations de la méthode des tableaux dans différentes logiques. Nous nous intéresserons en particulier :
 \begin{itemize}
-    \item À la logique propositionnelle avec une étude de la satisfiabilité d'une famille de formules
+    \item À la logique propositionnelle avec une étude de la satisfiabilité d'une famille de formules.
     \item À la logique linéaire temporelle avec l'étude d'une formule logique modélisant le fonctionnement attendu d'un objet technologique.
 \end{itemize}
-Nous nous intéresserons seulement à des exemples précis de formules plutôt qu'au cas général dans le cadre de ce TIPE.
+
 
 \section{Liste de références bibliographiques} 
 \begin{enumerate} 
