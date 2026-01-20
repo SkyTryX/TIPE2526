@@ -4,7 +4,7 @@
 \usetheme{Rochester}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usetikzlibrary{arrows.meta}
+\usetikzlibrary{trees,shapes,arrows.meta,positioning}
 \lstset{
   language=caml,
   basicstyle=\ttfamily\tiny,
@@ -13,9 +13,9 @@
 }
 
 
-\title{TIPE 25/26 - Cycles et Boucles}
-\author{GIL Dorian}
-\subtitle{Etude de la Méthode des tableaux: Application en logique propositionelle et en logique linéaire temporelle}
+\title{Méthode des tableaux: Application en logique propositionelle et en logique linéaire temporelle}
+\author{GIL Dorian - Candidat n°20220}
+\subtitle{TIPE 25/26 - Cycles et Boucles}
 \date{}
 
 \begin{document}
@@ -24,44 +24,59 @@
 \titlepage
 \end{frame}
 
-\begin{frame}{Sommaire}
-    \begin{enumerate}
-        \item Une étude en logique propositionelle
-        \item Une étude en logique linéaire temporelle
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}{Position du problème}
+\begin{frame}{Intro - Positionnement}
     \begin{itemize}[<+->]
-        \item On cherche à étudier une méthode algorithmique permettant de montrer la satisfiabilité d'une formule: la Méthode des tableaux.
-        \item Cette méthode consiste à construire un arbre avec la formule à la racine, et à utiliser des règles pour développer ou créer des branches.
+        \item On souhaite étudier une méthode algorithmique permettant de montrer la satisfiabilité d'une formule: la Méthode des tableaux.
+        \item Elle consiste à construire un arbre avec la formule à la racine, et à utiliser des règles pour développer et créer des branches.
         \item On regarde ensuite si il y a des contradictions dans toutes les branches, si c'est le cas, la formule est insatisfaisable.
         \item Cette méthode est utilisé dans diverses logiques, pour l'instant, on se restreint à la logique propositionnelle.
     \end{itemize}
+
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\phi\lor\psi$}
+        child {node {$\phi$}}
+        child {node {$\psi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\phi\land\psi)$}
+        child {node {$\lnot\phi$}}
+        child {node {$\lnot\psi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot\lnot\phi$}
+        child {node {$\phi$}};
+    \end{tikzpicture}
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\phi\land\psi$}
+        child {node {$\phi, \psi$}};
+    \end{tikzpicture}  
+    \begin{tikzpicture}[scale=0.75]
+    \node {$\lnot(\phi\lor\psi)$}
+        child {node {$\lnot\phi, \lnot\psi$}};
+   \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Un exemple graphique}
-    \textbf{Formule:} $\lnot(a \Rightarrow (b \Rightarrow a))$
-
-    \begin{center}
-        \begin{tikzpicture}[
-            every node/.style={draw, minimum width=1.5cm, align=center},
-            every arrow/.style={thick,->,>=Stealth}
-        ]
-        \node (root) at (0,0) {$\lnot(a \Rightarrow (b \Rightarrow a))$};
-        \pause
-        \node (not_b_a) at (0,-1) {$a, \lnot(b \Rightarrow a)$};
-        \draw[every arrow] (root) -- (not_b_a);
-        \pause
-        \node (b) at (0,-2) {$b, \lnot a$};
-        \draw[every arrow] (not_b_a) -- (b);
-        \pause
-        \draw[red,every arrow] (b) -- (not_b_a);
-        \end{tikzpicture}
-    \end{center}
+\begin{frame}[fragile]{Intro - Exemple}
+\centering
+    \begin{tikzpicture}[
+    level distance=15mm,
+    sibling distance=34mm,
+    edge from parent/.style={draw,-{Latex[]}},
+    every node/.style={font=\scriptsize},
+    box/.style={draw, rounded corners, inner sep=3pt, align=left, text width=48mm}
+    ]
+    \node[box] (root) {1. $\lnot\bigl(a\Rightarrow(b\Rightarrow a)\bigr)$}
+        child { node[box] (n) {2. $a$, $\lnot(b\Rightarrow a)$  (Règle $\lnot\Rightarrow$)}
+        child { node[box] (m) {3. $b$, $\lnot a$ (Règle $\lnot\Rightarrow$)}
+        }
+    };
+    \draw[->, red, thick] (m.south) .. controls +(8mm,-8mm) and +(8mm,8mm) .. (n.north);
+    \end{tikzpicture}
+    
+    Contradiction: $a$ (2) et $\lnot a$ (3). Conclusion, cette formule n'est pas satisfiable.
 \end{frame}
 
-\begin{frame}{Petite étude introductive}
+\begin{frame}{LP - Définition de l'étude}
     Après l'avoir implémenter, j'ai décidé de me resteindre à une forme particulière de formule logique.
     \begin{definition}[Forme Alternée]
         Soit $n\in\mathbb{N}^*$, et $(a_k)_{k\in [|1,n|]}$ des litteraux, on dit que $\varphi$ est de forme alternée ssi
@@ -74,19 +89,31 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Une reécriture}
-    En utilisant une propriété que j'ai démontré, on va re-écrire l'arbre induit par la méthode des tableaux d'une manière différente:
-    \begin{tikzpicture}[level distance=8mm]
+\begin{frame}{LP - reécriture}
+    On re-écrit l'arbre induit par la méthode des tableaux d'une manière différente (ici pour $\varphi = a_1\land(a_2\lor(a_3\land(a_4\lor a_5)))$):
+    
+    \begin{columns}[t]
+    \begin{column}{0.30\textwidth}
+        \centering
+        \begin{tikzpicture}[level distance=8mm]
         \node {$a_1$}
             child {node {$a_2$}}
             child {node {$a_3$}
             child {node {$a_4$}}
             child {node {$a_5$}}};
+        \end{tikzpicture}
+    \end{column}
+   
+    \begin{column}{0.10\textwidth}
+    \centering
+    \begin{tikzpicture}[x=1mm,y=1mm]
+      \draw[<-, thick, black] (-10,0) .. controls +(4,6) and +(-4,6) .. (4,0);
     \end{tikzpicture}
+  \end{column}
 
-    Au lieu de :
-
-    \begin{tikzpicture}[level distance=8mm]
+    \begin{column}{0.40\textwidth}
+        \centering
+        \begin{tikzpicture}[level distance=8mm]
         \node {$a_1$}
             child {node {$a_1 , a_2\lor(a_3\land(a_4\lor a_5))$}
                 child {node {$a_2$}}
@@ -97,11 +124,13 @@
                         }
                 }
             };
-    \end{tikzpicture}
-    Pour $\varphi = a_1\land(a_2\lor(a_3\land(a_4\lor a_5)))$
+        \end{tikzpicture}
+    \end{column}
+    \end{columns}
+
 \end{frame}
 
-\begin{frame}{Résolution du problème}
+\begin{frame}{LP -  Résolution}
     L'algorithme récursif consiste à faire ces analyses (en créant un dictionnaire stockant le "signe" des litteraux):
     \begin{enumerate}
         \item On analyse le litteral droit, si il y a contradiction, l'arbre est fermé, sinon on ajoute eventuellement dans le dictionnaire le litteral
@@ -109,15 +138,15 @@
     \end{enumerate}
     Le cas de base étant l'arrivée au bout du peigne.
     \begin{tikzpicture}[level distance=8mm]
-        \node {$a_1$}
-            child {node {$a_2$}}
-            child {node {$a_3$}
-            child {node {$a_4$}}
-            child {node {$a_5$}}};
+        \node {$a$}
+            child {node {$\lnot a$}}
+            child {node {$b$}
+            child {node {$c$}}
+            child {node {$d$}}};
     \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Preuves et stats}
+\begin{frame}{LP - Preuves et Analyse}
     L'algorithme est en $\mathcal{O}(n)$, en supposant les opérations Hashtbl constantes.
     \pause
     \begin{itemize}
@@ -128,18 +157,23 @@
     On créé une base de donnée de 100 formules de forme alternée et on fait tourner Quine et notre algorithme dessus.
     \begin{itemize}
         \item \textbf{Alternée:} 0.000493s
+        \item \textbf{Méthode des tableaux:} \dots
         \item \textbf{Quine (avec conversion en CNF):} 0.025874s
         \item \textbf{Quine (sans conversion en CNF):} 0.018691s
     \end{itemize} 
 \end{frame}
  
-\begin{frame}{Conclusion}
-    Bien entendu, il n'est pas possible de convertir toutes les formules en Alternée.
+\begin{frame}{LP - Conclusion}
+    \textbf{Remarques:}
+    \begin{itemize}
+        \item Bien entendu, il n'est pas possible de convertir toutes les formules en Alternée.
+        \item On a donc trouvé un exemple de type de formule qui est facile à analyser par méthode des tableaux.
+    \end{itemize}
 
-    On a donc trouvé un exemple de type de formule qui est facile à analyser par méthode des tableaux.
+    Nous allons maintenant ellargir notre étude et s'interesser à la logique linéaire temporelle (LTL).
 \end{frame}
 
-\begin{frame}{Introduction à la LTL 1}
+\begin{frame}{LTL - Intro 1}
     \begin{definition}[Formule de la LTL]
         On définit $F$ l'ensemble des formules de la LTL inductivement par:
         \begin{itemize}
@@ -158,7 +192,7 @@
     \end{definition}
 \end{frame}
 
-\begin{frame}{Introduction à la LTL 2}
+\begin{frame}{LTL - Intro 2}
      \begin{definition}[Monde]
         On définit un tel objet comme $\omega := w_0,w_1,\dots$ une suite infinie d'état.
         On écrira $\omega^i:=w_i,w_{i+1},\dots$ un suffixe de $\omega$.
@@ -177,7 +211,7 @@
     \end{definition}
 \end{frame}
 
-\begin{frame}{Introduction à la LTL 3}
+\begin{frame}{LTL - Intro 3}
     On peut trouver plusieurs applications à la LTL:
     \begin{itemize}
         \item Preuve de programme concurrentiel
@@ -188,21 +222,24 @@
     la correction de systèmes informatiques complexes.
 
     \begin{definition}[Verification de modèle (Model Checking)]
-        Technique de vérification qui explore tout les états possible d'un système de manière force brute.
+    Technique automatique qui étant donné un modèle à nombre d'état fini d'un système et des propriétés formelles,
+    vérifie systématiquement si ces propriétés restent vrai pour ce modèle
     \end{definition}
 \end{frame}
 
-\begin{frame}{Model Checking}
+\begin{frame}{LTL - Verification de Modèle}
     Ici, nous nous interesserons pas aux techniques utilisés dans le domaine.
     On retiendra seulement que la méthode des tableaux est très utilisé dans la logique modale qui englobe la LTL et que
-    elle est particulièrement utile pour certaines techniques de vérifications de modèles.
+    elle est particulièrement utile pour certaines techniques de vérifications de modèles. 
+    
+    CF par Exemple: A. Pnueli and L. Zuck. Probabilistic verification by tableaux. In 1st Annual Symposium on Logic in Computer Science (LICS), pages 322-331. IEEE Computer Society Press, 1986
 
     Ainsi, nous allons étudier un exemple de formule de la LTL et étudier sa résolution par méthode des tableaux.
 \end{frame}
 
-\begin{frame}{Implementation}
+\begin{frame}{LTL - Implementation utilisée}
     En réalité, la version de la méthode des tableaux que je présente en LTL est celle de Mark Reynolds, qui est une approche "tree-style"
-    plus simple que les autres implémentations, mais qui reste correct et interessant à coder.
+    plus simple que les autres implémentations, mais qui reste correct.
     Faire une bonne implémentation d'une telle méthode reste assez fastidieux et il n'est pas astucieux ici de créer nous même
     une implémentation. C'est pour ça que l'on va s'aider de l'implémentation de Anatole Leterrier trouvable ici:
     \begin{center}
@@ -212,7 +249,7 @@
     Nous allons maintenant étudier une application de la méthode des tableaux.
 \end{frame}
 
-\begin{frame}{Méthode des tableaux 1}
+\begin{frame}{LTL - Méthode des tableaux 1}
     On rajoute donc les règles suivantes:
     
     \begin{tikzpicture}[scale=0.75, level 1/.style={sibling distance=3cm}]
@@ -252,7 +289,7 @@
     On notera $x\leq y$ si $y$ est descendant de $x$ (resp < pour descendant strict)
 \end{frame}
 
-\begin{frame}{Méthode des tableaux 2}
+\begin{frame}{LTL - Méthode des tableaux 2}
     \begin{itemize}
         \item \textbf{LOOP:} Si un noeud $v$ a un ancètre strict $u$ tq $\Gamma_v \subseteq \Gamma_u$ et pour chaque $\textbf{X}(a\textbf{U}b)$ ou  $\textbf{XF}b$ dans $\Gamma_u$, il existe un noeud $w$ tq $b\in\Gamma_w$ et $u < w \leq v$ alors la formule de départ est satisfiable.
         \item \textbf{PRUNE:} Si $u < v < w$ et ont les mêmes hypothèses $\Gamma$ et que pour chaque $\textbf{X}(a\textbf{U}b)$ ou $\textbf{XF}b$ dans $\Gamma$, si on a $x$ tq $b\in\Gamma_x$ et $v < x \leq w$ alors $\exists y, b\in\Gamma_y$ et $u < y \leq v$ et $w$ ferme sa branche.
@@ -261,8 +298,16 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Etude}
-    Nous allons nous interesser aux applications de la méthode des tableaux dans le bon fonctionnement d'un Mutex.
+\begin{frame}{LTL- Introduction de l'Etude}
+    \textbf{Remarques:}
+    \begin{itemize}
+        \item Grâce à toutes ces règles, on peut montrer qu'un tel algorithme de résolution de SAT est complet et correct (il renvoie vrai si la formule est satisfiable et reciproquement).
+        \item On sait que typiquement, les propriétés que doivent satisfaire notre modèle est modélisé par des formules logiques en LTL.
+    \end{itemize}
+
+    Ainsi nous allons nous interesser à la modélisation d'un objet technologique en LTL, en observant les hypothèses, que l'on fait etc... 
+    
+    In fine, on pourra appliquer la méthode des tableaux pour conclure sur le bon fonctionnement de tout!
 \end{frame}
 
 \begin{frame}[fragile]{Code - Méthode des tableaux classique 1}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.10)  6 JAN 2026 16:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2025.7.10)  20 JAN 2026 17:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -623,6 +623,52 @@ Package: fontenc 2024/12/21 v2.1c Standard LaTeX package
 Package: inputenc 2024/02/08 v1.3d Input encoding file
 \inpenc@prehook=\toks49
 \inpenc@posthook=\toks50
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytrees.code.tex
+File: tikzlibrarytrees.code.tex 2023-01-15 v3.1.10 (3.1.10)
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.geometric.code.tex
+File: tikzlibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.geometric.code.tex
+File: pgflibraryshapes.geometric.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.callouts.code.tex (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.callouts.code.tex)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+ (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshapes.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodepartlowerbox=\box85
+\pgfnodeparttwobox=\box86
+\pgfnodepartthreebox=\box87
+\pgfnodepartfourbox=\box88
+\pgfnodeparttwentybox=\box89
+\pgfnodepartnineteenbox=\box90
+\pgfnodeparteighteenbox=\box91
+\pgfnodepartseventeenbox=\box92
+\pgfnodepartsixteenbox=\box93
+\pgfnodepartfifteenbox=\box94
+\pgfnodepartfourteenbox=\box95
+\pgfnodepartthirteenbox=\box96
+\pgfnodeparttwelvebox=\box97
+\pgfnodepartelevenbox=\box98
+\pgfnodeparttenbox=\box99
+\pgfnodepartninebox=\box100
+\pgfnodeparteightbox=\box101
+\pgfnodepartsevenbox=\box102
+\pgfnodepartsixbox=\box103
+\pgfnodepartfivebox=\box104
+))) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarypositioning.code.tex
+File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang2.sty
@@ -692,7 +738,7 @@ LaTeX Font Info:    ... okay on input line 21.
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count377
 \scratchdimen=\dimen325
-\scratchbox=\box85
+\scratchbox=\box105
 \nofMPsegments=\count378
 \nofMParguments=\count379
 \everyMPshowfont=\toks51
@@ -789,7 +835,19 @@ Dictionary: translator-theorem-dictionary, Language: English
 
 [1
 
-{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 57.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 57.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 57.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
+)
 
 [2
 
@@ -806,26 +864,22 @@ Dictionary: translator-theorem-dictionary, Language: English
 [5
 
 ]
+\openout4 = `presentation.vrb'.
+
+ (./presentation.vrb)
 
 [6
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 62.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 62.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 62.
- (/usr/local/texlive/2025/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
-File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
-)
 
 [7
 
 ]
+Overfull \hbox (11.0137pt too wide) in paragraph at lines 131--131
+ [][] 
+ []
+
+
 
 [8
 
@@ -854,6 +908,10 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 [14
 
 ]
+Overfull \vbox (0.60814pt too high) detected at line 212
+ []
+
+
 
 [15
 
@@ -870,10 +928,6 @@ File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mat
 [18
 
 ]
-Overfull \vbox (0.60814pt too high) detected at line 178
- []
-
-
 
 [19
 
@@ -884,22 +938,6 @@ Overfull \vbox (0.60814pt too high) detected at line 178
 ]
 
 [21
-
-]
-
-[22
-
-]
-
-[23
-
-]
-
-[24
-
-]
-
-[25
 
 ]
 \openout4 = `presentation.vrb'.
@@ -914,21 +952,21 @@ Overfull \hbox (87.11981pt too wide) in paragraph at lines 3--33
 
 )
 
-[26
+[22
 
 ]
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
 
-[27
+[23
 
 ]
 \openout4 = `presentation.vrb'.
 
  (./presentation.vrb)
 
-[28
+[24
 
 ]
 \openout4 = `presentation.vrb'.
@@ -940,7 +978,7 @@ Overfull \hbox (182.72223pt too wide) in paragraph at lines 3--31
 
 )
 
-[29
+[25
 
 ]
 \openout4 = `presentation.vrb'.
@@ -952,7 +990,7 @@ Overfull \hbox (33.58246pt too wide) in paragraph at lines 3--32
 
 )
 
-[30
+[26
 
 ]
 \openout4 = `presentation.vrb'.
@@ -964,7 +1002,7 @@ Overfull \hbox (14.46198pt too wide) in paragraph at lines 3--29
 
 )
 
-[31
+[27
 
 ]
 \tf@nav=\write6
@@ -985,18 +1023,18 @@ Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27618 strings out of 467822
- 537823 string characters out of 5432409
- 1373485 words of memory out of 5000000
- 55627 multiletter control sequences out of 15000+600000
- 640390 words of font info for 74 fonts, out of 8000000 for 9000
+ 29873 strings out of 467822
+ 601776 string characters out of 5432409
+ 1458750 words of memory out of 5000000
+ 57838 multiletter control sequences out of 15000+600000
+ 642850 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,15n,123p,481b,1435s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb>
-Output written on presentation.pdf (31 pages, 265078 bytes).
+ 128i,19n,123p,481b,1619s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1440.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb>
+Output written on presentation.pdf (27 pages, 276246 bytes).
 PDF statistics:
- 901 PDF objects out of 1000 (max. 8388607)
- 821 compressed objects within 9 object streams
- 63 named destinations out of 1000 (max. 500000)
+ 807 PDF objects out of 1000 (max. 8388607)
+ 729 compressed objects within 8 object streams
+ 55 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
